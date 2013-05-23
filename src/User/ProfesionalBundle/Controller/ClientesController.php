@@ -39,6 +39,8 @@ class ClientesController extends Controller
         $usermanager = $this->get('fos_user.user_manager');
         $client = new Client();
         $user = $usermanager->createUser();
+        $user->addRole('ROLE_CLIENTE');
+        $user->setEnabled(true);
 
         $client->setUser($user);
         $user->setClient($client);
@@ -50,6 +52,7 @@ class ClientesController extends Controller
             $form->bindRequest($request);
             if ($form->isValid()) {
                 $client->setLastVisit(new \DateTime());
+
 
                 $this->getDoctrine()->getManager()->persist($client);
                 $this->getDoctrine()->getManager()->persist($client->getUser());
