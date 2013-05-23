@@ -99,6 +99,7 @@ class ClientesController extends Controller
 
             if($form->isValid()){
 
+                $report->setCreatedAt(new \DateTime());
                 $client->addReport($report);
 
                 $em->persist($report);

@@ -24,7 +24,7 @@
     <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/prettify.js') }}"></script>
     <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.js') }}"></script>
-
+    <script src="{{ asset('bundles/coreresources/wyswyg/lib/bootstrap-wysihtml5.es-ES.js') }}"></script>
 
     <script>
         $('.textarea').wysihtml5({
@@ -34,7 +34,8 @@
             "html": false, //Button which allows you to edit the generated HTML. Default false
             "link": true, //Button to insert a link. Default true
             "image": false, //Button to insert an image. Default true,
-            "color": true //Button to change color of font
+            "color": true, //Button to change color of font
+            "locale": "es-ES"
         });
     </script>
 
@@ -44,6 +45,10 @@
     <div class="span8">
         <h1>Añadir un reporte</h1>
 
-        {{ form_widget(form) }}
+        <form method="post">
+            {{ form_widget(form) }}
+            <input type="submit" class="btn btn-success" value="Registrar informe">
+        </form>
+
     </div>
 {% endblock %}

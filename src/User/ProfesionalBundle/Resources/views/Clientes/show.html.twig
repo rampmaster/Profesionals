@@ -12,6 +12,14 @@
         <a href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}" class="btn btn-block btn-success">Añadir un nuevo informe</a>
         <h3>Histórico</h3>
 
+        <ul>
+            {% for r in cliente.reports %}
+                <li>{{ r.title }} <h6>{{ r.createdAt|date('d/m/Y H:i') }}</h6></li>
+            {% else %}
+                <li>No existen reportes</li>
+            {% endfor %}
+        </ul>
+
     </div>
 
 {% endblock %}
