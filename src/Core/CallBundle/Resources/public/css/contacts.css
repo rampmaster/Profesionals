@@ -1,0 +1,74 @@
+.contactlist {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    width: 220px;
+    overflow: auto;
+    display:  none;
+    position: absolute;
+    left: 50%;
+    margin-left: 222px;
+    max-height: 205px;
+    top: 59px;
+    z-index: 999;
+    background-color: #51A351;
+    border: 1px solid rgba(0, 0, 0, 0.0976563);
+    box-shadow: 0px 10px 10px #555;
+    border-top: 1px;
+    border-radius: 2px;
+    behavior: url(/bundles/coreresources/js/PIE.htc);
+}
+
+
+.contactlist.consulta {
+    display: block;
+    position: relative;
+    left: 0px;
+    margin: 0px;
+    top: 0px;
+    width: 220px;
+    background-color: white; box-shadow: 0px 4px 5px #555;
+    margin-top: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.contactlist.consulta ul.list { width: 98%;}
+/* new contactlist */
+.contactlist ul.list li { list-style-type: none; margin: 0px; margin-bottom: 1px }
+.contactlist ul.list li:not(.search) { background-color: #EEE; box-shadow: 0px 0px 1px #333; padding-top: 5px;}
+.contactlist ul.list li:not(.search):hover { box-shadow: 0px 0px 5px #333 inset;behavior: url(/bundles/coreresources/js/PIE.htc);}
+.contactlist ul.list li.selected { box-shadow: 0px 3px 5px #333 inset; background-color: #FFFFCC; behavior: url(/bundles/coreresources/js/PIE.htc);}
+.contactlist ul.list { width: 213px; margin: 3px; margin-top: 5px; padding: 0px; color: white; border-radius: 3px; background-color: white; box-shadow: 0px 0px 3px #383 inset; max-height: 381px; behavior: url(/bundles/coreresources/js/PIE.htc);}
+
+.contactlist .list li .first { float:left; width: 40px; padding: 5px; height: 35px; overflow: hidden;}
+.contactlist .list li .second { float:left; width: 130px; color: #AAA;  }
+.contactlist .list li .second b { color: #333; }
+
+/* user search */
+.contactlist ul.list li.search { margin-left: 0px; margin-top: -1px; width: 230px; height: 28px; overflow: hidden; }
+input.contactlistsearch {
+    margin-left: -1px; width: 206px; margin-top: 1px; }
+
+.contactlist .list li:not(.search) {
+
+    background: #ffffff; /* Old browsers */
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ3JSIgc3RvcC1jb2xvcj0iI2Y2ZjZmNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZGVkZWQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-8 */
+    behavior: url(/bundles/coreresources/js/PIE.htc);
+
+}
+
+.contactlist ul.list li.selected:not(.search) {
+    background: none;
+    background: #ffffdd; /* Old browsers */
+
+
+}

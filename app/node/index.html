@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<title>Prueba de node</title>
+		
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+  			var socket = io.connect('http://localhost:3000');
+  			
+  			socket.on('ready', function (data) {
+				socket.emit('auth', { id: '12' });
+		  	});
+		  	
+  			socket.on('userin', function (data) {
+				alert("User came in: "+data.id);
+		  	});
+		  	
+  			socket.on('userout', function (data) {
+				alert("User logged out: "+data.id);
+		  	});
+		</script>
+
+	</head>
+	<body>
+		<h1>Prueba</h1>
+	</body>
+</html>

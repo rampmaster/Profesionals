@@ -1,0 +1,19 @@
+{% if file is defined %}
+    <b class="icon icon-copy"></b>[{{ file.type }}] <a href="{{ asset(file.getWebPath()) }}"
+                                                       target="_blank">{{ file.name }}</a>
+{% else %}
+    <form action="{{ path('core_call_chat_upload') }}" id="callchatuploadForm" method="post" {{ form_enctype(form) }}>
+
+        <div class="file_button_container"><b class="icon icon-external-link"
+                                              style="font-size: 18px"></b>{{ form_widget(form.file) }}</div>
+        {{ form_rest(form) }}
+    </form>
+    <script>
+        $(function () {
+            $('input[type=file]').change(function () {
+                // select the form and submit
+                $('#callchatuploadForm').submit();
+            });
+        })
+    </script>
+{% endif %}

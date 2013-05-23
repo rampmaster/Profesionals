@@ -1,0 +1,81 @@
+{% extends '::layout.html.twig' %}
+{% set default_pass = 'FJAdncjkaXk3421faZAcjAxnchthqgh423XAFxhaj' %}
+
+{% block extra %}
+    <!-- open tok init -->
+    <script src='http://static.opentok.com/v1.1/js/TB.min.js'></script>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <script type="text/javascript" src="http://{{ app.request.host }}:8055/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+
+        //call vars
+        var callRouteToSocket = "http://{{ app.request.host }}:8055";
+        var callRouteToSocketChat = "http://{{ app.request.host }}:8052";
+        var callRouteToGetToken = "{{ path('core_call_get_token') }}";
+        var callRouteToRetrieveInfoUser = "{{  path('core_call_retrieve_info_user') }}";
+        var callRouteToXmlFlashphonerConfiguration = "{{ path('core_call_resources_config_xml') }}";
+
+        var callMyId = {{ app.user.id }};
+        var callMyPass = "{{ default_pass }}";
+        var callSipDomain = '{{ sipDomain }}';
+        var callSipOutboundProxy = '{{ sipOutboundProxy }}';
+
+    </script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+            callhandler.init();
+        });
+    </script>
+    <link href="{{ asset('bundles/corecall/css/contacts.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/corecall/css/videoconference.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('bundles/corecall/css/chat.css') }}" rel="stylesheet"> -->
+
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/handlerhtml5.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/sockethtml5.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/contacts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/notifications.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/videoconferencehtml5.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/chat.js') }}"></script>
+
+
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/js/jquery.form.js') }}"></script>
+
+
+    <!-- notifications -->
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/notifications/bootstrap-notify.js') }}"></script>
+    <link href="{{ asset('bundles/coreresources/notifications/bootstrap-notify.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/coreresources/notifications/styles/alert-bangtidy.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/coreresources/notifications/styles/alert-blackgloss.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/coreresources/notifications/styles/alert-notification-animations.css') }}" rel="stylesheet">
+
+    <style type="text/css">
+
+
+    </style>
+{% endblock %}
+{% block panel %}
+
+    <div class="row">
+        {% render "CoreCallBundle:Call:notifications" %}
+
+        <div class="span3">
+
+            {% include 'CoreCallBundle:Call:contactuser.html.twig' %}
+        </div>
+        <div class="span4">
+            {% include "CoreCallBundle:Call:videoconferencehtml5.html.twig" %}
+            {% include 'CoreCallBundle:Call:videoconferencecontrols.html.twig' %}
+
+        </div>
+        <div class="span3">
+            {% render "CoreCallBundle:Call:contacts" with { 'consulta': true } %}
+        </div>
+    </div>
+
+{% endblock %}
+{% block notify %}
+
+{% endblock %}

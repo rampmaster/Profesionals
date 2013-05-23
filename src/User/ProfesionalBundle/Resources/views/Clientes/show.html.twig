@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block panel %}
+
+    <div class="span8">
+        <h1>Cliente {{ cliente.user.name }} {{ cliente.user.surname }}</h1>
+        Esto es información sobre el cliente
+    </div>
+
+    <div class="span4">
+
+        <a href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}" class="btn btn-block btn-success">Añadir un nuevo informe</a>
+        <h3>Histórico</h3>
+
+    </div>
+
+{% endblock %}

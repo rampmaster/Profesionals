@@ -1,0 +1,108 @@
+{% extends '::layout.html.twig' %}
+{% set default_pass = 'FJAdncjkaXk3421faZAcjAxnchthqgh423XAFxhaj' %}
+
+{% block extra %}
+    <script type="text/javascript" src="http://{{ app.request.host }}:8051/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="http://{{ app.request.host }}:8052/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+
+        //call vars
+        var callRouteToSocket = "http://{{ app.request.host }}:8051";
+        var callRouteToSocketChat = "http://{{ app.request.host }}:8052";
+        var callRouteToGetToken = "{{ path('core_call_get_token') }}";
+        var callRouteToRetrieveInfoUser = "{{  path('core_call_retrieve_info_user') }}";
+        var callRouteToXmlFlashphonerConfiguration = "{{ path('core_call_resources_config_xml') }}";
+
+        var callMyId = {{ app.user.id }};
+        var callMyPass = "{{ default_pass }}";
+        var callSipDomain = '{{ sipDomain }}';
+        var callSipOutboundProxy = '{{ sipOutboundProxy }}';
+
+    </script>
+    <script type="text/javascript">
+        function callVideoconferenceStartTalking() {
+            //empieza una conversacion, asi que muestro el boton de cancelar
+
+            //$("#chat-history").html('');
+
+            $("#changeStreamingVideo").fadeIn();
+
+            {#
+        {% if app.user.hasRole('ROLE_DOCTOR') or app.user.hasRole('ROLE_CENTER') %}
+        {# Cargo un metodo que hara posible demandar escribir un informe #}
+            {#∫    showReportAdd();
+            $("#changeStreamingVideo").fadeIn();
+        {% endif %}
+        {% if app.user.hasRole('ROLE_CENTER') %}
+
+            $("#changeStreamingVideo").fadeIn();
+        {% endif %}
+
+        {% if app.user.hasRole('ROLE_PATIENT') %}
+        {# Cargo un metodo que me avisa de que tengo  #}
+
+            {#    $.post("{{ path('core_call_notify_call_base', { 'productSymbol': 'patient_visit_default' }) }}" + callCallerId, { },
+                    function (data) {
+                    });
+        {% endif %}
+        #}
+
+            //$(".chat").fadeIn();
+
+
+            //me espero y cambio el video
+
+            var t = setTimeout(function () {
+
+                $('#jsSWFDiv').height(241);
+
+            }, 5000)
+
+
+        }
+    </script>
+    <link href="{{ asset('bundles/corecall/css/contacts.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/corecall/css/videoconference.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('bundles/corecall/css/chat.css') }}" rel="stylesheet"> -->
+
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/handler.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/socket.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/contacts.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/notifications.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/videoconference.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/chat.js') }}"></script>
+
+
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/js/jquery.form.js') }}"></script>
+
+
+    <!-- notifications -->
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/notifications/bootstrap-notify.js') }}"></script>
+    <link href="{{ asset('bundles/coreresources/notifications/bootstrap-notify.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/coreresources/notifications/styles/alert-bangtidy.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/coreresources/notifications/styles/alert-blackgloss.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/coreresources/notifications/styles/alert-notification-animations.css') }}" rel="stylesheet">
+{% endblock %}
+{% block panel %}
+
+    <div class="row">
+        {% render "CoreCallBundle:Call:notifications" %}
+
+        <div class="span3">
+            {% render "CoreCallBundle:Call:chat" %}
+            {% include 'CoreCallBundle:Call:contactuser.html.twig' %}
+        </div>
+        <div class="span4">
+            {% render "CoreCallBundle:Call:videoconference" %}
+            {% include 'CoreCallBundle:Call:videoconferencecontrols.html.twig' %}
+
+        </div>
+        <div class="span3">
+            {% render "CoreCallBundle:Call:contacts" with { 'consulta': true } %}
+        </div>
+    </div>
+
+{% endblock %}
+{% block notify %}
+
+{% endblock %}

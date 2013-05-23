@@ -1,0 +1,73 @@
+<div class="hide callLoading2" style="width: 320px; margin-top: 5px;">
+    <div class="progress progress-striped">
+        <div class="bar" style="width: 100%;"></div>
+    </div>
+</div>
+<div id="callUser"  class="caller videoconferencecontrols hide well" id="infoUser">
+    <div class="pull-right">
+        <a class="btn pull-right btn-success" id="callButton" role="call">
+            <div>
+                <img src="{{ asset('bundles/coreresources/icons/descolgar.png') }}" style="height: 17px;" height="17px">
+            </div>
+            <p style="height: 12px; margin: 0px; margin-top: -7px;">Llamar</p>
+        </a>
+        <a class="btn pull-right btn-success hide" id="answerButton">
+            <div>
+                <img src="{{ asset('bundles/coreresources/icons/descolgar.png') }}" style="height: 17px;" height="17px">
+            </div>
+            <p style="height: 12px; margin: 0px; margin-top: -7px;">Responder</p>
+        </a>
+        {% set holdButtons = false %}
+        {% if app.user.hasRole('ROLE_CENTER') %}
+            {% set holdButtons = true %}
+        {% endif %}
+        {% if app.user.hasRole('ROLE_DOCTOR') %}
+            {% set holdButtons = true %}
+        {% endif %}
+
+        {% if holdButtons %}
+        <a class="btn pull-right btn-warning" style="display:none" id="holdButton">
+            <div>
+                <img src="{{ asset('bundles/coreresources/icons/pause.png') }}" style="height: 17px;" height="17px">
+            </div>
+            <p style="height: 12px; margin: 0px; margin-top: -7px;">Pausar</p>
+        </a>
+        <a class="btn pull-right btn-primary" style="display:none" id="unholdButton">
+            <div>
+                <img src="{{ asset('bundles/coreresources/icons/recuperar.png') }}" style="height: 17px;" height="17px">
+            </div>
+            <p style="height: 12px; margin: 0px; margin-top: -7px;">Recuperar</p>
+        </a>
+        {% endif %}
+
+        <a class="btn pull-right btn-inverse" style="display:none"  id="unflushvideoButton">
+            <div>
+                <img src="{{ asset('bundles/coreresources/icons/camaraoff.png') }}" style="height: 17px;" height="17px">
+            </div>
+            <p style="height: 12px; margin: 0px; margin-top: -7px;">No video</p>
+        </a>
+
+        <a class="btn pull-right btn-success" style="display:none" id="flushvideoButton">
+            <div>
+                <img src="{{ asset('bundles/coreresources/icons/camaraactiva.png') }}" style="height: 17px;" height="17px">
+            </div>
+            <p style="height: 12px; margin: 0px; margin-top: -7px;">Video</p>
+        </a>
+
+        <a class="btn pull-right btn-inverse" style="display:none" id="fullscreenButton">
+            <div>
+                <img src="{{ asset('bundles/coreresources/icons/upload.png') }}" style="height: 17px;" height="17px">
+            </div>
+            <p style="height: 12px; margin: 0px; margin-top: -7px;">Maximizar</p>
+        </a>
+
+        <a class="btn pull-right btn-danger" style="display:none" id="normalscreenButton">
+            <div>
+                <img src="{{ asset('bundles/coreresources/icons/inicio.png') }}" style="height: 17px;" height="17px">
+            </div>
+            <p style="height: 12px; margin: 0px; margin-top: -7px;">Minimizar</p>
+        </a>
+
+    </div>
+    <p style="clear:both"></p>
+</div>

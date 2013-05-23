@@ -1,0 +1,7 @@
+parameters:
+#    core_resources.example.class: Core\ResourcesBundle\Example
+
+services:
+#    core_resources.example:
+#        class: %core_resources.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

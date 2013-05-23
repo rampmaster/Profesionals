@@ -1,0 +1,48 @@
+{%  set default_pass = 'FJAdncjkaXk3421faZAcjAxnchthqgh423XAFxhaj' %}
+
+<document type="freeswitch/xml">
+    <section name="directory" description="medibaby_directory">
+        <domain name="$${domain}">
+            <params>
+                <param name="dial-string" value="{^^:sip_invite_domain=${dialed_domain}:presence_id=${dialed_user}@${dialed_domain}}${sofia_contact(*/${dialed_user}@${dialed_domain})}"/>
+            </params>
+            {% if user is defined %}
+                <user id="{{ user.id }}">
+                    <params>
+                        {%  if user.mobileToken is not null %}
+                            <param name="password" value="{{ user.mobileToken }}"/>
+                        {% else %}
+                            <param name="password" value="{{ default_pass }}"/>
+                        {%  endif %}
+                    </params>
+                    <variables>
+                        <variable name="user_context" value="medibaby" />
+                        <variable name="accountcode" value="{{ user.id }}"/>
+                        <variable name="effective_caller_id_name" value="{{ user.id }}"/>
+                        <variable name="effective_caller_id_number" value="{{ user.id }}"/>
+                        <variable name="outbound_caller_id_name" value="{{ user.id }}"/>
+                        <variable name="outbound_caller_id_number" value="{{ user.id }}"/>
+                    </variables>
+                </user>
+                {#
+                <user id="{{ user.id }}">
+                    <params>
+                        <param name="password" value="{{ default_pass }}"/>
+                        <param name="vm-password" value="{{ default_pass }}"/>
+                    </params>
+                    <variables>
+                        <variable name="toll_allow" value="domestic,international,local"/>
+                        <variable name="accountcode" value="{{ user.id }}"/>
+                        <variable name="user_context" value="medibaby"/>
+                        <variable name="effective_caller_id_name" value="{{ user.name }} {{ user.surname }}"/>
+                        <variable name="effective_caller_id_number" value="{{ user.id }}"/>
+                        <variable name="outbound_caller_id_name" value="$${outbound_caller_name}"/>
+                        <variable name="outbound_caller_id_number" value="$${outbound_caller_id}"/>
+                    </variables>
+                </user>
+                #}
+            {% endif %}
+
+        </domain>
+    </section>
+</document>
