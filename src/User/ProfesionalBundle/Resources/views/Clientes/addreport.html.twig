@@ -1,5 +1,44 @@
 {% extends '::base.html.twig' %}
 
+{% block extra %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/lib/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/lib/css/prettify.css') }}" />
+
+    <style type="text/css" media="screen">
+        .btn.jumbo {
+            font-size: 20px;
+            font-weight: normal;
+            padding: 14px 24px;
+            margin-right: 10px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/wysihtml5-0.3.0.js') }}"></script>
+
+    <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/prettify.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.js') }}"></script>
+
+
+    <script>
+        $('.textarea').wysihtml5({
+            "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+            "emphasis": true, //Italics, bold, etc. Default true
+            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": false, //Button which allows you to edit the generated HTML. Default false
+            "link": true, //Button to insert a link. Default true
+            "image": false, //Button to insert an image. Default true,
+            "color": true //Button to change color of font
+        });
+    </script>
+
+{% endblock %}
 {% block panel %}
 
     <div class="span8">

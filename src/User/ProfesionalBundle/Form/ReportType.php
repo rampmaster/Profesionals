@@ -12,8 +12,15 @@ class ReportType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('type')
-            ->add('text')
+            ->add('type', 'choice', array(
+                'label' => 'Tipo de reporte',
+                'choices' => array('seguimiento' => 'Seguimiento', 'nota' => 'Nota'),
+
+            ))
+            ->add('text', 'textarea', array(
+                'label' => 'Texto',
+                'attr' => array('class' => 'textarea', 'style' => 'width: 810px; height: 200px')
+            ))
         ;
     }
 
