@@ -7,11 +7,11 @@ String.prototype.trunc =
     };
 $(function () {
 
-    $("div.contactlist.consulta ul.list li").on('click', function () {
+    $("ul.secondary-nav-menu li").on('click', function () {
 
         if($(this).attr('data-status') == 'ON')
         {
-            $("div.contactlist.consulta ul.list li").removeClass('selected');
+            $("ul.secondary-nav-menu li").removeClass('selected');
             $(this).addClass('selected');
             contactshandler.selectUser($(this).attr('data-id'));
         }else{
@@ -23,10 +23,10 @@ $(function () {
         var val = $(this).val().toLowerCase();
         val = val.split(' ').join('\\ ');
         if (val.length > 0) {
-            $("div.contactlist.consulta ul.list li[class!=hide]").css("display", "none");
-            $("div.contactlist.consulta ul.list li[data-fullname*=" + val + "][class!=hide]").css("display", "block");
+            $("ul.secondary-nav-menu li[class!=hide]").css("display", "none");
+            $("ul.secondary-nav-menu li[data-fullname*=" + val + "][class!=hide]").css("display", "block");
         } else {
-            $("div.contactlist.consulta ul.list li[class!=hide]").css("display", "block");
+            $("ul.secondary-nav-menu li[class!=hide]").css("display", "block");
         }
 
     });
@@ -80,7 +80,7 @@ function callHideCaller(user) {
     tmpl.find(".second").html("");
     tmpl.find(".showProfileCallerImage").attr('src', '');
 
-    $("div.contactlist.consulta ul.list li[data-id=" + user + "]").removeClass('selected');
+    $("ul.secondary-nav-menu li[data-id=" + user + "]").removeClass('selected');
     $("#infoUser").addClass("hide");
     $("#infoUser").css("display", "none");
 
@@ -94,7 +94,7 @@ function callHideCaller(user) {
 function callContactChangePresence(status, user) {
     console.log('status: ' + status + '. user :' + user);
 
-    var state = $("div.contactlist.consulta ul.list li[data-id='" + user + "']");
+    var state = $("ul.secondary-nav-menu li[data-id='" + user + "']");
 
     if (status == callPresenceOn) {
         clean();
@@ -102,7 +102,7 @@ function callContactChangePresence(status, user) {
         state.find('span').addClass('label-success');
         state.attr('data-status', 'ON');
         if (callNumContacts > callContactMiniumNumUsersToHide) {
-            $("div.contactlist.consulta ul.list li[data-id='" + user + "']").removeClass("hide");
+            $("ul.secondary-nav-menu li[data-id='" + user + "']").removeClass("hide");
             search();
         }
 
@@ -117,7 +117,7 @@ function callContactChangePresence(status, user) {
         state.find('span').addClass('label-info');
         state.attr('data-status', 'BUSY');
         if (callNumContacts > callContactMiniumNumUsersToHide) {
-            $("div.contactlist.consulta ul.list li[data-id='" + user + "']").removeClass("hide");
+            $("ul.secondary-nav-menu li[data-id='" + user + "']").removeClass("hide");
             search();
         }
 
@@ -129,7 +129,7 @@ function callContactChangePresence(status, user) {
         state.find('span').addClass('label-important');
         state.attr('data-status', 'OFF');
         if (callNumContacts > callContactMiniumNumUsersToHide) {
-            $("div.contactlist.consulta ul.list li[data-id='" + user + "']").addClass("hide");
+            $("ul.secondary-nav-menu li[data-id='" + user + "']").addClass("hide");
             search();
         }
 
@@ -139,10 +139,10 @@ function callContactChangePresence(status, user) {
         var val = $("input.contactlistsearch").val().toLowerCase();
         val = val.split(' ').join('\\ ');
         if (val.length > 0) {
-            $("div.contactlist.consulta ul.list li").css("display", "none");
-            $("div.contactlist.consulta ul.list li[data-fullname*=" + val + "][class!=hide]").css("display", "block");
+            $("ul.secondary-nav-menu li").css("display", "none");
+            $("ul.secondary-nav-menu li[data-fullname*=" + val + "][class!=hide]").css("display", "block");
         } else {
-            $("div.contactlist.consulta ul.list li[class!=hide]").css("display", "block");
+            $("ul.secondary-nav-menu li[class!=hide]").css("display", "block");
         }
     }
 
@@ -153,7 +153,7 @@ function callContactChangePresence(status, user) {
 }
 
 function callContaGetUserInfo(user, callback) {
-    var check = $("div.contactlist.consulta ul.list li[data-id='" + user + "']");
+    var check = $("ul.secondary-nav-menu li[data-id='" + user + "']");
 
     if (check.length > 0) {
 

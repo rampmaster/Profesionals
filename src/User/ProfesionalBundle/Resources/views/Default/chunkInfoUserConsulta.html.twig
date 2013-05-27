@@ -1,0 +1,46 @@
+<h3>Historico del usuario</h3>
+<table class="table table-bordered span8">
+        <thead>
+            <tr>
+                <th class="span4">Título</th>
+                <th class="span2">Fecha</th>
+                <th class="span2">Ver más</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            {% for r in entity.reports %}
+                <tr>
+                    <td>{{ r.title|truncate(30) }}</td>
+                    <td>{{ r.createdAt|date('d/m/Y H:i') }}</td>
+                    <td><a href="#reportDiv{{ r.id }}" class="btn bt-block" role="button"
+                            data-toggle="modal">ver más</a>
+                    </td>
+
+
+
+                </tr>
+            {% else %}
+                <caption>No existen reportes de este usuario</caption>
+            {% endfor %}
+        </tbody>
+</table>
+
+{% for r in entity.reports %}
+    <div id="reportDiv{{ r.id }}" class="modal hide fade" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">{{ r.title }}r</h3>
+        </div>
+        <div class="modal-body">
+            <h6>Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}"</h6>
+
+            <p>{{ r.text|raw }}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+        </div>
+    </div>
+{% endfor %}

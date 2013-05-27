@@ -1,1 +1,35 @@
-<a class="btn btn-block btn-primary" href="{{ path('profesional_clientes_add') }}">Añadir nuevo cliente</a>
+
+<nav id="secondary" class="main-nav">
+
+    <div class="profile-menu">
+
+        <div class="pull-left">
+            <div class="avatar">
+                <img src="{{ asset('bundles/coreresources/theme/images/avatar2.png') }}" />
+            </div>
+        </div>
+
+        <div class="pull-left">
+            <div class="title">
+                Clientes
+            </div>
+
+        </div>
+
+        <div class="pull-right profile-menu-nav-collapse">
+            <button class="button black"><i class="icon-reorder"></i></button>
+        </div>
+
+    </div>
+
+    <ul class="secondary-nav-menu">
+        <li class="">
+            <a href="{{ path('profesional_clientes_add') }}">
+                <i class="icon-plus"></i> Añadir un nuevo cliente
+            </a>
+        </li>
+
+
+    </ul>
+
+</nav>

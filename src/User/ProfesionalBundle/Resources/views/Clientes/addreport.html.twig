@@ -1,9 +1,12 @@
-{% extends '::base.html.twig' %}
+{% set active = 'clientes' %}
+{% extends '::layout.html.twig' %}
 
 {% block extra %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/lib/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/lib/css/prettify.css') }}" />
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.css') }}"/>
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('bundles/coreresources/wyswyg/lib/css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/lib/css/prettify.css') }}"/>
 
     <style type="text/css" media="screen">
         .btn.jumbo {
@@ -15,10 +18,13 @@
             -moz-border-radius: 6px;
             border-radius: 6px;
         }
+
+
     </style>
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('bundles/coreresources/js/jquery.js') }}"></script>
     <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/wysihtml5-0.3.0.js') }}"></script>
 
     <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/prettify.js') }}"></script>
@@ -28,13 +34,13 @@
 
     <script>
         $('.textarea').wysihtml5({
-            "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+            "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
             "emphasis": true, //Italics, bold, etc. Default true
             "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
             "html": false, //Button which allows you to edit the generated HTML. Default false
-            "link": true, //Button to insert a link. Default true
+            "link": false, //Button to insert a link. Default true
             "image": false, //Button to insert an image. Default true,
-            "color": true, //Button to change color of font
+            "color": false, //Button to change color of font
             "locale": "es-ES"
         });
     </script>
@@ -42,13 +48,33 @@
 {% endblock %}
 {% block panel %}
 
-    <div class="span8">
-        <h1>Añadir un reporte</h1>
 
-        <form method="post">
-            {{ form_widget(form) }}
-            <input type="submit" class="btn btn-success" value="Registrar informe">
-        </form>
+    <div class="span12">
+        <div class="box">
+            <div class="tab-header">
+                Añadir un nuevo informe
+                <span class="pull-right">
+                  <span class="options">
+                    <a href="#"><i class="icon-cog"></i></a>
+                  </span>
+                </span>
+            </div>
+
+            <form method="post" class="fill-up">
+                <div class="padded">
+                    {{ form_widget(form) }}
+                </div>
+                <div class="form-actions">
+                    <input type="submit" class="btn button blue" value="Registrar informe">
+
+
+                </div>
+
+            </form>
+        </div>
 
     </div>
+{% endblock %}
+{% block nav_secondary %}
+    {% include 'UserProfesionalBundle:Clientes:menu.html.twig' %}
 {% endblock %}

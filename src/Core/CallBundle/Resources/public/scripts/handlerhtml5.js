@@ -72,6 +72,8 @@ var callhandler =
         //callActiveChat();
         callVideoconferenceToCallStateStarted();
 
+        videoconferenceStart();
+
 
     },
     callEnded:function () {
@@ -144,3 +146,6 @@ function callBoot() {
     console.log('conectando');
 }
 
+function videoconferenceStart(){
+   return null;
+}

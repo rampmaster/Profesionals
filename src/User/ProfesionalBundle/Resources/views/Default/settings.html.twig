@@ -1,20 +1,33 @@
-{% extends '::base.html.twig' %}
+{% set active = 'settings' %}
+{% extends '::layout.html.twig' %}
 
 {% block panel %}
 
-    <div class="span8">
-        <h1>Mis preferencias</h1>
-        <form method="post">
-        {{ form_widget(form) }}
+    <div class="span12">
+    <div class="box">
+        <div class="tab-header">
+            Mis datos personales
+                <span class="pull-right">
+                  <span class="options">
+                    <a href="#"><i class="icon-cog"></i></a>
+                  </span>
+                </span>
+        </div>
 
-            <hr >
-            <input type="submit" class="btn btn-danger" value="Editar información">
+        <form method="post" class="fill-up">
+            <div class="padded">
+        {{ form_widget(form) }}
+            </div>
+            <div class="form-actions">
+                <input type="submit" class="btn button gray span3" value="Actualizar datos">
+
+
+            </div>
+
         </form>
     </div>
 
-    <div class="span4">
-        <div class="alert alert-info">
-            Modifica tus datos personales desde esta pestaña
-        </div>
-    </div>
+
 {% endblock %}
+
+        {% block nav_secondary%}{% endblock %}

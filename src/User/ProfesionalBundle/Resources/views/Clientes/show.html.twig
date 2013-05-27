@@ -1,25 +1,108 @@
-{% extends '::base.html.twig' %}
+{% set active = 'clientes' %}
+{% extends '::layout.html.twig' %}
 
+{% block nav_secondary %}
+    {% include 'UserProfesionalBundle:Clientes:menu.html.twig' %}
+{% endblock %}
+
+{% block extra %}
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/js/bootstrap.min.js') }}"></script>
+{% endblock %}
 {% block panel %}
 
-    <div class="span8">
-        <h1>Cliente {{ cliente.user.name }} {{ cliente.user.surname }}</h1>
-        Esto es información sobre el cliente
+    <div class="row">
+        <div class="offset1 span5">
+
+            <table class="table table-striped table-bordered box">
+                <thead>
+                <tr>
+                    <th colspan="2">Información del usuario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Nombre completo:</td>
+                    <td><strong>{{ cliente.user.name }} {{ cliente.user.surname }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{ cliente.user.email }}</td>
+                </tr>
+                <tr>
+                    <td>Número de movil:</td>
+                    <td class="red">{{ cliente.user.mobile }}</td>
+                </tr>
+                <tr>
+                    <td>Alias:</td>
+                    <td>{{ cliente.alias }}</td>
+                </tr>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <div class="clearfix" style="padding: 0 5px;">
+                            <div class="pull-left">
+                                <a href="#" class="button red">Eliminar suscripción!</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+            <a class="button large" href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}">
+                <i class="icon-align-center"></i>
+                <span>Añadir un nuevo informe</span>
+            </a>
+
+        </div>
+
+        <div class="span6">
+            <div class="black-box tex">
+                <div class="tab-header">
+                    Informes del cliente
+                </div>
+                <ul class="recent-comments">
+
+
+                    {% for r in cliente.reports %}
+                    <li class="separator">
+                        <div class="avatar pull-left">
+                            <img src="{{ asset('bundles/coreresources/theme/images/avatar3.png') }}">
+                        </div>
+
+                        <div class="article-post">
+                            <div class="user-info"> Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}" </div>
+                            <div class="user-content">
+                                {{ r.title }}
+                                <p>{{ r.text|raw }}</p>
+                            </div>
+
+
+                        </div>
+                    </li>
+                        {% else %}
+                            <li class="separator">
+                                <div class="avatar pull-left">
+                                    <img src="{{ asset('bundles/coreresources/theme/images/avatar3.png') }}">
+                                </div>
+                                <div class="article-post">
+                                    <b>No existen informes</b>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+
+
+
+
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <div class="span4">
 
-        <a href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}" class="btn btn-block btn-success">Añadir un nuevo informe</a>
-        <h3>Histórico</h3>
 
-        <ul>
-            {% for r in cliente.reports %}
-                <li>{{ r.title }} <h6>{{ r.createdAt|date('d/m/Y H:i') }}</h6></li>
-            {% else %}
-                <li>No existen reportes</li>
-            {% endfor %}
-        </ul>
-
-    </div>
 
 {% endblock %}

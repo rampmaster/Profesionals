@@ -97,7 +97,7 @@ function callVideoconferenceToHangupState() {
     //$('#callButton').html('<div><img src='+iconColgar+' style="height: 17px;" height="17px"></div><p style="height: 12px; margin: 0px; margin-top: -7px;">Colgar</p>');
     /*$('#callButton').css('background', '#C00');*/
     $('#callButton').removeClass('call').addClass('hangup');
-    $('#callButton').removeClass('btn-success').addClass('btn-danger');
+    $('#callButton').removeClass('green').addClass('red');
 }
 
 function callVideoconferenceToCallState() {
@@ -107,7 +107,7 @@ function callVideoconferenceToCallState() {
     //$('#callButton').html('<div><img src='+iconDescolgar+' style="height: 17px;" height="17px"></div><p style="height: 12px; margin: 0px; margin-top: -7px;">Llamar</p>');
     /*$('#callButton').css('background', '#090');*/
     $('#callButton').removeClass('hangup').addClass('call');
-    $('#callButton').removeClass('btn-danger').addClass('btn-success');
+    $('#callButton').removeClass('red').addClass('green');
 
 }
 
@@ -153,8 +153,8 @@ function reDrawContentVideoconference() {
         prot2.attr('id', 'publisher');
         prot2.removeClass('hide');
 
-        $("#contentVideoconferencehtml5").append(prot);
-        $("#contentVideoconferencehtml5").append(prot2);
+        $("#contentVideoconferencehtml5 .first").append(prot);
+        $("#contentVideoconferencehtml5 .second").append(prot2);
     }, 4000);
 }
 

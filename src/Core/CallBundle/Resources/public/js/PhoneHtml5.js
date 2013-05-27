@@ -54,6 +54,7 @@ function call(user){
         amICalling = true;
         socketCallHandler.callTo(user);
 
+
     }
 
 }
@@ -118,7 +119,8 @@ function startCallWebRtc(sessionId, tokenId){
 
 function sessionConnectedHandler(event) {
     subscribeToStreams(event.streams);
-    publisher = TB.initPublisher(openTokApiKey, 'publisher');
+    var publisherProperties = {width: 440, height:300, name:"Bob's stream"};
+    publisher = TB.initPublisher(openTokApiKey, 'publisher', publisherProperties);
     session.publish(publisher);
 }
 
@@ -130,7 +132,8 @@ function subscribeToStreams(streams) {
     for (var i = 0; i < streams.length; i++) {
         var stream = streams[i];
         if (stream.connection.connectionId != session.connection.connectionId) {
-            session.subscribe(stream, 'videoconferenceHtml5');
+            var publisherProperties = {width: 440, height:300};
+            session.subscribe(stream, 'videoconferenceHtml5', publisherProperties);
         }
     }
 }

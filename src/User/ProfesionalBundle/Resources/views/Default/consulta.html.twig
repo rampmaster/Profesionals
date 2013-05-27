@@ -1,1 +1,49 @@
+{% set active = 'consulta' %}
 {% extends '::videoconference.html.twig' %}
+{% block bottom %}
+    <div class="span8">
+        <hr>
+        <div id="loadingInfoUser" class="hide">
+            <h3>Cargando información del usuario</h3>
+
+            <div class="progress progress-striped">
+                <div class="bar" style="width: 100%;"></div>
+            </div>
+        </div>
+
+        <div id="infoUserInCall" class="hide">
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/js/bootstrap.min.js') }}"></script>
+
+    <script type="text/javascript">
+        function videoconferenceStart() {
+            //saco la informacion del usuario
+
+            $("#loadingInfoUser").fadeIn();
+
+            //peticion ajax para sacar la info del usuario
+
+            $.post(
+                "{{ path('profesional_retrieve_chunk_user') }}",
+                { idUser: callCallerId },
+                function(response){
+                    //la response que llega la metemos directamente en su sitio
+
+                    $("#infoUserInCall").html(response);
+                    $("#infoUserInCall").fadeIn();
+                    $("#loadingInfoUser").fadeOut();
+                }
+
+            );
+        }
+    </script>
+
+{% endblock %}

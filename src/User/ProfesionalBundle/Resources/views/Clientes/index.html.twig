@@ -1,19 +1,45 @@
-{% extends '::base.html.twig' %}
+{% set active = 'clientes' %}
+{% extends '::layout.html.twig' %}
 
 {% block panel %}
+    <div class="span12">
+        <div class="box">
+            <div class="tab-header">
+                <i class="icon-th-list"></i> Mis clientes
+            </div>
+            <div class="padded">
+                Desde aqui podrás ver todos tus clientes registrados
 
-    <div class="span8">
-        <h1>Mis clientes</h1>
-        <ul>
-            {% for cliente in clientes %}
-                <li><a href="{{ path('profesional_clientes_show', {'idCliente': cliente.id}) }}">{{ cliente.user.name }} {{ cliente.user.surname }}</a> </li>
-            {% else %}
-                 <li><b>No existen clientes</b></li>
-            {% endfor %}
-        </ul>
+            </div>
+        </div>
     </div>
 
-    <div class="span4">
-       {% include 'UserProfesionalBundle:Clientes:menu.html.twig' %}
+    <div class="row-fluid">
+        {% for cliente in clientes %}
+            <div class="span4">
+                <div class="black-box">
+                    <div class="tab-header">
+                        <i class="icon-user"></i> {{ cliente.user.name }} {{ cliente.user.surname }}
+                    </div>
+
+                    <div class="padded">
+                        <a class="button large" href="{{ path('profesional_clientes_show', {'idCliente': cliente.id}) }}">
+                            <i class="icon-arrow-right"></i>
+                            <span>Ver más</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <li><b>No existen clientes</b></li>
+        {% endfor %}
     </div>
+
+
+
+{% endblock %}
+
+{% block nav_secondary %}
+    {% include 'UserProfesionalBundle:Clientes:menu.html.twig' %}
 {% endblock %}

@@ -14,9 +14,11 @@ socketcall.on('call start', function(response){
     currentCall = response.call;
     if(currentCall.caller == callMyId){
         startCallWebRtc(currentCall.session, currentCall.callerToken);
+        callCallerId = currentCall.receiver;
     }
 
     if(currentCall.receiver == callMyId){
+        callCallerId = currentCall.caller;
         startCallWebRtc(currentCall.session, currentCall.receiverToken);
     }
 

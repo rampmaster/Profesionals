@@ -11,7 +11,10 @@ class ReportType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('title', null, array(
+                'label' => 'Título',
+                'attr' => array('class' => 'span5')
+            ))
             ->add('type', 'choice', array(
                 'label' => 'Tipo de reporte',
                 'choices' => array('seguimiento' => 'Seguimiento', 'nota' => 'Nota'),

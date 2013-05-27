@@ -9,26 +9,25 @@
             <div class="bar" style="width: 100%;"></div>
         </div>
     </div>
-    <div>
-        <div class="row">
-            <div class="span3">
-                <input type="text" placeholder="Búsqueda" class="input search span3 contactlistsearch" style="margin-bottom: 0px; margin-left: 3px;">
-            </div>
+
+    <div class="row" style="margin-bottom: 10px">
+        <div class="span2">
+            <input type="text" placeholder="Búsqueda" class="search contactlistsearch"
+                   style="margin-bottom: 0px;width: 193px; margin-left: 3px; height: 40px">
         </div>
-        <div class="row">
-            <div class="span3">
-                <div class="contactlist consulta span3">
-                    <ul class="list">
-                    {% for user in users %}
-                        {% if user.id != app.user.id %}
-                        <li
-                            data-id="{{ user.id }}"
-                            data-show="1"
-                            data-status="0"
-                           {# data-image="{{ user.webPath  }}" #}
-                            data-name="{{ user.name }}"
-                            data-surname="{{ user.surname }}"
-                            data-fullname="{{ user.name|lower }} {{ user.surname|lower }}"
+    </div>
+
+    <ul class="secondary-nav-menu">
+        {% for user in users %}
+            {% if user.id != app.user.id %}
+                <li
+                        data-id="{{ user.id }}"
+                        data-show="1"
+                        data-status="0"
+                        {# data-image="{{ user.webPath  }}" #}
+                        data-name="{{ user.name }}"
+                        data-surname="{{ user.surname }}"
+                        data-fullname="{{ user.name|lower }} {{ user.surname|lower }}"
                         {% if user.hasRole('ROLE_PROFESIONAL') %}
                             data-role="profesional"
                         {% elseif user.hasRole('ROLE_COLLABORATOR') %}
@@ -37,38 +36,35 @@
                             data-role="client"
                         {% endif %}
 
-                            {% if numUsers > callContactMiniumNumUsersToHide %}
-                                class="hide"
-                            {% endif %}
-                            >
-                            <div class="first">
-                               {# <img width="40px" src="{{ user.webPath  }}">#}
-                            </div>
-                            <div class="second"><b>
-                                {{ user.name }} {{ user.surname }}
-                                </b><br>
-                                {% if user.hasRole('ROLE_PROFESIONAL') %}
-                                   Profesional
-                                {% elseif user.hasRole('ROLE_COLLABORATOR') %}
-                                    Colaborador
-                                {% else %}
-                                    Cliente
-                                {% endif %}
-                                    </div>
-
-                                        {% if iOSApp is defined and iOSApp == true %}
-                                            <span class="label label-important" style="float:right; margin-top: 10px; margin-right: 17px;">OFF</span>
-                                        {% else %}
-                                            <span class="label label-important" style="position: relative; right: 0px; top: 0px;">OFF</span>
-                                        {% endif %}
-
-                            <div style="clear:both; padding-top: 5px;"></div>
-                        </li>
+                        {% if numUsers > callContactMiniumNumUsersToHide %}
+                            class="hide"
                         {% endif %}
-                    {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
+                        >
+                    <a>
+
+                    {% if user.hasRole('ROLE_PROFESIONAL') %}
+                        <i class="icon-star"></i>
+                    {% elseif user.hasRole('ROLE_COLLABORATOR') %}
+                        <i class="icon-headphones"></i>
+                    {% else %}
+                        <i class="icon-user"></i>
+                    {% endif %}
+                    {{ user.name }} {{ user.surname }}
+
+
+                    {% if iOSApp is defined and iOSApp == true %}
+                        <span class="label label-important"
+                              style="float:right; margin-top: 10px; margin-right: 17px;">OFF</span>
+                    {% else %}
+                        <span class="label label-important" style="position: relative; right: 0px; top: 0px;">OFF</span>
+                    {% endif %}
+                    </a>
+
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+
     </div>
 {% endif %}

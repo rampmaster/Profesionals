@@ -14,6 +14,9 @@ class UserType extends AbstractType
             ->add('name', null, array(
                 'label' => 'Nombre'
             ))
+            ->add('file', null, array(
+                'label' => 'Foto de perfil'
+            ))
             ->add('surname', null, array(
                 'label' => 'Apellidos'
             ))
@@ -26,7 +29,8 @@ class UserType extends AbstractType
                 'label' => 'Número de móvil'
             ))
             ->add('plainPassword', 'repeated',array(
-                'label' => 'Contraseña'
+                'label' => 'Contraseña',
+                'required' => false
             ))
         ;
     }
