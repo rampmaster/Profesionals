@@ -47,6 +47,7 @@ var callhandler =
 
             callStatus = callStatusStarted;
             callVideoconferencetoLogOffState();//no dejo hacer nada mas mientras se procesa la llamada
+            callVideoconferenceToHangupState();
         } else {
             //callnotify.danger('Ustéd no puede llamar');
         }
@@ -78,6 +79,10 @@ var callhandler =
     },
     callEnded:function () {
 
+        //reiniciamos la ventana;
+        currentCall = null;
+        rebootWindow();
+        /*
         contactshandler.updateMyState(callPresenceOn);
         $("#answerButton").addClass('hide');
         callVideoconferenceToCallState();
@@ -90,6 +95,7 @@ var callhandler =
 
 
         reDrawContentVideoconference();
+        */
 
     },
     callReciving:function (call) {
