@@ -19,7 +19,7 @@ class SubdomainListener
        		"www"
        	);
        $parts = explode(".",$request->getHost());
-       if(array_search($parts[0],$default_hosts)){
+       if(!array_search($parts[0],$default_hosts)){
        		$username = false;
        }else{
        		$username = $parts[0];
