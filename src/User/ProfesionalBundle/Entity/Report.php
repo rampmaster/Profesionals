@@ -57,6 +57,12 @@ class Report
      */
     private $client;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="professional")
+     * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
+     */
+    private $professional;
+
 
     /**
      * Get id
@@ -181,5 +187,28 @@ class Report
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Set professional
+     *
+     * @param \User\ProfesionalBundle\Entity\Professional $professional
+     * @return Report
+     */
+    public function setProfessional(\User\ProfesionalBundle\Entity\Professional $professional = null)
+    {
+        $this->professional = $professional;
+
+        return $this;
+    }
+
+    /**
+     * Get professional
+     *
+     * @return \User\ProfesionalBundle\Entity\Professional 
+     */
+    public function getProfessional()
+    {
+        return $this->professional;
     }
 }

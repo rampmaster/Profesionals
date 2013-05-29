@@ -140,6 +140,12 @@ class User extends BaseUser
      */
     private $client;
 
+    /**
+     * @ORM\OneToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="user", cascade={ "all" })
+     * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
+     */
+    private $professional;
+
 
     public function __construct()
     {
@@ -339,5 +345,28 @@ class User extends BaseUser
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Set professional
+     *
+     * @param \User\ProfesionalBundle\Entity\Professional $professional
+     * @return User
+     */
+    public function setProfessional(\User\ProfesionalBundle\Entity\Professional $professional = null)
+    {
+        $this->professional = $professional;
+
+        return $this;
+    }
+
+    /**
+     * Get professional
+     *
+     * @return \User\ProfesionalBundle\Entity\Professional 
+     */
+    public function getProfessional()
+    {
+        return $this->professional;
     }
 }

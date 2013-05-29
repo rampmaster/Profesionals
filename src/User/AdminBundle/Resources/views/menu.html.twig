@@ -1,0 +1,18 @@
+ <li class="{% if active == 'consulta' %}active{% endif %}">
+                    <a href="{{ path('admin_consulta') }}">
+                        <i class="icon-facetime-video"></i> Consulta
+                    </a>
+                </li>
+
+                <li class="{% if active == 'professional' %}active{% endif %}">
+                    <a href="{{ path('admin_professionals') }}">
+                        <i class="icon-user"></i> Profesionales
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        <i class="icon-remove"></i> Logout
+                    </a>
+                </li>

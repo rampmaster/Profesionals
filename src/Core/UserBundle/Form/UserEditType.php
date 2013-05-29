@@ -6,11 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserAddType extends AbstractType
+class UserEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
             ->add('username', null, array(
                 'label' => 'Nombre de usuario'
             ))
@@ -35,7 +36,8 @@ class UserAddType extends AbstractType
                 'label' => 'Número de móvil'
             ))
             ->add('plainPassword', 'repeated',array(
-                'label' => 'Contraseña'
+                'label' => 'Contraseña',
+                'required' => false
             ))
         ;
     }
@@ -49,6 +51,6 @@ class UserAddType extends AbstractType
 
     public function getName()
     {
-        return 'core_userbundle_usertype';
+        return 'core_userbundle_useredittype';
     }
 }

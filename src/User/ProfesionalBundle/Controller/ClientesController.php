@@ -52,6 +52,7 @@ class ClientesController extends Controller
             $form->bindRequest($request);
             if ($form->isValid()) {
                 $client->setLastVisit(new \DateTime());
+                $user->upload();
 
 
                 $this->getDoctrine()->getManager()->persist($client);

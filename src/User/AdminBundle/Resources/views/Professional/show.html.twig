@@ -1,0 +1,59 @@
+{% set active = 'professional' %}
+{% extends 'UserAdminBundle::layout.html.twig' %}
+
+{% block nav_secondary %}
+    {% include 'UserAdminBundle:Professional:menu.html.twig' %}
+{% endblock %}
+
+
+{% block extra %}
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/js/bootstrap.min.js') }}"></script>
+{% endblock %}
+{% block panel %}
+
+    <div class="row">
+        <div class="offset1 span5">
+
+            <table class="table table-striped table-bordered box">
+                <thead>
+                <tr>
+                    <th colspan="2">Información del usuario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Nombre completo:</td>
+                    <td><strong>{{ user.name }} {{ user.surname }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <td>Número de movil:</td>
+                    <td class="red">{{ user.mobile }}</td>
+                </tr>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <div class="clearfix" style="padding: 0 5px;">
+                            <div class="pull-left">
+                                <a href="{{ path('admin_professionals_edit',{id:user.id}) }}" class="button green">Modificar</a>
+                                <a href="#" class="button red">Dar de baja</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}
