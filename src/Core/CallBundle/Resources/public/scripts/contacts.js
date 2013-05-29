@@ -60,8 +60,8 @@ function callShowUser(target) {
                 if(obj.hospital != undefined){
                     content = content + '<br/><a target="_blanck" href="https://maps.google.es/maps?q='+obj.hospital.split(" ").join("+")+'">'+obj.hospital.trunc(19)+'</a>';
                 }
-                $("#infoUser .second").html(content);
-                $("#infoUser .first img").attr("src", obj.profile_image);
+                $("#infoUser .padded .second").html(content);
+                $("#infoUser .padded .first img").attr("src", obj.profile_image);
                 $("#infoUser").fadeIn();
                 $("#infoUser").removeClass('hide');
                 $("#callUser").fadeIn();

@@ -47,12 +47,32 @@ class User extends BaseUser
     /**
      * @Assert\File(maxSize="6000000")
      */
-    public $file;
+    private $file;
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path;
+    public $path = "avatar.png";
 
     public function getAbsolutePath()
     {
@@ -92,12 +112,11 @@ class User extends BaseUser
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
-        echo $this->getUploadRootDir();
         $this->path = uniqid() . '.' . $this->file->guessExtension();
         $this->file->move($this->getUploadRootDir(), $this->path);
 
 
-        unset($this->file);
+        $this->file = null;
     }
 
 

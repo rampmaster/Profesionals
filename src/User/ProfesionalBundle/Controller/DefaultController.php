@@ -45,9 +45,10 @@ class DefaultController extends Controller
 
         if($request->getMethod() == 'POST'){
             $form->bind($request);
-            if($form->isValid()){
 
+            if($form->isValid()){
                 $user->upload();
+
 
                 $this->getDoctrine()->getManager()->persist($user);
                 $this->getDoctrine()->getManager()->flush();
