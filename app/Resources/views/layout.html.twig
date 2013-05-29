@@ -51,8 +51,8 @@
 </div>
 <nav id="primary" class="main-nav">
     <ul>
-
-        {% if app.user is not empty %}
+    
+        {% block nav_primary %}{% if app.user is not empty %}
             {% if app.user.hasRole('ROLE_PROFESIONAL') %}
                 <li class="{% if active == 'consulta' %}active{% endif %}">
                     <a href="{{ path('profesional_consulta') }}">
@@ -97,7 +97,7 @@
                 </li>
 
             {% endif %}
-        {% endif %}
+        {% endif %}{% endblock %}
 
     </ul>
 </nav>
@@ -210,32 +210,33 @@
 </div>
 </div>
 </section>
-
+{% raw %}
 <script type="text/html" id="template-notification">
-    <div class="notification animated fadeInLeftMiddle fast hide">
-        <div class="left">
-            <div style="background-image: url()" class=""></div>
-        </div>
-        <div class="right">
-            <div class="inner"></div>
-            <div class="time"></div>
-        </div>
-
-        <i class="icon-remove-sign hide"></i>
+  <div class="notification animated fadeInLeftMiddle fast{{ item.itemClass }}">
+    <div class="left">
+      <div style="background-image: url({{ item.imagePath }})" class="{{ item.imageClass }}"></div>
     </div>
+    <div class="right">
+      <div class="inner">{{ item.text }}</div>
+      <div class="time">{{ item.time }}</div>
+    </div>
+
+    <i class="icon-remove-sign hide"></i>
+  </div>
 </script>
 <script type="text/html" id="template-notifications">
-    <div class="container">
-        <div class="row" id="notifications-wrapper">
-            <div id="notifications" class=" notifications animated">
-                <div id="dismiss-all" class="dismiss-all button blue">Dismiss all</div>
-                <div id="content">
-                    <div id="notes"></div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row" id="notifications-wrapper">
+      <div id="notifications" class="{{ bootstrapPositionClass }} notifications animated">
+        <div id="dismiss-all" class="dismiss-all button blue">Dismiss all</div>
+        <div id="content">
+          <div id="notes"></div>
         </div>
+      </div>
     </div>
+  </div>
 </script>
+{% endraw %}
 {% block javascripts %}{% endblock %}
 <script src="{{ asset('bundles/coreresources/theme/javascripts/application.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bundles/coreresources/theme/javascripts/docs.js') }}" type="text/javascript"></script>
@@ -245,6 +246,25 @@
 <link href="{{ asset('bundles/coreresources/theme/stylesheets/prettify.css') }}" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     prettyPrint()
+    $(function(){
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        Notifications.push({
+            text: "{{ flashMessage }}",
+            autoDismiss: 3,
+            bootstrapPositionClass: "notice"
+          });
+        
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        Notifications.push({
+            text: "{{ flashMessage }}",
+            autoDismiss: 3,
+            bootstrapPositionClass: "error"
+          });
+        
+    {% endfor %}
+    })
+
 </script>
 
 </body>

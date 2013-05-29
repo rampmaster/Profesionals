@@ -23,6 +23,9 @@ class DefaultController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $securityContext = $this->container->get('security.context');
 
+        if($securityContext->isGranted('ROLE_ADMIN')){
+            return $this->redirect($this->generateUrl('admin_professionals'));
+        }
 
         if($securityContext->isGranted('ROLE_PROFESIONAL')){
 

@@ -38,6 +38,16 @@ class User extends BaseUser
     private $surname = null;
 
     /**
+     * @ORM\Column(name="created_at",type="datetime", nullable=true)
+     */
+    private $created_at = null;
+
+    /**
+     * @ORM\Column(name="updated_at",type="datetime", nullable=true)
+     */
+    private $updated_at = null;
+
+    /**
      * @ORM\Column(name="mobile",type="string", nullable=true)
      */
     private $mobile = null;
@@ -241,5 +251,74 @@ class User extends BaseUser
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set updated_at
+     *
+     * @param \DateTime $updatedAt
+     * @return User
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updated_at = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updated_at
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return User
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

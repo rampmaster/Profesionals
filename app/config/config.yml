@@ -74,3 +74,7 @@ services:
      class: Twig_Extensions_Extension_Text
      tags:
          - { name: twig.extension }
+ kernel.listener.subdomain_listener:
+     class: User\ProfesionalBundle\Listener\SubdomainListener
+     tags:
+         - { name: kernel.event_listener, event: kernel.request, method: subdomainParse }
