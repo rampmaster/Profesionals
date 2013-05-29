@@ -119,7 +119,7 @@ function startCallWebRtc(sessionId, tokenId){
 
 function sessionConnectedHandler(event) {
     subscribeToStreams(event.streams);
-    var publisherProperties = {width: 440, height:300, name:"Bob's stream"};
+    var publisherProperties = {width: 440, height:300, name:"Powered by 3media"};
     publisher = TB.initPublisher(openTokApiKey, 'publisher', publisherProperties);
     session.publish(publisher);
 }

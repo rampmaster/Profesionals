@@ -14,9 +14,15 @@
                 </span>
         </div>
 
-        <form method="post" class="fill-up">
+        <form method="post" class="fill-up" {{ form_enctype(form) }}>
             <div class="padded">
-        {{ form_widget(form) }}
+            {% if app.user.webPath is not empty %}
+                <img src="{{ asset(app.user.webPath) }}" width="100px" style="width: 100px" class="pull-right">
+                <div style="clear:both"></div>
+
+                <hr>
+            {% endif %}
+            {{ form_widget(form) }}
             </div>
             <div class="form-actions">
                 <input type="submit" class="btn button gray span3" value="Actualizar datos">

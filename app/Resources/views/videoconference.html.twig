@@ -1,37 +1,41 @@
 {% extends '::layout.html.twig' %}
 {% block nav_secondary %}
-<nav id="secondary" class="main-nav">
-    <div class="profile-menu">
+    <nav id="secondary" class="main-nav">
+        <div class="profile-menu">
 
-        <div class="pull-left">
-            <div class="avatar">
-                <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}" />
+            <div class="pull-left">
+                <div class="avatar">
+                    {% if app.user.webPath is not empty %}
+                        <img src="{{ asset(app.user.webPath) }}" width="50px" style="width: 50px" class="pull-right">
+                        {% else %}
+                        <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}"/>
+                    {% endif %}
+                </div>
             </div>
-        </div>
 
-        <div class="pull-left">
-            <div class="title">
-                Lista de usuarios
+            <div class="pull-left">
+                <div class="title">
+                    Lista de usuarios
+                </div>
+
+            </div>
+
+            <div class="pull-right profile-menu-nav-collapse">
+                <button class="button black"><i class="icon-reorder"></i></button>
             </div>
 
         </div>
 
-        <div class="pull-right profile-menu-nav-collapse">
-            <button class="button black"><i class="icon-reorder"></i></button>
-        </div>
-
-    </div>
 
 
 
-
-    {{ render(controller('CoreCallBundle:Call:contacts', { 'consulta': true })) }}
-</nav>
+        {{ render(controller('CoreCallBundle:Call:contacts', { 'consulta': true })) }}
+    </nav>
 {% endblock %}
 {% block header_scripts %}
     <script src="{{ asset('bundles/coreresources/js/jquery.js') }}"></script>
     <!-- open tok init -->
-    <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js" ></script>
+    <script src="http://static.opentok.com/webrtc/v2.0/js/TB.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
     <script type="text/javascript" src="http://{{ app.request.host }}:2021/socket.io/socket.io.js"></script>
@@ -48,7 +52,7 @@
     </script>
     <script type="text/javascript">
 
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             callhandler.init();
         });
@@ -69,11 +73,11 @@
 {% endblock %}
 {% block panel %}
 
-        <div class="row-fluid">
+    <div class="row-fluid">
 
-            {{ render(controller('CoreCallBundle:Call:notifications')) }}
-            {% include "CoreCallBundle:Call:videoconferencehtml5.html.twig" %}
-        </div>
+        {{ render(controller('CoreCallBundle:Call:notifications')) }}
+        {% include "CoreCallBundle:Call:videoconferencehtml5.html.twig" %}
+    </div>
 
     <div class="row-fluid">
         <div class="span5">
@@ -82,7 +86,7 @@
 
         <div class="offset1 span5">
             {% include 'CoreCallBundle:Call:videoconferencecontrols.html.twig' %}
-            </div>
+        </div>
     </div>
 
 {% endblock %}

@@ -26,7 +26,7 @@ class CallController extends Controller
         //seteo el provider
         $provider = $this->getDoctrine()->getEntityManager()->getRepository('CoreUserBundle:User')->find($idProvider);
 
-        $salesManager->setProvider($visit, $provider);//esto setea el provider.
+        $salesManager->setProvider($visit, $provider); //esto setea el provider.
 
         return new \Symfony\Component\HttpFoundation\Response("ok");
     }
@@ -73,9 +73,9 @@ class CallController extends Controller
                 'profile_image' => "/" . $user->getWebPath(),
             );
             */
-
-                $array['fullname'] = $user->getName()." ".$user->getSurname();
-                $array['email'] = $user->getEmail();
+            $array['profile_image'] = "/" . $user->getWebPath();
+            $array['fullname'] = $user->getName() . " " . $user->getSurname();
+            $array['email'] = $user->getEmail();
 
             return new \Symfony\Component\HttpFoundation\Response(json_encode($array));
         } else {
@@ -87,7 +87,7 @@ class CallController extends Controller
      * @Route("/contacts")
      * @Template()
      */
-    public function contactsAction($consulta = false,$iOSApp=false)
+    public function contactsAction($consulta = false, $iOSApp = false)
     {
 
         $security = $this->get('security.context');
@@ -99,7 +99,7 @@ class CallController extends Controller
         $users = $em->getRepository('CoreUserBundle:User')->findAll();
 
 
-        return array('users' => $users,'numUsers' => count($users));
+        return array('users' => $users, 'numUsers' => count($users));
     }
 
     /**

@@ -14,7 +14,7 @@ var callVideoconferenceSwfDefaultHeigt = 240;
 
 
 function rebootWindow() {
-    if (flashphoner.getCurrentCall() == null) {
+    if (currentCall == null) {
         //logoff();
         //relogin();
         window.location.reload();
@@ -113,6 +113,7 @@ function callVideoconferenceToCallState() {
 
 function callVideoconferenceToRingingState() {
     callVideoconferenceToHangupState();
+    $("#answerButton").css('visibility', 'visible');
 
 }
 
@@ -120,6 +121,7 @@ function callVideoconferenceToCallStateStarted() {
     //$("#fullscreenButton").css('display', 'block');
     //$("#unflushvideoButton").css('display', 'block');
     //$("#holdButton").css('display', 'block');
+    $("#answerButton").css('visibility', 'hidden');
 }
 
 function callVideoconferenceToHangupStateStarted() {
