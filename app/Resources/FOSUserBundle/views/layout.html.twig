@@ -7,6 +7,7 @@
     <title>Profesional</title>
     <link href="{{ asset('bundles/coreresources/theme/stylesheets/application.css') }}" media="screen" rel="stylesheet"
           type="text/css"/>
+    <link href="{{asset('images/styles')}}/{{app.session.get('subdomain')}}/styles.css" rel="stylesheet" media="screen">
     <!--[if lt IE 9]>
     <script src="../../javascripts/html5shiv.js" type="text/javascript"></script>
     <script src="{{ asset('bundles/coreresources/theme/javascripts/excanvas.js') }}" type="text/javascript"></script>
@@ -135,9 +136,8 @@ background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rg
 background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 "></div>
-<div class="login" style="
+<div class="background-main" style="
     opacity: 0.4;
-    background-color: rgb(232, 244, 255);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -157,7 +157,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
         <div id="login-manager">
             <div id="login" class="login-wrapper animated">
                 <form action="{{ path("fos_user_security_check") }}" method="post">
-                    <div class="input-group">
+                    <div class="input-group control-extra">
                         {% block fos_user_content %}
                         {% endblock fos_user_content %}
                     </div>

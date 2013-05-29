@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Styles
  *
@@ -131,9 +132,24 @@ class Styles
         // the entity from being persisted to the database on error
         $this->path =  'logo.' . $this->file->guessExtension();
         $this->file->move($this->getUploadRootDir("/".$username), $this->path);
-
+        $this->writeCss($this->getUploadRootDir("/".$username)."/styles.css");
 
         $this->file = null;
+    }
+
+    public function writeCss($filename){
+        
+
+        $css  = ".background-main { ";
+        $css .= "background-color: ".$this->colorBgMain;
+        $css .= " }\n";
+        $css .= ".color-extra input { ";
+        $css .= "background-color: ".$this->colorBgSecd;
+        $css .= " }\n";
+        $css .= ".color-extra label, .color-extra { ";
+        $css .= "color: ".$this->colorExtra;
+        $css .= " }\n";
+        file_put_contents($filename, $css);
     }
 
 
