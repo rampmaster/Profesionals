@@ -13,9 +13,13 @@ class SubdomainListener
        $session = $request->getSession();
 
        // todo: parsing subdomain to detect country
-       $DEFAULT_HOST = "professionals";
+       $default_hosts = array(
+       		"professionals",
+       		"varavan",
+       		"www"
+       	);
        $parts = explode(".",$request->getHost());
-       if($parts[0] == $DEFAULT_HOST){
+       if(array_search($parts[0],$default_hosts)){
        		$username = false;
        }else{
        		$username = $parts[0];
