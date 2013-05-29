@@ -156,7 +156,7 @@ class ProfessionalController extends Controller
                 $em->persist($professional);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('notice', 'Estilo del profesional guardado on éxito');
-                return $this->redirect($this->generateUrl('admin_professionals_show',array('id'=>$id)));
+                return $this->redirect($this->generateUrl('admin_professionals_styles',array('id'=>$id)));
             }
         }
         return array('form' => $form->createView());

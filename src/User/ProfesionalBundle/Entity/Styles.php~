@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Styles
  *
@@ -59,6 +60,13 @@ class Styles
      */
     private $colorExtra;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="raw_css", type="text")
+     */
+    private $rawCss;
+
  //FILE UPLOAD
 
     /**
@@ -105,22 +113,22 @@ class Styles
             : $this->getUploadDir().'/'.$this->path;
     }
 
-    protected function getUploadRootDir()
+    protected function getUploadRootDir($extra="")
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/'.$this->getUploadDir().$extra;
     }
 
     protected function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'images/users';
+        return 'images/styles';
     }
 
 
-    public function upload()
+    public function upload($username="default")
     {
         if (null === $this->file) {
             return;
@@ -129,11 +137,26 @@ class Styles
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
-        $this->path = uniqid() . '.' . $this->file->guessExtension();
-        $this->file->move($this->getUploadRootDir(), $this->path);
-
+        $this->path =  'logo.' . $this->file->guessExtension();
+        $this->file->move($this->getUploadRootDir("/".$username), $this->path);
+        $this->writeCss($this->getUploadRootDir("/".$username)."/styles.css");
 
         $this->file = null;
+    }
+
+    public function writeCss($filename){
+        
+
+        $css  = ".background-main { ";
+        $css .= "background-color: ".$this->colorBgMain;
+        $css .= " }\n";
+        $css .= ".color-extra input { ";
+        $css .= "background-color: ".$this->colorBgSecd;
+        $css .= " }\n";
+        $css .= ".color-extra label, .color-extra { ";
+        $css .= "color: ".$this->colorExtra;
+        $css .= " }\n";
+        file_put_contents($filename, $css);
     }
 
 
@@ -292,5 +315,28 @@ class Styles
     public function getColorExtra()
     {
         return $this->colorExtra;
+    }
+
+    /**
+     * Set professional
+     *
+     * @param \User\ProfesionalBundle\Entity\Professional $professional
+     * @return Styles
+     */
+    public function setProfessional(\User\ProfesionalBundle\Entity\Professional $professional = null)
+    {
+        $this->professional = $professional;
+
+        return $this;
+    }
+
+    /**
+     * Get professional
+     *
+     * @return \User\ProfesionalBundle\Entity\Professional 
+     */
+    public function getProfessional()
+    {
+        return $this->professional;
     }
 }

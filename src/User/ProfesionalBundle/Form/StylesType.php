@@ -13,7 +13,8 @@ class StylesType extends AbstractType
         $builder
             ->add('file', 'file', array(
                 'label' => 'Logotipo',
-                'attr' => array('class' => 'span5')
+                'attr' => array('class' => 'span5'),
+                'required'=>false
             ))
             ->add('color_bg_main', null, array(
                 'label' => 'Color del Fondo (1)',
@@ -23,6 +24,10 @@ class StylesType extends AbstractType
             ))
             ->add('color_extra', null, array(
                 'label' => 'Color extra',
+            ))
+            ->add('raw_css', 'textarea', array(
+                'label' => 'CSS Extra',
+                'attr' => array('class'=>"span12","rows"=>10)
             ))
         ;
     }

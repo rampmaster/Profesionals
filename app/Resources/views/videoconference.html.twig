@@ -55,6 +55,11 @@
         $(document).ready(function () {
 
             callhandler.init();
+            if (!window.webkitRTCPeerConnection && !window.webkitRTCPeerConnection){ 
+                $(".videoconference.panel").css("display",'none')
+                $(".browser.panel").css("display",'block')
+            }
+
         });
     </script>
     <!-- <link href="{{ asset('bundles/corecall/css/chat.css') }}" rel="stylesheet"> -->
@@ -72,7 +77,10 @@
 
 {% endblock %}
 {% block panel %}
-
+    <div class="browser panel" style="display:none">
+        <h1>No tienes RTC</h1>
+    </div>
+    <div class="videoconference panel">
     <div class="row-fluid">
 
         {{ render(controller('CoreCallBundle:Call:notifications')) }}
@@ -87,6 +95,7 @@
         <div class="offset1 span5">
             {% include 'CoreCallBundle:Call:videoconferencecontrols.html.twig' %}
         </div>
+    </div>
     </div>
 
 {% endblock %}

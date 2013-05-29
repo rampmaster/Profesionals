@@ -60,6 +60,13 @@ class Styles
      */
     private $colorExtra;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="raw_css", type="text")
+     */
+    private $rawCss;
+
  //FILE UPLOAD
 
     /**
@@ -123,6 +130,7 @@ class Styles
 
     public function upload($username="default")
     {
+        $this->writeCss($this->getUploadRootDir("/".$username)."/styles.css");
         if (null === $this->file) {
             return;
         }
@@ -132,7 +140,7 @@ class Styles
         // the entity from being persisted to the database on error
         $this->path =  'logo.' . $this->file->guessExtension();
         $this->file->move($this->getUploadRootDir("/".$username), $this->path);
-        $this->writeCss($this->getUploadRootDir("/".$username)."/styles.css");
+        
 
         $this->file = null;
     }
@@ -149,6 +157,7 @@ class Styles
         $css .= ".color-extra label, .color-extra { ";
         $css .= "color: ".$this->colorExtra;
         $css .= " }\n";
+        $css .= $this->rawCss;
         file_put_contents($filename, $css);
     }
 
@@ -331,5 +340,28 @@ class Styles
     public function getProfessional()
     {
         return $this->professional;
+    }
+
+    /**
+     * Set rawCss
+     *
+     * @param string $rawCss
+     * @return Styles
+     */
+    public function setRawCss($rawCss)
+    {
+        $this->rawCss = $rawCss;
+
+        return $this;
+    }
+
+    /**
+     * Get rawCss
+     *
+     * @return string 
+     */
+    public function getRawCss()
+    {
+        return $this->rawCss;
     }
 }
