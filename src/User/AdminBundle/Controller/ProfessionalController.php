@@ -56,6 +56,7 @@ class ProfessionalController extends Controller
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
             if ($form->isValid()) {
+
                 $em->persist($user);
                 $user->upload();
                 $user->setUpdatedAt(new \DateTime());

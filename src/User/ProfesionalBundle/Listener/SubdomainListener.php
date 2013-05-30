@@ -14,12 +14,13 @@ class SubdomainListener
 
        // todo: parsing subdomain to detect country
        $default_hosts = array(
-       		"professionals",
+          "professionals",
        		"varavan",
-       		"www"
+       		"www",
+          "professionals"
        	);
        $parts = explode(".",$request->getHost());
-       if(array_search($parts[0],$default_hosts)){
+       if(in_array($parts[0],$default_hosts)){
        		$username = false;
        }else{
        		$username = $parts[0];

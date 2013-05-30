@@ -1,0 +1,128 @@
+
+<!DOCTYPE HTML>
+<!--
+	Strongly Typed 1.0 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>varavan.com</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="viewport" content="width=1040" />
+		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Arvo:700" rel="stylesheet" type="text/css" />
+		<script src="{{ asset('bundles/coreresources/web/js/jquery-1.9.1.min.js') }}"></script>
+		<script src="{{ asset('bundles/coreresources/web/js/jquery.dropotron-1.3.js') }}"></script>
+		<script src="{{ asset('bundles/coreresources/web/js/config.js') }}"></script>
+		<script src="{{ asset('bundles/coreresources/web/js/skel.min.js') }}"></script>
+		<script src="{{ asset('bundles/coreresources/web/s/skel-ui.min.js') }}"></script>
+		<noscript>
+			<link rel="stylesheet" href="{{ asset('bundles/coreresources/web/css/skel-noscript.css') }}" />
+			<link rel="stylesheet" href="{{ asset('bundles/coreresources/web/css/style.css') }}" />
+			<link rel="stylesheet" href="{{ asset('bundles/coreresources/web/css/style-desktop.css') }}" />
+		</noscript>
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+	</head>
+	<body class="homepage">
+
+		<!-- Header Wrapper -->
+			<div id="header-wrapper">
+						
+				<!-- Header -->
+					<div id="header" class="container">
+						
+						<!-- Logo -->
+							<h1 id="logo"><a href="#">Varavan</a></h1>
+							<p>Sistema de videoconferencia para profesionales</p>
+							
+							<ul class="actions">
+								<li><a href="/login" class="button button-icon icon icon-home">Acceso a Miembros</a></li>
+							</ul>
+					</div>
+
+			</div>
+			
+			{% if sent != true %}
+		<!-- Banner Wrapper -->
+			<div id="banner-wrapper">
+				<div class="inner">
+
+					<!-- Banner -->
+						<section id="banner" class="container">
+							<p>Vídeo de <strong>alta calidad</strong>.<br />
+							para navegadores de última generación.</p>
+						</section>
+
+				</div>
+			</div>
+			{% endif %}
+		<!-- Footer Wrapper -->
+			<div id="footer-wrapper">
+
+				<!-- Footer -->
+				{% if sent != true %}
+
+				
+
+					<div id="footer" class="container">
+						<header>
+							<h2>¿Estás interesado? <strong>Déjanos tus datos:</strong></h2>
+						</header>
+						<div class="row">
+							<div class="3u">
+								<hr>
+							</div>
+							<div class="6u">	
+								<section>
+									<form method="post" action="#">
+										<div class="row">
+											<div class="6u">
+												<input name="form[name]" placeholder="Nombre" type="text" class="text" />
+											</div>
+											<div class="6u">
+												<input name="form[email]" placeholder="Correo Electrónico" type="text" class="text" />
+											</div>
+										</div>
+										<div class="row">
+											<div class="12u">
+												<textarea name="form[message]" placeholder="Comentarios"></textarea>
+											</div>
+										</div>
+										<div class="row">
+											<div class="12u">
+												{{form_widget(form._token)}}
+												<button type="submit" href="#" class="button button-icon icon icon-envelope" style="width:100%">Soliciar Información</button>
+											</div>
+										</div>
+									</form>
+								</section>
+							</div>
+							<div class="3u">
+								<hr>
+							</div>
+						</div>
+					</div>
+
+								{% else %}
+					<div id="footer" class="container">
+						<header>
+							<h2>Le informaremos <strong>lo antes posible</strong></h2>
+							<div style="text-align:center"><h3>Gracias por su confianza.</h3></div>
+						</header>
+					</div>
+								{% endif %}
+
+				<!-- Copyright -->
+					<div id="copyright" class="container">
+						<ul class="links">
+							<li>&copy; Profesional</li>
+							<li>Design: <a target="_blank" href="http://html5up.net/">HTML5 UP</a></li>
+						</ul>
+					</div>
+
+			</div>
+
+	</body>
+</html>

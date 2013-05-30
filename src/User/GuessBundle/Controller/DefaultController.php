@@ -34,6 +34,19 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('client_consulta'));
         }
 
-        return $this->redirect($this->generateUrl('fos_user_security_login'));
+        $host = $this->get('session')->get('subdomain');
+        $usermanager = $this->get('fos_user.user_manager');
+        $professional = $usermanager->findUserByUsername($host);
+        if($host){
+            if($professional){
+                return $this->redirect($this->generateUrl('fos_user_security_login'));            
+            }else{
+                die($host);
+                throw new \Exception("No se encontró la página",404);
+            }
+        }
+
+
+        return $this->redirect($this->generateUrl('home_web'));
     }
 }
