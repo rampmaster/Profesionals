@@ -53,7 +53,7 @@ class EventController extends Controller
             $em->persist($event);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('profesional_calendario'));
+            return $this->redirect($this->generateUrl('profesional_calendar'));
 
         }
 
