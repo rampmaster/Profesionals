@@ -1,0 +1,57 @@
+{% set active = 'calendar' %}
+{% extends '::layout.html.twig' %}
+
+{% block nav_secondary %}{% endblock %}
+{% block panel %}
+    <form action="{{ path('profesional_add_event') }}" method="post" {{ form_enctype(form) }}>
+        <div class="box span5">
+            <div class="tab-header">
+                ¿Cuando será la consulta?
+            </div>
+
+            <div class="padded">
+                {{ form_row(form.start_date) }}
+                {{ form_row(form.hour_date) }}
+                {{ form_row(form.duration) }}
+            </div>
+        </div>
+
+        <div class="box offset1 span5">
+            <div class="tab-header">
+                ¿Quien estará en la consulta?
+            </div>
+
+            <div class="padded">
+                {{ form_row(form.client) }}
+                {{ form_row(form.notify) }}
+                {{ form_row(form.notify_at) }}
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div class="box offset2 span6">
+            <div class="padded">
+                <a href="{{ path('profesional_calendar') }}" class="button blue"><strong>Volver al calendario</strong></a>
+                <input type="submit" class="button green" value="Registrar evento"/>
+            </div>
+        </div>
+        {{ form_widget(form) }}
+
+
+    </form>
+{% endblock %}
+
+{% block header_scripts %}
+
+    <link href="{{ asset('bundles/coreresources/select2/select2.css') }}" rel="stylesheet" />
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+
+
+
+    <script src="{{ asset('bundles/coreresources/select2/select2.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/select2/select2_locale_es.js') }}"></script>
+
+    {{ form_javascript(form) }}
+{% endblock %}

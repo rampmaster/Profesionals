@@ -1,0 +1,55 @@
+{% set active = 'calendar' %}
+{% extends '::layout.html.twig' %}
+
+{% block header_scripts %}
+    <link rel="stylesheet" href="{{ asset('bundles/coreresources/theme/stylesheets/fullcalendar/fullcalendar.css') }}" />
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>
+{% endblock %}
+{% block panel %}
+
+    <div class="box padded offset2 span8">
+    {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+    </div>
+{% endblock %}
+
+{% block nav_secondary %}
+
+    <nav id="secondary" class="main-nav">
+
+        <div class="profile-menu">
+
+            <div class="pull-left">
+                <div class="avatar">
+                    <img src="{{ asset('bundles/coreresources/theme/images/cloud.png') }}" />
+                </div>
+            </div>
+
+            <div class="pull-left">
+                <div class="title">
+                    Calendario
+                </div>
+
+            </div>
+
+            <div class="pull-right profile-menu-nav-collapse">
+                <button class="button black"><i class="icon-reorder"></i></button>
+            </div>
+
+        </div>
+
+        <ul class="secondary-nav-menu">
+            <li class="">
+                <a href="{{ path('profesional_add_event') }}">
+                    <i class="icon-calendar"></i> Añadir un nuevo evento
+                </a>
+            </li>
+
+
+        </ul>
+
+    </nav>
+{% endblock %}

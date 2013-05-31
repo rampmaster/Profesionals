@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services">
+
+<services>
+    <service id="core.resourcesbundle.calendar_listener" class="Core\ResourcesBundle\EventListener\CalendarEventListener">
+        <argument type="service" id="doctrine.orm.entity_manager" />
+        <argument type="service" id="router" />
+        <tag name="kernel.event_listener" event="calendar.load_events" method="loadEvents" />
+    </service>
+
+</services>
+</container>
