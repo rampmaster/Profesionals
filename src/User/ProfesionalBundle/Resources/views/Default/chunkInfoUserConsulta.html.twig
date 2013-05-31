@@ -1,46 +1,86 @@
-<h3>Historico del usuario</h3>
-<table class="table table-bordered span8">
-        <thead>
-            <tr>
-                <th class="span4">Título</th>
-                <th class="span2">Fecha</th>
-                <th class="span2">Ver más</th>
-            </tr>
+<div class="row-fluid">
+    <div class="span5">
+        <div class="tabbable black-box" style="margin-bottom: 18px;">
 
-        </thead>
+            <div class="tab-header">
+                Herramientas de cliente
+            </div>
 
-        <tbody>
-            {% for r in entity.reports %}
-                <tr>
-                    <td>{{ r.title|truncate(30) }}</td>
-                    <td>{{ r.createdAt|date('d/m/Y H:i') }}</td>
-                    <td><a href="#reportDiv{{ r.id }}" class="btn bt-block" role="button"
-                            data-toggle="modal">ver más</a>
-                    </td>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab">Historico del cliente</a></li>
+                <li><a href="#tab2" data-toggle="tab">Otros</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <div class="padded">
+                        {% for r in entity.reports %}
+                            <p>
+                                <span style="display: inline-block; min-width: 250px;"><a role="tabs-informes" target="{{ r.id }}">{{ r.title|truncate(30) }}</a></span>
+                                <span>{{ r.createdAt|date('d/m/Y H:i') }}</span>
+                            </p>
+                        {% else %}
+
+                            <p>
+                                <strong>No existen reportes</strong>
+                            </p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab2">
+                    <div class="padded">
+                        <a href="#" class="button green">Añadir nuevo informe</a>
+                        <a href="javascript:videoconferenceStart()" class="button grey">Recargar lista</a>
+                    </div>
+                </div>
 
 
-
-                </tr>
-            {% else %}
-                <caption>No existen reportes de este usuario</caption>
-            {% endfor %}
-        </tbody>
-</table>
-
-{% for r in entity.reports %}
-    <div id="reportDiv{{ r.id }}" class="modal hide fade" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">{{ r.title }}r</h3>
-        </div>
-        <div class="modal-body">
-            <h6>Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}"</h6>
-
-            <p>{{ r.text|raw }}</p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+            </div>
         </div>
     </div>
-{% endfor %}
+
+    <div class="offset1 span5">
+        {% for r in entity.reports %}
+        <div class="informeCliente black-box tex hide" id="informeCliente{{ r.id }}">
+            <div class="tab-header">
+                {{ r.title }}
+            </div>
+            <ul class="recent-comments">
+
+
+                <li class="separator">
+                    <div class="avatar pull-left">
+                        <img src="{{ asset('bundles/coreresources/theme/images/avatar3.png') }}">
+                    </div>
+
+                    <div class="article-post">
+                        <div class="user-info">Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}"</div>
+                        <div class="user-content">
+                            {{ r.text|raw }}
+                        </div>
+
+
+                    </div>
+                </li>
+
+
+
+
+
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script type="text/javascript">
+    $("a[role=tabs-informes]").on('click', function(event){
+        clearInformes();
+        var informetarget = $(this).attr('target');
+        setTimeout(function(){
+            $("#informeCliente"+informetarget).fadeIn();
+        }, 1000);
+
+
+    });
+</script>

@@ -28,6 +28,9 @@ class AppKernel extends Kernel
             new Core\CallBundle\CoreCallBundle(),
             new User\GuessBundle\UserGuessBundle(),
             new User\AdminBundle\UserAdminBundle(),
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

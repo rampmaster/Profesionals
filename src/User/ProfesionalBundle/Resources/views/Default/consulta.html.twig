@@ -1,22 +1,14 @@
 {% set active = 'consulta' %}
 {% extends '::videoconference.html.twig' %}
-{% block bottom %}
-    <div class="span8">
-        <hr>
-        <div id="loadingInfoUser" class="hide">
-            <h3>Cargando información del usuario</h3>
-
-            <div class="progress progress-striped">
-                <div class="bar" style="width: 100%;"></div>
-            </div>
+{% block extra_videoconference %}
+    <div id="loadingInfoUser" class="hide">
+        <div class="progress progress-striped">
+            <div class="bar" style="width: 100%;"></div>
         </div>
-
-        <div id="infoUserInCall" class="hide">
-
-        </div>
+    </div>
+    <div id="infoUserInCall">
 
     </div>
-
 {% endblock %}
 
 {% block javascripts %}
@@ -25,6 +17,7 @@
 
     <script type="text/javascript">
         function videoconferenceStart() {
+            $("#infoUserInCall").html("");
             //saco la informacion del usuario
 
             $("#loadingInfoUser").fadeIn();
@@ -36,13 +29,19 @@
                 { idUser: callCallerId },
                 function(response){
                     //la response que llega la metemos directamente en su sitio
-
-                    $("#infoUserInCall").html(response);
-                    $("#infoUserInCall").fadeIn();
                     $("#loadingInfoUser").fadeOut();
+                    $("#infoUserInCall").html(response);
+                    setTimeout(function(){
+                        $("#infoUserInCall").fadeIn();
+                    }, 2000);
+
+
                 }
 
             );
+        }
+        function clearInformes(){
+            $(".informeCliente").fadeOut();
         }
     </script>
 

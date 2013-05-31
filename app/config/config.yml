@@ -78,3 +78,6 @@ services:
      class: User\ProfesionalBundle\Listener\SubdomainListener
      tags:
          - { name: kernel.event_listener, event: kernel.request, method: subdomainParse }
+genemu_form:
+    select2: ~
+    date: ~

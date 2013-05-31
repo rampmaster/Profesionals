@@ -1,7 +1,10 @@
 parameters:
-#    core_resources.example.class: Core\ResourcesBundle\Example
+  core_resources.listener.calendar: Core\ResourcesBundle\EventListener\CalendarEventListener
 
 services:
 #    core_resources.example:
 #        class: %core_resources.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+calendar.load_events:
+    class: Core\ResourcesBundle\EventListener\CalendarEventListener
+    arguments: [ @doctrine.orm.entity_manager ]

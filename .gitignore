@@ -1,6 +1,8 @@
 # Bootstrap
 app/bootstrap*
 
+.DS_Store
+*/.DS_Store/*
 .idea
 */.idea/*
 # Symfony directories

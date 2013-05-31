@@ -81,6 +81,7 @@ var callhandler =
 
         //reiniciamos la ventana;
         currentCall = null;
+        $("#infoUserInCall").html("");
         rebootWindow();
         /*
         contactshandler.updateMyState(callPresenceOn);

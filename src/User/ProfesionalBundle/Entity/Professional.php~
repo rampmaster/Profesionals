@@ -53,6 +53,11 @@ class Professional
     private $reports;
 
     /**
+     * @ORM\OneToMany(targetEntity="ProfesionalEvent", mappedBy="professional")
+     */
+    private $events;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -169,5 +174,28 @@ class Professional
     public function getReports()
     {
         return $this->reports;
+    }
+
+    /**
+     * Set styles
+     *
+     * @param \User\ProfesionalBundle\Entity\Styles $styles
+     * @return Professional
+     */
+    public function setStyles(\User\ProfesionalBundle\Entity\Styles $styles = null)
+    {
+        $this->styles = $styles;
+
+        return $this;
+    }
+
+    /**
+     * Get styles
+     *
+     * @return \User\ProfesionalBundle\Entity\Styles 
+     */
+    public function getStyles()
+    {
+        return $this->styles;
     }
 }

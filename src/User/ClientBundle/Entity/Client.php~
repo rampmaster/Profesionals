@@ -47,6 +47,11 @@ class Client
      */
     private $reports;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\ProfesionalEvent", mappedBy="client")
+     */
+    private $events;
+
 
     /**
      * Get id
@@ -125,5 +130,45 @@ class Client
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reports = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add reports
+     *
+     * @param \User\ProfesionalBundle\Entity\Report $reports
+     * @return Client
+     */
+    public function addReport(\User\ProfesionalBundle\Entity\Report $reports)
+    {
+        $this->reports[] = $reports;
+    
+        return $this;
+    }
+
+    /**
+     * Remove reports
+     *
+     * @param \User\ProfesionalBundle\Entity\Report $reports
+     */
+    public function removeReport(\User\ProfesionalBundle\Entity\Report $reports)
+    {
+        $this->reports->removeElement($reports);
+    }
+
+    /**
+     * Get reports
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReports()
+    {
+        return $this->reports;
     }
 }
