@@ -49,7 +49,8 @@
                     {% else %}
                         <i class="icon-user"></i>
                     {% endif %}
-                    {{ user.name }} {{ user.surname }}
+                        {{ [user.name," ", user.surname]|join|truncate(14) }}
+
 
 
                     {% if iOSApp is defined and iOSApp == true %}

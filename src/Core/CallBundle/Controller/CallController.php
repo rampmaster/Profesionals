@@ -93,10 +93,25 @@ class CallController extends Controller
         $security = $this->get('security.context');
         $me = $security->getToken()->getUser();
 
-        $em = $this->getDoctrine()->getEntityManager();
-        $min = new \DateTime();
+        $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository('CoreUserBundle:User')->findAll();
+        if($me->hasRole('ROLE_ADMIN')){
+            $users = $em->getRepository('CoreUserBundle:User')->findAll();
+        } elseif($me->hasRole('ROLE_PROFESIONAL')){
+
+            $users = array();
+
+            foreach($me->getProfessional()->getClients() as $c){
+                array_push($users, $c->getUser());
+            }
+
+        }elseif($me->hasRole('ROLE_CLIENTE')){
+
+            $users = array(
+                $me->getClient()->getProfessional()->getUser()
+            );
+        }
+
 
 
         return array('users' => $users, 'numUsers' => count($users));
