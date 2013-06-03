@@ -53,9 +53,14 @@ class Professional
     private $reports;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProfesionalEvent", mappedBy="professional")
+     * @ORM\OneToMany(targetEntity="ProfessionalEvent", mappedBy="professional")
      */
     private $events;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\User\ClientBundle\Entity\Client", mappedBy="professional")
+     */
+    private $clients;
 
     /**
      * Get id
@@ -202,10 +207,10 @@ class Professional
     /**
      * Add events
      *
-     * @param \User\ProfesionalBundle\Entity\ProfesionalEvent $events
+     * @param \User\ProfesionalBundle\Entity\ProfessionalEvent $events
      * @return Professional
      */
-    public function addEvent(\User\ProfesionalBundle\Entity\ProfesionalEvent $events)
+    public function addEvent(\User\ProfesionalBundle\Entity\ProfessionalEvent $events)
     {
         $this->events[] = $events;
     
@@ -215,9 +220,9 @@ class Professional
     /**
      * Remove events
      *
-     * @param \User\ProfesionalBundle\Entity\ProfesionalEvent $events
+     * @param \User\ProfesionalBundle\Entity\ProfessionalEvent $events
      */
-    public function removeEvent(\User\ProfesionalBundle\Entity\ProfesionalEvent $events)
+    public function removeEvent(\User\ProfesionalBundle\Entity\ProfessionalEvent $events)
     {
         $this->events->removeElement($events);
     }
@@ -230,5 +235,44 @@ class Professional
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * Add clients
+     *
+     * @param \User\ClientBundle\Entity\Client $clients
+     * @return Professional
+     */
+    public function addClient(\User\ClientBundle\Entity\Client $clients)
+    {
+        $this->clients[] = $clients;
+    
+        return $this;
+    }
+
+    /**
+     * Remove clients
+     *
+     * @param \User\ClientBundle\Entity\Client $clients
+     */
+    public function removeClient(\User\ClientBundle\Entity\Client $clients)
+    {
+        $this->clients->removeElement($clients);
+    }
+
+    /**
+     * Get clients
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClients()
+    {
+        $b = array();
+        foreach($this->clients as $c){
+            if($c->getUser()->isEnabled()){
+                array_push($b, $c);
+            }
+        }
+        return $b;
     }
 }

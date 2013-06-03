@@ -58,7 +58,7 @@ class Report
     private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="professional")
+     * @ORM\ManyToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="reports")
      * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
      */
     private $professional;

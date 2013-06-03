@@ -24,7 +24,7 @@ class CalendarEventListener
 // load events using your custom logic here,
 // for instance, retrieving events from a repository
 
-        $companyEvents = $this->entityManager->getRepository('UserProfesionalBundle:ProfesionalEvent')
+        $companyEvents = $this->entityManager->getRepository('UserProfesionalBundle:ProfessionalEvent')
             ->createQueryBuilder('company_events')
             ->where('company_events.start_date BETWEEN :startDate and :endDate')
             ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))

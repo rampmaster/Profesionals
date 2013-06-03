@@ -52,6 +52,16 @@ class Client
      */
     private $events;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="client")
+     * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
+     */
+    private $professional;
+
+    public function __toString(){
+
+        return $this->getUser()->getName()." ".$this->getUser()->getSurname();
+    }
 
     /**
      * Get id
@@ -170,5 +180,38 @@ class Client
     public function getReports()
     {
         return $this->reports;
+    }
+
+    /**
+     * Add events
+     *
+     * @param \User\ProfesionalBundle\Entity\ProfesionalEvent $events
+     * @return Client
+     */
+    public function addEvent(\User\ProfesionalBundle\Entity\ProfesionalEvent $events)
+    {
+        $this->events[] = $events;
+    
+        return $this;
+    }
+
+    /**
+     * Remove events
+     *
+     * @param \User\ProfesionalBundle\Entity\ProfesionalEvent $events
+     */
+    public function removeEvent(\User\ProfesionalBundle\Entity\ProfesionalEvent $events)
+    {
+        $this->events->removeElement($events);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvents()
+    {
+        return $this->events;
     }
 }

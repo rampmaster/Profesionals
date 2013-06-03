@@ -8,8 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use User\ProfesionalBundle\Entity\ProfesionalEvent;
-use User\ProfesionalBundle\Form\ProfesionalEventType;
+use User\ProfesionalBundle\Entity\ProfessionalEvent;
+use User\ProfesionalBundle\Form\ProfessionalEventType;
 
 
 class EventController extends Controller
@@ -30,11 +30,11 @@ class EventController extends Controller
      */
     public function addeventAction()
     {
-        $event = new ProfesionalEvent();
+        $event = new ProfessionalEvent();
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
 
-        $form = $this->createForm(new ProfesionalEventType(), $event);
+        $form = $this->createForm(new ProfessionalEventType(), $event);
 
         $request = $this->getRequest();
 
@@ -65,9 +65,12 @@ class EventController extends Controller
      */
     public function showeventAction($idEvent)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $event = $em->getRepository('UserProfesionalBundle:ProfessionalEvent')->find($idEvent);
 
 
-        return array();
+        return array('entity' => $event);
 
     }
 }

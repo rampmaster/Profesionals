@@ -22,12 +22,8 @@ class ClientesController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $clientes = $em->getRepository('UserClientBundle:Client')->findAll();
-
-
-        return array('clientes' => $clientes);
+        return array();
     }
 
     /**
@@ -115,6 +111,27 @@ class ClientesController extends Controller
         }
 
         return array('form' => $form->createView());
+    }
+
+    /**
+     * @Route("/clientes/disable/{idClient}", name="profesional_clientes_disable")
+     */
+    public function diableclientAction($idClient)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('UserClientBundle:Client')->find($idClient);
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if($client->getProfessional()->getId() != $user->getProfessional()->getId()){
+            throw new \Exception('Hack attemp :(');
+        }
+
+        $client->getUser()->setEnabled(false);
+        $em->persist($client->getUser());
+
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('profesional_clientes'));
     }
 
 

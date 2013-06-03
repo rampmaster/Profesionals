@@ -43,18 +43,14 @@
                     <td colspan="2">
                         <div class="clearfix" style="padding: 0 5px;">
                             <div class="pull-left">
-                                <a href="#" class="button red">Eliminar suscripción!</a>
+                                <a href="#disableUser" role="button" class="button red" data-toggle="modal">Eliminar suscripción!</a>
+                                <a href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}" class="button green">Añadir nuevo reporte</a>
                             </div>
                         </div>
                     </td>
                 </tr>
                 </tfoot>
             </table>
-
-            <a class="button large" href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}">
-                <i class="icon-align-center"></i>
-                <span>Añadir un nuevo informe</span>
-            </a>
 
         </div>
 
@@ -101,6 +97,23 @@
             </div>
         </div>
     </div>
+
+
+    <div id="disableUser" class="black-box modal hide fade">
+        <div class="modal-header tab-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <span>¿Desactivar cliente?</span>
+        </div>
+        <div class="modal-body separator">
+            <h4>A continuación se procedera a eliminar la información de {{ cliente.user.name }} {{ cliente.user.surname }}</h4>
+            <p>
+                <a href="{{ path('profesional_clientes_disable', {'idClient': cliente.id }) }}" class="button rounded red">Aceptar, elimina la información</a>
+                <a class="button rounded light-gray" data-dismiss="modal">Cancelar</a>
+            </p>
+        </div>
+
+    </div>
+
 
 
 

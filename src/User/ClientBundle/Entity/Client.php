@@ -48,9 +48,15 @@ class Client
     private $reports;
 
     /**
-     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\ProfesionalEvent", mappedBy="client")
+     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\ProfessionalEvent", mappedBy="client")
      */
     private $events;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="client")
+     * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
+     */
+    private $professional;
 
     public function __toString(){
 
@@ -179,10 +185,10 @@ class Client
     /**
      * Add events
      *
-     * @param \User\ProfesionalBundle\Entity\ProfesionalEvent $events
+     * @param \User\ProfesionalBundle\Entity\ProfessionalEvent $events
      * @return Client
      */
-    public function addEvent(\User\ProfesionalBundle\Entity\ProfesionalEvent $events)
+    public function addEvent(\User\ProfesionalBundle\Entity\ProfessionalEvent $events)
     {
         $this->events[] = $events;
     
@@ -192,9 +198,9 @@ class Client
     /**
      * Remove events
      *
-     * @param \User\ProfesionalBundle\Entity\ProfesionalEvent $events
+     * @param \User\ProfesionalBundle\Entity\ProfessionalEvent $events
      */
-    public function removeEvent(\User\ProfesionalBundle\Entity\ProfesionalEvent $events)
+    public function removeEvent(\User\ProfesionalBundle\Entity\ProfessionalEvent $events)
     {
         $this->events->removeElement($events);
     }
@@ -207,5 +213,28 @@ class Client
     public function getEvents()
     {
         return $this->events;
+    }
+
+    /**
+     * Set professional
+     *
+     * @param \User\ProfesionalBundle\Entity\Professional $professional
+     * @return Client
+     */
+    public function setProfessional(\User\ProfesionalBundle\Entity\Professional $professional = null)
+    {
+        $this->professional = $professional;
+    
+        return $this;
+    }
+
+    /**
+     * Get professional
+     *
+     * @return \User\ProfesionalBundle\Entity\Professional 
+     */
+    public function getProfessional()
+    {
+        return $this->professional;
     }
 }

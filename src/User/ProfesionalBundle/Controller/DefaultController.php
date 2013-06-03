@@ -3,6 +3,7 @@
 namespace User\ProfesionalBundle\Controller;
 
 use Core\UserBundle\Form\UserType;
+use Core\UserBundle\Request\Agent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -27,6 +28,13 @@ class DefaultController extends Controller
      */
     public function consultaAction()
     {
+
+        $useragent = new Agent();
+
+      if(!$useragent->checkCapable()){
+          throw new \Exception('Explorador no soportado');
+
+      }
 
         return array();
     }
