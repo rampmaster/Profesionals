@@ -6,7 +6,7 @@ use ADesigns\CalendarBundle\Entity\EventEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProfessionalEvent
+ * ProfesionalEvent
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -125,7 +125,7 @@ class ProfessionalEvent
      * Set start_date
      *
      * @param \DateTime $startDate
-     * @return ProfessionalEvent
+     * @return ProfesionalEvent
      */
     public function setStartDate($startDate)
     {
@@ -148,7 +148,7 @@ class ProfessionalEvent
      * Set duration
      *
      * @param string $duration
-     * @return ProfessionalEvent
+     * @return ProfesionalEvent
      */
     public function setDuration($duration)
     {
@@ -171,7 +171,7 @@ class ProfessionalEvent
      * Set notify
      *
      * @param boolean $notify
-     * @return ProfessionalEvent
+     * @return ProfesionalEvent
      */
     public function setNotify($notify)
     {
@@ -194,7 +194,7 @@ class ProfessionalEvent
      * Set notify_at
      *
      * @param \DateTime $notifyAt
-     * @return ProfessionalEvent
+     * @return ProfesionalEvent
      */
     public function setNotifyAt($notifyAt)
     {
@@ -227,7 +227,7 @@ class ProfessionalEvent
      * Set notified_at
      *
      * @param \DateTime $notifiedAt
-     * @return ProfessionalEvent
+     * @return ProfesionalEvent
      */
     public function setNotifiedAt($notifiedAt)
     {
@@ -250,7 +250,7 @@ class ProfessionalEvent
      * Set client_access_token
      *
      * @param string $clientAccessToken
-     * @return ProfessionalEvent
+     * @return ProfesionalEvent
      */
     public function setClientAccessToken($clientAccessToken)
     {
@@ -273,7 +273,7 @@ class ProfessionalEvent
      * Set guess
      *
      * @param \DateTime $guess
-     * @return ProfessionalEvent
+     * @return ProfesionalEvent
      */
     public function setGuess($guess)
     {
@@ -296,7 +296,7 @@ class ProfessionalEvent
      * Set professional
      *
      * @param \User\ProfesionalBundle\Entity\Professional $professional
-     * @return ProfessionalEvent
+     * @return ProfesionalEvent
      */
     public function setProfessional(\User\ProfesionalBundle\Entity\Professional $professional = null)
     {
@@ -319,7 +319,7 @@ class ProfessionalEvent
      * Set client
      *
      * @param \User\ClientBundle\Entity\Client $client
-     * @return ProfessionalEvent
+     * @return ProfesionalEvent
      */
     public function setClient(\User\ClientBundle\Entity\Client $client = null)
     {

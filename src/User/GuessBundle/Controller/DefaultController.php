@@ -49,4 +49,20 @@ class DefaultController extends Controller
 
         return $this->redirect($this->generateUrl('home_web'));
     }
+
+
+
+    /**
+     * @Route("/authenticate/{token}", name="home_guess_client")
+     */
+    public function clientAction($token)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('UserProfesionalBundle:ProfesionalEvent')->findOneByClientAccessToken($token);
+        if(!$event){
+            throw new \Exception("Token not found");
+        }
+        die("We provide: ".$event->getClient()->getUser()->getUsername());
+
+    } 
 }
