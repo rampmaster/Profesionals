@@ -1,0 +1,88 @@
+{% set active = 'calendar' %}
+{% extends '::layout.html.twig' %}
+
+{% block nav_secondary %}{% endblock %}
+{% block panel %}
+
+    <div class="row-fluid">
+        <div class="span5">
+
+            <table class="table table-striped table-bordered box">
+                <thead>
+                <tr>
+                    <th colspan="2">Información del evento</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Fecha del evento:</td>
+                    <td>{{ entity.startDate|date('d-m-Y') }}</td>
+                </tr>
+                <tr>
+                    <td>Hora del evento:</td>
+                    <td>{{ entity.startDate|date('H:i') }}</td>
+                </tr>
+
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <div class="clearfix" style="padding: 0 5px;">
+                            <div class="pull-left">
+                                <a href="{{ path('profesional_calendar') }}" class="button grey">Volver al calendario</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+
+
+            <div class="offset1 span5">
+
+                <table class="table table-striped table-bordered box">
+                    <thead>
+                    <tr>
+                        <th colspan="2">Información del usuario</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Nombre completo:</td>
+                        <td><strong>{{ entity.client.user.name }} {{ entity.client.user.surname }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>{{ entity.client.user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Número de movil:</td>
+                        <td class="red">{{ entity.client.user.mobile }}</td>
+                    </tr>
+                    <tr>
+                        <td>Alias:</td>
+                        <td>{{ entity.client.alias }}</td>
+                    </tr>
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <div class="clearfix" style="padding: 0 5px;">
+                                <div class="pull-left">
+                                    <a href="{{ path('profesional_clientes_show', {'idCliente': entity.client.id}) }}" class="button green">Expander información</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+    </div>
+
+{% endblock %}
