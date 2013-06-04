@@ -1,0 +1,87 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Newsletter Title</title>
+	<link rel="stylesheet" href="css/screen.css" type="text/css"/>
+</head>
+
+<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="-webkit-font-smoothing:antialiased; width:100% !important; -webkit-text-size-adjust:none; margin: 0; padding: 0;">
+
+	
+
+	<!-- Layout 1 -->
+	<!-- Generic Content - 1 column text only -->
+	<repeater>
+		<layout label="Generic Article">
+			<table class="w640 article" width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
+
+				<!-- Section Divider -->
+				<tr>
+					<td class="w640" width="640" height="18" align="center"></td>
+				</tr>
+				<tr>
+					<td class="w640 section-divider" width="100%">
+						<table class="w640" cellpadding="0" cellspacing="0" border="0" align="center">
+							<tr>
+								<td class="w20 hide" width="20"></td>
+								<td class="w640 grey" width="600" height="1"></td>
+								<td class="w20 hide" width="20"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="w640" width="640" height="24" align="center"></td>
+				</tr>
+
+				<!-- Content -->
+				<tr>
+					<td class="w640 section-content" width="100%">
+						<table class="w640 article-content" cellpadding="0" cellspacing="0" border="0" align="center">
+							<tr>
+								<td class="w20 hide" width="20"></td>
+								<td class="w640 article-copy" width="600">
+									<h1><singleline label="Article Title" repeatertitle="true"><a href="#">Recordatorio de Cita Virtual</a></singleline></h1>
+									<multiline label="Main Article Content">
+										<p>Tienes una evento programado con <b>{{event.professional.user.name}} {{event.professional.user.surname}}</b>.</p>
+										<ul>
+											<li>Inicio de la consulta: {{ event.getStartDate()|date('d-M-Y: H:i') }}</li>
+										</ul>
+										<p>Puedes acceder a la consulta mediante el link que te proporcionamos a continuación:<br> 
+										<a href="http://{{host}}{{path('home_guess_client',{token:event.getClientAccessToken()}) }}">http://{{host}}{{path('home_guess_client',{token:event.getClientAccessToken()}) }}</a>
+										</p>
+
+									</multiline>
+								</td>
+								<td class="w20 hide" width="20"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<!-- Button -->
+				<tr>
+					<td class="w640" width="100%">
+						<table class="w640 article-content" width="600" cellpadding="0" cellspacing="0" border="0" align="center">
+							<tr>
+								<td class="w640" width="200" height="30" valign="middle" align="center">
+									<p class="btn">
+										<singleline label="Click-through Link">Acceder a la Consulta</singleline>
+									</p>
+								</td>
+								<td class="w20 hide" width="420"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+			</table>
+		</layout>
+
+		
+	</repeater>
+
+
+	</body>
+</html>
