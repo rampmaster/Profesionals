@@ -26,5 +26,6 @@ class SubdomainListener
        		$username = $parts[0];
        }
        $session->set('subdomain', $username);
+       $session->set('host', $parts[0]);
    }
 }
