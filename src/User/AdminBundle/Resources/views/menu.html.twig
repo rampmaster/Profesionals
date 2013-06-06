@@ -9,7 +9,11 @@
                         <i class="icon-user"></i> Profesionales
                     </a>
                 </li>
-
+ <li class="{% if active == 'sales' %}active{% endif %}">
+     <a href="{{ path('admin_sales') }}">
+         <i class="icon-barcode"></i> Sales
+     </a>
+ </li>
 
                 <li class="">
                     <a href="{{ path('fos_user_security_logout') }}">

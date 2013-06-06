@@ -23,6 +23,38 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/Buy-Product/{symbol}", name="profesional_buy_product", defaults={"symbol" = "noplan"})
+     */
+    public function buyproductAction($symbol)
+    {
+
+        $salesManager = $this->get('sales_manager');
+
+        if ($symbol != 'noplan') {
+
+
+            $trans = $salesManager->buyProduct($symbol);
+
+            /*
+                        $bridgeModel = new \Core\SalesBundle\Manager\BridgeManager();
+
+                        $transaction = $bridgeModel->emulateTransaction($trans['transaction'],$trans['method']);
+
+                        $salesManager->transactionComplete($transaction);
+
+                        print_r($transaction);
+
+                        return new \Symfony\Component\HttpFoundation\Response('Ok');
+            */
+            return $this->render($trans['method']->getViewRedirect(), array('transaction' => $trans['transaction'], 'numCreditsAvailable' => $salesManager->getCredits('count')));
+
+        }
+
+        throw new \Exception('No product selected');
+
+    }
+
+    /**
      * @Route("/consulta", name="profesional_consulta")
      * @Template()
      */
@@ -30,6 +62,11 @@ class DefaultController extends Controller
     {
 
         $useragent = new Agent();
+        $salesManager = $this->get('sales_manager');
+
+        if(!$salesManager->checkIsAvailable('plan_test')){
+            throw new \Exception('Producto no disponible');
+        }
 
         if (!$useragent->checkCapable()) {
             return $this->render('::browsernotsupported.html.twig');

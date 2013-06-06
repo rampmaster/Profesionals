@@ -81,3 +81,13 @@ services:
 genemu_form:
     select2: ~
     date: ~
+
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://localhost:27017
+            options: {}
+    default_database: professionals
+    document_managers:
+        default:
+            auto_mapping: true
