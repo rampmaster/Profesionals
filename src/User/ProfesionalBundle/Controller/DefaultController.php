@@ -61,6 +61,7 @@ class DefaultController extends Controller
 
                 $this->getDoctrine()->getManager()->persist($user);
                 $this->getDoctrine()->getManager()->flush();
+                $this->get('session')->getFlashBag()->add('notice', 'Información guardada con éxito.');
             }
         }
 

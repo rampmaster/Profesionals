@@ -63,7 +63,7 @@ class ClientesController extends Controller
                 $this->getDoctrine()->getManager()->persist($client->getUser());
                 $this->getDoctrine()->getManager()->flush();
                 $usermanager->updateUser($client->getUser());
-
+                $this->get('session')->getFlashBag()->add('notice', 'Cliente añadido con éxito.');
 
                 return $this->redirect($this->generateUrl('profesional_clientes'));
             }

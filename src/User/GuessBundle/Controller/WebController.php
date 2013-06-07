@@ -41,7 +41,7 @@ class WebController extends Controller
 
                 $message = \Swift_Message::newInstance()
                     ->setSubject('SOLICITUD DE INFORMACIÓN')
-                    ->setFrom('varavan.pro@gmail.com')
+                    ->setFrom('noreply@varavan.com')
                     ->setTo('varavan.pro@gmail.com')
                     ->setBody($this->renderView(
                         'UserGuessBundle:Email:contact.txt.twig',

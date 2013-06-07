@@ -31,7 +31,7 @@ class NotifyEventsCommand extends ContainerAwareCommand
         foreach($notifications as $notification){
             $token = md5(time()."_token");
             $notification->setClientAccessToken($token);
-            $notification->setNotifiedAt(new \DateTime());
+            //$notification->setNotifiedAt(new \DateTime());
             $entityManager->persist($notification);
 
             $target = $notification->getClient()->getUser()->getEmail();
@@ -42,7 +42,7 @@ class NotifyEventsCommand extends ContainerAwareCommand
 
             $message = \Swift_Message::newInstance()
                             ->setSubject('Recordatorio de Cita')
-                            ->setFrom('varavan.pro@gmail.com')
+                            ->setFrom('noreply@varavan.com')
                             ->setTo($target)
                             ->setBody($content,'text/html');
                  
