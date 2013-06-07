@@ -1,31 +1,5 @@
-
-<!DOCTYPE HTML>
-<!--
-	Strongly Typed 1.0 by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>varavan.com</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<meta name="viewport" content="width=1040" />
-		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Arvo:700" rel="stylesheet" type="text/css" />
-		<script src="{{ asset('bundles/coreresources/web/js/jquery-1.9.1.min.js') }}"></script>
-		<script src="{{ asset('bundles/coreresources/web/js/jquery.dropotron-1.3.js') }}"></script>
-		<script src="{{ asset('bundles/coreresources/web/js/config.js') }}"></script>
-		<script src="{{ asset('bundles/coreresources/web/js/skel.min.js') }}"></script>
-		<script src="{{ asset('bundles/coreresources/web/s/skel-ui.min.js') }}"></script>
-		<noscript>
-			<link rel="stylesheet" href="{{ asset('bundles/coreresources/web/css/skel-noscript.css') }}" />
-			<link rel="stylesheet" href="{{ asset('bundles/coreresources/web/css/style.css') }}" />
-			<link rel="stylesheet" href="{{ asset('bundles/coreresources/web/css/style-desktop.css') }}" />
-		</noscript>
-		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
-	</head>
-	<body class="homepage">
+{% extends 'UserGuessBundle:Web:layout.html.twig'%}
+{% block content %}
 
 		<!-- Header Wrapper -->
 			<div id="header-wrapper">
@@ -37,29 +11,84 @@
 							<h1 id="logo"><a href="#">Varavan</a></h1>
 							<p>Sistema de videoconferencia para profesionales</p>
 							
-							<ul class="actions">
-								<li><a href="/login" class="button button-icon icon icon-home">Acceso a Miembros</a></li>
-							</ul>
 					</div>
 
 			</div>
-			
+
+			<div id="features-wrapper">
+				<section id="features" class="container">
+					<div class="row marketing">
+							<div class="4u">
+
+								<!-- Feature -->
+									<section>
+										<i class="icon icon-facetime-video"></i>
+										<header>
+											<h3>Confianza en alta calidad</h3>
+										</header>
+										<p>Sorprenda a sus clientes con su propia plataforma de vídeoconferencia de alta calidad y estabilidad, gracias al revolucionario códec <i>VP8</i> y la tecnología <i>WebRTC</i>. </p>
+									</section>
+
+							</div>
+							<div class="4u">
+
+								<!-- Feature -->
+									<section>
+										<i class="icon icon-briefcase"></i>
+										<header>
+											<h3>Trabaja desde cualquier sitio</h3>
+										</header>
+										<p>Te ofrecemos herramientas para que puedas organizar tus oficina online: consulta privada, calendario de citas, gestión de informes, etc. </p>
+									</section>
+									
+							</div>
+							<div class="4u">
+
+								<!-- Feature -->
+									<section>
+										<i class="icon icon-rotate-right"></i>
+										<header>
+											<h3>Rentabiliza tus servicios online</h3>
+										</header>
+										<p>Si tu tiempo es oro, podrás establecer un coste por sesión o por minuto, de manera que tus usuarios podrán pagar tus consultas al instante.</p>
+									</section>
+
+							</div>
+						</div>
+				</section>
+			</div>
+
 			{% if sent != true %}
 		<!-- Banner Wrapper -->
 			<div id="banner-wrapper">
+				<section>
+				<div class="row">
+						<div class="1u">
+							&nbsp;
+						</div>
+						<div class="6u">
+							<a href="{{ path('home_promo') }}" class="button cupid-green" style="display:block;">Pruébalo Gratis</a>
+						</div>
+						<div class="4u">
+							<a href="/login" class="button button-icon icon icon-home" style="display:block">Acceso a Miembros</a>
+						</div>
+					</div>
+				</section>
 				<div class="inner">
+
 
 					<!-- Banner -->
 						<section id="banner" class="container">
 							<p>Vídeo de <strong>alta calidad</strong>.<br />
-							para navegadores de última generación.</p>
+							para profesionales de última generación.</p>
 						</section>
 
 				</div>
 			</div>
 			{% endif %}
-		<!-- Footer Wrapper -->
-			<div id="footer-wrapper">
+
+{% endblock %}
+{% block footer %}
 
 				<!-- Footer -->
 				{% if sent != true %}
@@ -113,16 +142,6 @@
 						</header>
 					</div>
 								{% endif %}
+{% endblock %}
 
-				<!-- Copyright -->
-					<div id="copyright" class="container">
-						<ul class="links">
-							<li>&copy; Profesional</li>
-							<li>Design: <a target="_blank" href="http://html5up.net/">HTML5 UP</a></li>
-						</ul>
-					</div>
-
-			</div>
-
-	</body>
-</html>
+			

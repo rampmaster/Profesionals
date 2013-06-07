@@ -54,4 +54,29 @@ class WebController extends Controller
 
         return array('form'=>$form->createView(),'sent'=>$sent);
     }
+
+
+
+    /**
+     * @Route("/alta", name="home_promo")
+     * @Template()
+     */
+    public function registerAction()
+    {
+        $sent=false;
+
+        $contact = new Contact();
+        $form = new \User\AdminBundle\Form\ProfesionalType();
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if ($form->isValid()) {
+               
+            }
+        } 
+
+        return array('form'=>$form->createView());
+    }
+
 }

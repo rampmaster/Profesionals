@@ -32,6 +32,12 @@ class ClientesController extends Controller
      */
     public function addAction()
     {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $professional = $user->getProfessional();
+
+        if(!$professional){
+            throw new \Exception("Professional not found");
+        }
         $usermanager = $this->get('fos_user.user_manager');
         $client = new Client();
         $user = $usermanager->createUser();
@@ -50,8 +56,10 @@ class ClientesController extends Controller
                 $client->setLastVisit(new \DateTime());
                 $user->upload();
 
-
+                $client->setProfessional($professional);
+                $professional->addClient($client);
                 $this->getDoctrine()->getManager()->persist($client);
+                $this->getDoctrine()->getManager()->persist($professional);
                 $this->getDoctrine()->getManager()->persist($client->getUser());
                 $this->getDoctrine()->getManager()->flush();
                 $usermanager->updateUser($client->getUser());
