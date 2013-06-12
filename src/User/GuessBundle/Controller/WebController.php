@@ -41,7 +41,7 @@ class WebController extends Controller
 
                 $message = \Swift_Message::newInstance()
                     ->setSubject('SOLICITUD DE INFORMACIÓN')
-                    ->setFrom('varavan.pro@gmail.com')
+                    ->setFrom('noreply@varavan.com')
                     ->setTo('varavan.pro@gmail.com')
                     ->setBody($this->renderView(
                         'UserGuessBundle:Email:contact.txt.twig',
@@ -54,4 +54,29 @@ class WebController extends Controller
 
         return array('form'=>$form->createView(),'sent'=>$sent);
     }
+
+
+
+    /**
+     * @Route("/alta", name="home_promo")
+     * @Template()
+     */
+    public function registerAction()
+    {
+        $sent=false;
+
+        $contact = new Contact();
+        $form = new \User\AdminBundle\Form\ProfesionalType();
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if ($form->isValid()) {
+               
+            }
+        } 
+
+        return array('form'=>$form->createView());
+    }
+
 }

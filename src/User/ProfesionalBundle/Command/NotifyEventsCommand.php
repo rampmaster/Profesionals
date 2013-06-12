@@ -26,7 +26,7 @@ class NotifyEventsCommand extends ContainerAwareCommand
             $limite = $input->getOption('size');
         }
 
-        $notifications = $entityManager->createQuery("SELECT e FROM UserProfesionalBundle:ProfesionalEvent e WHERE e.notified_at IS NULL AND e.notify = TRUE AND e.notify_at < :now")
+        $notifications = $entityManager->createQuery("SELECT e FROM UserProfesionalBundle:ProfessionalEvent e WHERE e.notified_at IS NULL AND e.notify = TRUE AND e.notify_at < :now")
                                         ->setParameter('now',new \DateTime())->getResult();
         foreach($notifications as $notification){
             $token = md5(time()."_token");
@@ -36,16 +36,18 @@ class NotifyEventsCommand extends ContainerAwareCommand
 
             $target = $notification->getClient()->getUser()->getEmail();
             $output->writeln("Sent to: ".$target);
+            $content =$this->getContainer()->get('templating')
+                                    ->render('UserProfesionalBundle:Email:notifyevent.html.twig',
+                                    array('event'=>$notification,'host'=>$this->getContainer()->get('session')->get('host')));
 
             $message = \Swift_Message::newInstance()
-                    ->setSubject('Información de Cita Online')
-                    ->setFrom('varavan.pro@gmail.com')
-                    ->setTo($target)
-                    ->setBody($this->getContainer()->get('templating')
-                                    ->render('UserProfesionalBundle:Email:notifyevent.html.twig',
-                                    array('event'=>$notification,'host'=>$this->getContainer()->get('session')->get('host'))),'text/html');
-                
-            $this->getContainer()->get('mailer')->send($message);
+                            ->setSubject('Recordatorio de Cita')
+                            ->setFrom('noreply@varavan.com')
+                            ->setTo($target)
+                            ->setBody($content,'text/html');
+                 
+            $response = $this->getContainer()->get('mailer')->send($message);
+            $output->writeln("Status: ".$response);
         }
         $entityManager->flush();
         $output->writeln(count($notifications));

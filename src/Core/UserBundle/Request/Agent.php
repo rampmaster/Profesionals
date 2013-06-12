@@ -95,7 +95,6 @@ class Agent
         $val = true;
         //css test
 
-
         if($this->browser['browser'] != 'Chrome')
         {
             $val = false;

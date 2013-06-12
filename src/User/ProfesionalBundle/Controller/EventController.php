@@ -52,7 +52,7 @@ class EventController extends Controller
             $em->persist($professional);
             $em->persist($event);
             $em->flush();
-
+            $this->get('session')->getFlashBag()->add('notice', 'Evento añadido con éxito');
             return $this->redirect($this->generateUrl('profesional_calendar'));
 
         }
