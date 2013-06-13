@@ -34,6 +34,8 @@ class AppKernel extends Kernel
             new Core\SalesBundle\CoreSalesBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

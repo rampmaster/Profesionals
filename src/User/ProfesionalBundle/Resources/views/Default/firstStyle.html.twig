@@ -1,0 +1,83 @@
+{% set active = 'professional' %}
+{% extends '::layout.html.twig' %}
+{% block aside %}
+<!-- blank -->
+{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('bundles/coreresources/colorpicker/css/colorpicker.css') }}" rel="stylesheet" />
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/coreresources/colorpicker/js/colorpicker.js') }}"></script>
+    {{ form_javascript(form) }}
+{% endblock %}
+{% block panel %}
+
+    <div class="span8 offset2 wizard">
+        <h1>Último Paso</h1>
+        <div class="box">
+        <div class="tab-header">
+            Personaliza tu consulta profesional
+        </div>
+        <form method="post" class="fill-up" {{ form_enctype(form) }}>
+        <div class="padded">
+        <div class="row">
+            <div class="span4 offset2">
+                <h3>Logotipo</h3>
+                <span>Dimensiones recomendadas: 500x180</span>
+            </div>
+            <div class="span6">
+                {{ form_widget(form.file) }}
+            </div>
+        
+        </div>
+        <hr>
+        <div class="row">
+            <div class="span4 offset2">
+                <h3>Color Frontal</h3>
+                <span>Color del fondo de la consulta</span>
+            </div>
+            <div class="span4">
+                {{ form_widget(form.color_bg_main) }}
+            </div>
+        
+        </div>
+        <hr>
+        <div class="row">
+            <div class="span4 offset2">
+                <h3>Color Secundario</h3>
+                <span>Color del botón de la consulta</span>
+            </div>
+            <div class="span4">
+                {{ form_widget(form.color_bg_secd) }}
+            </div>
+        
+        </div>
+        <hr>
+        <div class="row">
+            <div class="span4 offset2">
+                <h3>Color del Texto</h3>
+                <span>Color del texto del botón de la consulta</span>
+            </div>
+            <div class="span4">
+                {{ form_widget(form.color_extra) }}
+            </div>
+        
+        </div>
+        
+        
+        
+        
+        {{ form_widget(form._token) }}
+        <hr>
+            <input type="submit" class="btn btn-block btn-success" value="Guardar cambios">
+            </div>
+        </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block nav_secondary %}
+    {% include 'UserAdminBundle:Professional:menu.html.twig' %}
+{% endblock %}

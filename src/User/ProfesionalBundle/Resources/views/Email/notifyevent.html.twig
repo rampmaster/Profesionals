@@ -42,6 +42,8 @@
 							<tr>
 								<td class="w20 hide" width="20"></td>
 								<td class="w640 article-copy" width="600">
+									<img src="http://{{host}}.varavan.com/images/styles/{{host}}/logo.png">
+									<br>
 									<h1><singleline label="Article Title" repeatertitle="true"><a href="#">Recordatorio de Cita Virtual</a></singleline></h1>
 									<multiline label="Main Article Content">
 										<p>Tienes una evento programado con <b>{{event.professional.user.name}} {{event.professional.user.surname}}</b>.</p>
@@ -49,7 +51,7 @@
 											<li>Inicio de la consulta: {{ event.getStartDate()|date('d-M-Y: H:i') }}</li>
 										</ul>
 										<p>Puedes acceder a la consulta mediante el link que te proporcionamos a continuación:<br> 
-										<a href="http://{{host}}{{path('home_guess_client',{token:event.getClientAccessToken()}) }}">http://{{host}}{{path('home_guess_client',{token:event.getClientAccessToken()}) }}</a>
+										<a href="http://{{host}}.varavan.com{{path('home_guess_client',{token:event.getClientAccessToken()}) }}">http://{{host}}{{path('home_guess_client',{token:event.getClientAccessToken()}) }}</a>
 										</p>
 
 									</multiline>

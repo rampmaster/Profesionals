@@ -20,6 +20,14 @@ class NotifyEventsCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
+
+        //$context = $this->getContainer()->get('router')->getContext();
+        //$context->setHost('varavan.com');
+        //$context->setScheme('http');
+        //$context->setBaseUrl('/');
+        
+
         $entityManager = $this->getContainer()->get('doctrine')->getManager();
 
         if ($input->getOption('size')) {
@@ -34,11 +42,15 @@ class NotifyEventsCommand extends ContainerAwareCommand
             //$notification->setNotifiedAt(new \DateTime());
             $entityManager->persist($notification);
 
+            $host = $professional->getUsername();
+
+            $professional = $notification->getProfessional();
+            //$professional->getStyle()->get
+
             $target = $notification->getClient()->getUser()->getEmail();
-            $output->writeln("Sent to: ".$target);
             $content =$this->getContainer()->get('templating')
                                     ->render('UserProfesionalBundle:Email:notifyevent.html.twig',
-                                    array('event'=>$notification,'host'=>$this->getContainer()->get('session')->get('host')));
+                                    array('event'=>$notification,'host'=>$host));
 
             $message = \Swift_Message::newInstance()
                             ->setSubject('Recordatorio de Cita')
@@ -46,10 +58,23 @@ class NotifyEventsCommand extends ContainerAwareCommand
                             ->setTo($target)
                             ->setBody($content,'text/html');
                  
-            $response = $this->getContainer()->get('mailer')->send($message);
-            $output->writeln("Status: ".$response);
+            $this->getContainer()->get('mailer')->send($message);
+            $output->writeln(" - Notificaion para '".$target."' cargada");
         }
         $entityManager->flush();
         $output->writeln(count($notifications));
+
+        $transport = $this->getContainer()->get('mailer')->getTransport();
+        if (!$transport instanceof \Swift_Transport_SpoolTransport) {
+            return;
+        }
+
+        $spool = $transport->getSpool();
+        if (!$spool instanceof \Swift_MemorySpool) {
+            return;
+        }
+        $output->writeln("Enviando emails...");
+        $spool->flushQueue($this->getContainer()->get('swiftmailer.transport.real'));
+
     }
 }

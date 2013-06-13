@@ -1,0 +1,24 @@
+{% extends '::layout.html.twig' %}
+{% set active = 'settings' %}
+        {% block nav_secondary%}{% endblock %}
+{% block section_nav %}
+    <div class="row-fluid">
+  <div class="span12" style="margin-bottom: 20px;">
+    <div style="margin-bottom: 20px;">
+
+  <div class="big-button-bar">
+    <a class="button large{% if secondary_active == 'settings' %} active{% endif %}" href="{{ path('profesional_settings') }}">
+      <i class="icon-user"></i>
+      <span>Cuenta</span>
+    </a>
+
+    <a class="button large{% if secondary_active == 'styles' %} active{% endif %}" href="{{ path('profesional_style') }}">
+      <i class="icon-picture"></i>
+      <span>Personalizar Consulta</span>
+    </a>
+  </div>
+
+</div>
+  </div>
+</div>
+    {% endblock %}

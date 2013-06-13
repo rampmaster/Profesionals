@@ -78,6 +78,7 @@ services:
      class: User\ProfesionalBundle\Listener\SubdomainListener
      tags:
          - { name: kernel.event_listener, event: kernel.request, method: subdomainParse }
+
 genemu_form:
     select2: ~
     date: ~
@@ -91,3 +92,17 @@ doctrine_mongodb:
     document_managers:
         default:
             auto_mapping: true
+
+hwi_oauth:
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            linkedin: linkedin_id
+    resource_owners:
+        linkedin:
+            type:                linkedin
+            client_id:           vt8q385fsrgw
+            infos_url:           http://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url,email-address,skills)
+            client_secret:       boEcwyI2HPTVyhSL
+            scope: r_basicprofile,r_fullprofile,r_emailaddress

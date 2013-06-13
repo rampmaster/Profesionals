@@ -11,6 +11,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\SecurityContext;
 
+
+use Symfony\Component\EventDispatcher\EventDispatcher,
+    Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken,
+    Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+
+use FOS\UserBundle\Model\UserInterface;
+
+use Symfony\Component\Security\Core\Exception\AccountStatusException;
+
 class DefaultController extends Controller
 {
 
@@ -21,7 +30,7 @@ class DefaultController extends Controller
     {
 
         $user = $this->get('security.context')->getToken()->getUser();
-        $securityContext = $this->container->get('security.context');
+        $securityContext = $this->get('security.context');
 
         if($securityContext->isGranted('ROLE_ADMIN')){
             return $this->redirect($this->generateUrl('admin_professionals'));
@@ -53,16 +62,48 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/authenticate/{token}", name="home_guess_client")
+     * @Route("/acceder/{token}", name="home_guess_client")
      */
     public function clientAction($token)
     {
         $em = $this->getDoctrine()->getManager();
-        $event = $em->getRepository('UserProfesionalBundle:ProfesionalEvent')->findOneByClientAccessToken($token);
+        $event = $em->getRepository('UserProfesionalBundle:ProfessionalEvent')->findOneBy(array('client_access_token'=>$token));
         if(!$event){
             throw new \Exception("Token not found");
         }
-        die("We provide: ".$event->getClient()->getUser()->getUsername());
+        
+        $user_email = $event->getClient()->getUser()->getEmail();
+        $userManager = $this->get('fos_user.user_manager');
+        $user = $userManager->findUserByEmail($user_email);
+        if(!$user){
+            throw new \Exception("User not found");
+        }
+        $response = $this->redirect($this->generateUrl('home_guess')); 
+        
+        return $this->authenticateUser($user,$response);
+    }
 
-    } 
+    /**
+     * Authenticate a user with Symfony Security
+     *
+     * @param \FOS\UserBundle\Model\UserInterface        $user
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     */
+    protected function authenticateUser(UserInterface $user, Response $response)
+    {
+        try {
+            $this->get('fos_user.security.login_manager')->loginUser(
+                $this->container->getParameter('fos_user.firewall_name'),
+                $user,
+                $response);
+        } catch (AccountStatusException $ex) {
+            // We simply do not authenticate users which do not pass the user
+            // checker (not enabled, expired, etc.).
+            throw new \Exception("OOps not avaliable...");
+        } catch (\Exception $e) {
+            throw new \Exception("OOps not login...");
+        }
+        return $response;
+    }
+
 }

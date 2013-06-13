@@ -42,28 +42,28 @@ class Styles
     /**
      * @var string
      *
-     * @ORM\Column(name="color_bg_main", type="string", length=255)
+     * @ORM\Column(name="color_bg_main", type="string", length=255,nullable=true)
      */
     private $colorBgMain;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="color_bg_secd", type="string", length=255)
+     * @ORM\Column(name="color_bg_secd", type="string", length=255,nullable=true)
      */
     private $colorBgSecd;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="color_extra", type="string", length=255)
+     * @ORM\Column(name="color_extra", type="string", length=255,nullable=true)
      */
     private $colorExtra;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="raw_css", type="text")
+     * @ORM\Column(name="raw_css", type="text",nullable=true)
      */
     private $rawCss;
 
@@ -130,7 +130,7 @@ class Styles
 
     public function upload($username="default")
     {
-        $this->writeCss($this->getUploadRootDir("/".$username)."/styles.css");
+        $this->writeCss($this->getUploadRootDir("/".$username));
         if (null === $this->file) {
             return;
         }
@@ -158,7 +158,10 @@ class Styles
         $css .= "color: ".$this->colorExtra;
         $css .= " }\n";
         $css .= $this->rawCss;
-        file_put_contents($filename, $css);
+        if(!is_dir($filename)){
+            mkdir($filename);
+        }
+        file_put_contents($filename."/styles.css", $css);
     }
 
 

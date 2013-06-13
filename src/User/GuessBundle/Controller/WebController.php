@@ -63,20 +63,7 @@ class WebController extends Controller
      */
     public function registerAction()
     {
-        $sent=false;
-
-        $contact = new Contact();
-        $form = new \User\AdminBundle\Form\ProfesionalType();
-
-        $request = $this->getRequest();
-        if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
-            if ($form->isValid()) {
-               
-            }
-        } 
-
-        return array('form'=>$form->createView());
+        return array();
     }
 
 }

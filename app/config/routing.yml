@@ -47,6 +47,7 @@ user_guess:
     prefix:   /
 
 
+
 # FOS USER BUNDLE ROUTING
 
 fos_user_security:
@@ -67,6 +68,22 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+#OAUTH Bundle
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+linkedin_login:
+    pattern: /login/check-linkedin
+
+#HWIOAuthBundle routes
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /login
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /login
 
 # CALENDAR BUNDLE
 adesigns_calendar:

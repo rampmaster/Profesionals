@@ -1217,3 +1217,5 @@
 		border-top: solid 2px #e5e5e5;
 		text-align: center;
 	}
+
+	ul.style1 li { text-align: left;}

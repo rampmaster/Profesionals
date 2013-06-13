@@ -10,7 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-
+use User\ProfesionalBundle\Form\StylesType;
+use User\ProfesionalBundle\Entity\Styles;
 
 class DefaultController extends Controller
 {
@@ -51,7 +52,90 @@ class DefaultController extends Controller
         }
 
         throw new \Exception('No product selected');
+    }
 
+    /**
+     * @Route("/crear-y-personalizar", name="profesional_first_style")
+     * @Template()
+     */
+    public function firstStyleAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usermanager = $this->get('fos_user.user_manager');
+        $user = $this->get('security.context')->getToken()->getUser();
+        $professional = $user->getProfessional();
+        $username = $user->getUsername();
+        if(!$professional){
+            throw new \Exception("Error cargando perfil.");
+        }
+
+        $styles = $professional->getStyles();
+        if(!$styles){
+            $styles = new Styles();
+            $styles->setProfessional($professional);
+            $professional->setStyles($styles);
+            $styles->setCreatedAt(new \DateTime());
+        }
+
+
+        $form = $this->createForm(new StylesType(), $styles);
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if ($form->isValid()) {
+                $styles->setUpdatedAt(new \DateTime());
+                $styles->upload($username);
+                $em->persist($styles);
+                $em->persist($professional);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('notice', 'Tu plataforma se ha creado con éxito');
+                return $this->redirect($this->generateUrl('profesional_consulta'));
+            }
+        }
+        return array('form' => $form->createView());
+    }
+
+    /**
+     * @Route("/personalizar", name="profesional_style")
+     * @Template()
+     */
+    public function stylesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usermanager = $this->get('fos_user.user_manager');
+        $user = $this->get('security.context')->getToken()->getUser();
+        $professional = $user->getProfessional();
+        $username = $user->getUsername();
+        if(!$professional){
+            throw new \Exception("Error cargando perfil.");
+        }
+
+        $styles = $professional->getStyles();
+        if(!$styles){
+            $styles = new Styles();
+            $styles->setProfessional($professional);
+            $professional->setStyles($styles);
+            $styles->setCreatedAt(new \DateTime());
+        }
+
+
+        $form = $this->createForm(new StylesType(), $styles);
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if ($form->isValid()) {
+                $styles->setUpdatedAt(new \DateTime());
+                $styles->upload($username);
+                $em->persist($styles);
+                $em->persist($professional);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('notice', 'Tu plataforma se ha creado con éxito');
+                return $this->redirect($this->generateUrl('profesional_consulta'));
+            }
+        }
+        return array('form' => $form->createView());
     }
 
     /**
@@ -60,6 +144,19 @@ class DefaultController extends Controller
      */
     public function consultaAction()
     {
+
+        $user = $this->get('security.context')->getToken()->getUser();
+        if(!$user){
+            throw new \Exception("User not found");
+        }
+        $professional = $user->getProfessional();
+        if(!$professional){
+            throw new \Exception("Profile not found");
+        }
+        $styles = $professional->getStyles();
+        if(!$styles){
+            return $this->redirect($this->generateUrl('profesional_first_style'));
+        }
 
         $useragent = new Agent();
         $salesManager = $this->get('sales_manager');
