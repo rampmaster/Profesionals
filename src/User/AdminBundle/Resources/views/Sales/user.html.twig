@@ -1,0 +1,20 @@
+{% set active = 'sales' %}
+{% set active_sales = 'sales' %}
+
+{% extends 'UserAdminBundle::layout.html.twig' %}
+
+
+{% block panel %}
+
+    <h1>Información de ventas sobre {{ user.name }} {{ user.surname }}</h1>
+
+    <div class="box span10">
+        <div class="padded">
+            {% include 'CoreSalesBundle:Admin:User/admindefault.html.twig' %}
+        </div>
+    </div>
+
+{% endblock %}
+        {% block nav_secondary %}
+
+        {% endblock %}

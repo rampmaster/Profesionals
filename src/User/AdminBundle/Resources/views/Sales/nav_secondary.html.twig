@@ -1,0 +1,71 @@
+{% block nav_secondary %}
+<nav id="secondary" class="main-nav">
+
+    <div class="profile-menu">
+
+        <div class="pull-left">
+            <div class="avatar">
+                <img src="{{ asset('bundles/coreresources/theme/images/cloud.png') }}" />
+            </div>
+        </div>
+
+        <div class="pull-left">
+            <div class="title">
+                Sales
+            </div>
+
+        </div>
+
+        <div class="pull-right profile-menu-nav-collapse">
+            <button class="button black"><i class="icon-reorder"></i></button>
+        </div>
+
+    </div>
+
+    <ul class="secondary-nav-menu">
+        <li class="{% if active_sales == 'admin_sales_products' %}active{% endif %}">
+            <a href="{{ path('admin_sales_products') }}">
+                <i class="icon-lock"></i> Productos
+            </a>
+        </li>
+
+        <li class="{% if active_sales == 'admin_sales_plans' %}active{% endif %}">
+            <a href="{{ path('admin_sales_plans') }}">
+                <i class="icon-tags"></i> Planes
+            </a>
+        </li>
+
+
+        <li class="{% if active_sales == 'admin_sales_pays_history' %}active{% endif %}">
+            <a href="{{ path('admin_sales_pays_history', {'firstResult': 0, 'maxResult': 10}) }}">
+                <i class="icon-gift"></i> Registro de pagos
+            </a>
+        </li>
+
+        <li class="{% if active_sales == 'admin_sales_plan_history' %}active{% endif %}">
+            <a href="{{ path('admin_sales_plan_history') }}">
+                <i class="icon-list"></i> Registro de suscripciones
+            </a>
+        </li>
+
+        <li class="{% if active_sales == 'admin_sales_tools' %}active{% endif %}">
+            <a href="{{ path('admin_sales_tools') }}">
+                <i class="icon-wrench"></i> Herramientas
+            </a>
+        </li>
+
+        <li class="{% if active_sales == 'admin_sales_promotions' %}active{% endif %}">
+            <a href="{{ path('admin_sales_promotions') }}">
+                <i class="icon-qrcode"></i> Promociones
+            </a>
+        </li>
+
+        <li class="{% if active_sales == 'admin_sales_commissions' %}active{% endif %}">
+            <a href="{{ path('admin_sales_commissions') }}">
+                <i class="icon-book"></i> Comisiones
+            </a>
+        </li>
+    </ul>
+
+</nav>
+{% endblock %}

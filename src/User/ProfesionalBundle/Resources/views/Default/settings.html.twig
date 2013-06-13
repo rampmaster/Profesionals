@@ -2,8 +2,8 @@
 {% set secondary_active = 'settings' %}
 {% block panel %}
 
-    <div class="row">
-        <div class="offset1 span5">
+    <div class="row-fluid">
+        <div class="span12 wizard">
             <div class="box">
                 <div class="tab-header">
                     Mis datos personales
@@ -34,21 +34,11 @@
                 </form>
             </div>
         </div>
-        <div class="span5 box">
-            <div class="tab-header">
-                Información de facturación
-            </div>
 
-            <div class="padded">
-                <a href="{{ path('profesional_buy_product', {'symbol': 'test_plan'}) }}">Comprar pla</a>
-            </div>
-        </div>
     </div>
 
 
 {% endblock %}
 
-<<<<<<< HEAD
+
 {% block nav_secondary %}{% endblock %}
-=======
->>>>>>> 9de7e3eb2168236f36a9f7d24c4f566590541291

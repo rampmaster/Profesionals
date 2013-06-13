@@ -33,6 +33,7 @@ class EventController extends Controller
         $event = new ProfessionalEvent();
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
+        $event->setProfessional($user->getProfessional());
 
         $form = $this->createForm(new ProfessionalEventType(), $event);
 

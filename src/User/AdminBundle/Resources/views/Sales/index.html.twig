@@ -1,0 +1,14 @@
+{% set active = 'sales' %}
+{% set active_sales = 'sales' %}
+
+{% extends 'UserAdminBundle::layout.html.twig' %}
+
+
+{% block panel %}
+
+    <h1>Seccion de ventas </h1>
+
+{% endblock %}
+{% block nav_secondary %}
+    {%  include 'UserAdminBundle:Sales:nav_secondary.html.twig' %}
+{% endblock %}

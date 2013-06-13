@@ -24,6 +24,19 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/planes", name="profesional_plans")
+     * @Template()
+     */
+    public function plansAction()
+    {
+        $salesmanager = $this->get('sales_manager');
+
+        $check = $salesmanager->checkIsAvailable('basic_plan');
+
+        return array('plan_available' => $check);
+    }
+
+    /**
      * @Route("/Buy-Product/{symbol}", name="profesional_buy_product", defaults={"symbol" = "noplan"})
      */
     public function buyproductAction($symbol)
@@ -82,10 +95,13 @@ class DefaultController extends Controller
         $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
+            $form->bind($request);
             if ($form->isValid()) {
                 $styles->setUpdatedAt(new \DateTime());
                 $styles->upload($username);
+
+                $usermanager->updateUser($styles->getProfessional()->getUser());
+
                 $em->persist($styles);
                 $em->persist($professional);
                 $em->flush();
@@ -124,14 +140,18 @@ class DefaultController extends Controller
         $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST') {
-            $form->bindRequest($request);
+            $form->bind($request);
             if ($form->isValid()) {
                 $styles->setUpdatedAt(new \DateTime());
                 $styles->upload($username);
+
+                //recojo el usuario y hago update de el
+
+                $usermanager->updateUser($styles->getProfessional()->getUser());
                 $em->persist($styles);
                 $em->persist($professional);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('notice', 'Tu plataforma se ha creado con éxito');
+                $this->get('session')->getFlashBag()->add('notice', 'Tu plataforma se ha actualizado con éxito');
                 return $this->redirect($this->generateUrl('profesional_consulta'));
             }
         }

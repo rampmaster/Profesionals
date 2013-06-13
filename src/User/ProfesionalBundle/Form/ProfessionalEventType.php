@@ -5,11 +5,14 @@ namespace User\ProfesionalBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class ProfessionalEventType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
 
             ->add('start_date', 'genemu_jquerydate', array(
@@ -36,6 +39,11 @@ class ProfessionalEventType extends AbstractType
             ))
             ->add('client', 'genemu_jqueryselect2_entity', array(
                 'class' => 'User\ClientBundle\Entity\Client',
+                'query_builder' => function(EntityRepository $er) use ($options) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.professional = :professional')
+                        ->setParameter('professional', $options['data']->getProfessional()->getId());
+                },
                 'property' => 'user.name',
                 'label' => 'Cliente asociado a la consulta'
             ))

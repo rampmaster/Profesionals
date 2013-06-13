@@ -1,0 +1,28 @@
+{% extends 'UserProfesionalBundle:Default:settings_layout.html.twig' %}
+{% set secondary_active = 'plans' %}
+{% block panel %}
+
+    <div class="row-fluid">
+        <div class="span12 wizard">
+            <div class="box">
+                <div class="tab-header">
+                    Información de facturación
+                </div>
+
+                <div class="padded">
+                    {% if plan_available %}
+                        Plan comprado!
+                    {% else %}
+                    <a href="{{ path('profesional_buy_product', {'symbol': 'test_plan'}) }}">Comprar pla</a>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block nav_secondary %}{% endblock %}

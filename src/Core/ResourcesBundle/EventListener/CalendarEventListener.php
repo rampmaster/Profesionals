@@ -9,11 +9,15 @@ class CalendarEventListener
 {
     private $entityManager;
     private $router;
+    private $user;
 
-    public function __construct(EntityManager $entityManager, $router)
+    public function __construct(EntityManager $entityManager, $router, $securityContext)
     {
         $this->entityManager = $entityManager;
         $this->router = $router;
+        if (is_object($securityContext->getToken())) {
+            $this->user = $securityContext->getToken()->getUser();
+        }
     }
 
     public function loadEvents(CalendarEvent $calendarEvent)
@@ -26,7 +30,8 @@ class CalendarEventListener
 
         $companyEvents = $this->entityManager->getRepository('UserProfesionalBundle:ProfessionalEvent')
             ->createQueryBuilder('company_events')
-            ->where('company_events.start_date BETWEEN :startDate and :endDate')
+            ->where('company_events.start_date BETWEEN :startDate and :endDate AND company_events.client = :user')
+            ->setParameter('user', $this->user->getProfessional()->getId())
             ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
             ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
             ->getQuery()->getResult();
@@ -36,9 +41,9 @@ class CalendarEventListener
 
 // create an event with a start/end time, or an all day event
 
-                $interval = new \DateInterval($companyEvent->getDuration());
-                $enddate = $companyEvent->getStartDate()->add($interval);
-                $eventEntity = new EventEntity($companyEvent->getClient()->getUser()->getName()." ".$companyEvent->getClient()->getUser()->getSurname(), $companyEvent->getStartDate(), $enddate);
+            $interval = new \DateInterval($companyEvent->getDuration());
+            $enddate = $companyEvent->getStartDate()->add($interval);
+            $eventEntity = new EventEntity($companyEvent->getClient()->getUser()->getName() . " " . $companyEvent->getClient()->getUser()->getSurname(), $companyEvent->getStartDate(), $enddate);
 
 
 //optional calendar event settings

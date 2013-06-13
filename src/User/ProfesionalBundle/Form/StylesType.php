@@ -30,6 +30,7 @@ class StylesType extends AbstractType
                 'attr' => array('class'=>"span12","rows"=>10),
                 'required' => false
             ))
+            ->add('professional', new ProfessionalUsernameType())
         ;
     }
 
