@@ -1,6 +1,5 @@
-{% set active = 'settings' %}
-{% extends '::layout.html.twig' %}
-
+{% extends 'UserProfesionalBundle:Default:settings_layout.html.twig' %}
+{% set secondary_active = 'settings' %}
 {% block panel %}
 
     <div class="span12">
@@ -36,4 +35,3 @@
 
 {% endblock %}
 
-        {% block nav_secondary%}{% endblock %}

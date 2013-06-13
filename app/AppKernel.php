@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
         );
 

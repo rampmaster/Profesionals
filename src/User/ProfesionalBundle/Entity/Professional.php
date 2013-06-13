@@ -31,6 +31,20 @@ class Professional
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="headline", type="string",nullable=true)
+     */
+    private $headline;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="skills", type="array",nullable=true)
+     */
+    private $skills;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
@@ -274,5 +288,51 @@ class Professional
             }
         }
         return $b;
+    }
+
+    /**
+     * Set headline
+     *
+     * @param string $headline
+     * @return Professional
+     */
+    public function setHeadline($headline)
+    {
+        $this->headline = $headline;
+
+        return $this;
+    }
+
+    /**
+     * Get headline
+     *
+     * @return string 
+     */
+    public function getHeadline()
+    {
+        return $this->headline;
+    }
+
+    /**
+     * Set skills
+     *
+     * @param array $skills
+     * @return Professional
+     */
+    public function setSkills($skills)
+    {
+        $this->skills = $skills;
+
+        return $this;
+    }
+
+    /**
+     * Get skills
+     *
+     * @return array 
+     */
+    public function getSkills()
+    {
+        return $this->skills;
     }
 }

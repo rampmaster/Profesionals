@@ -9,7 +9,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * ORM\Entity(repositoryClass="Core\UserBundle\Repository\UserRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="User")
  */
 class User extends BaseUser
@@ -52,6 +53,12 @@ class User extends BaseUser
      */
     private $mobile = null;
 
+    /** @ORM\Column(name="linkedin_id", type="string", length=255, nullable=true) */
+    protected $linkedin_id;
+ 
+    /** @ORM\Column(name="linkedin_access_token", type="array", nullable=true) */
+    protected $linkedin_access_token;
+
     //FILE UPLOAD
 
     /**
@@ -84,6 +91,11 @@ class User extends BaseUser
      */
     public $path = "avatar.png";
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $external_path = null;
+
     public function getAbsolutePath()
     {
         return null === $this->path
@@ -93,6 +105,10 @@ class User extends BaseUser
 
     public function getWebPath()
     {
+
+        if($this->path ==  "avatar.png" && $this->external_path!=null){
+            return $this->external_path;    
+        }
         return null === $this->path
             ? null
             : $this->getUploadDir().'/'.$this->path;
@@ -368,5 +384,74 @@ class User extends BaseUser
     public function getProfessional()
     {
         return $this->professional;
+    }
+
+    /**
+     * Set linkedin_id
+     *
+     * @param string $linkedinId
+     * @return User
+     */
+    public function setLinkedinId($linkedinId)
+    {
+        $this->linkedin_id = $linkedinId;
+
+        return $this;
+    }
+
+    /**
+     * Get linkedin_id
+     *
+     * @return string 
+     */
+    public function getLinkedinId()
+    {
+        return $this->linkedin_id;
+    }
+
+    /**
+     * Set linkedin_access_token
+     *
+     * @param string $linkedinAccessToken
+     * @return User
+     */
+    public function setLinkedinAccessToken($linkedinAccessToken)
+    {
+        $this->linkedin_access_token = $linkedinAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * Get linkedin_access_token
+     *
+     * @return string 
+     */
+    public function getLinkedinAccessToken()
+    {
+        return $this->linkedin_access_token;
+    }
+
+    /**
+     * Set external_path
+     *
+     * @param string $externalPath
+     * @return User
+     */
+    public function setExternalPath($externalPath)
+    {
+        $this->external_path = $externalPath;
+
+        return $this;
+    }
+
+    /**
+     * Get external_path
+     *
+     * @return string 
+     */
+    public function getExternalPath()
+    {
+        return $this->external_path;
     }
 }

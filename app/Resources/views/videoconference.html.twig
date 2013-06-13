@@ -5,8 +5,8 @@
 
             <div class="pull-left">
                 <div class="avatar">
-                    {% if app.user.webPath is not empty %}
-                        <img src="{{ asset(app.user.webPath) }}" width="50px" style="width: 50px" class="pull-right">
+                    {% if app.user.getWebPath() is not empty %}
+                        <img src="{{ asset(app.user.getWebPath()) }}" width="50px" style="width: 50px" class="pull-right">
                         {% else %}
                         <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}"/>
                     {% endif %}

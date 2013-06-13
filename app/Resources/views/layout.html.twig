@@ -12,6 +12,8 @@
     <link href="{{ asset('bundles/coreresources/css/custom.css') }}" media="screen" rel="stylesheet" type="text/css" />
     {% block header_scripts %}{% endblock %}
 
+    {% block stylesheets %}
+    {% endblock %}
 
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
 </head>
@@ -52,6 +54,7 @@
         </div>
     </div>
 </div>
+{% block aside %}
 <nav id="primary" class="main-nav">
     <ul>
     
@@ -178,12 +181,14 @@
 
 </nav>
 {% endblock %}
-
+{% endblock %}
 
 
 <section id="main">
     <div style="padding: 10px"></div>
 <div class="container-fluid" >
+    {% block section_nav %}
+    {% endblock %}
 <div class="row-fluid">
 {% block panel %}
 

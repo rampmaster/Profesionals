@@ -81,3 +81,16 @@ services:
 genemu_form:
     select2: ~
     date: ~
+hwi_oauth:
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            linkedin: linkedin_id
+    resource_owners:
+        linkedin:
+            type:                linkedin
+            client_id:           vt8q385fsrgw
+            infos_url:           http://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url,email-address,skills)
+            client_secret:       boEcwyI2HPTVyhSL
+            scope: r_basicprofile,r_fullprofile,r_emailaddress
