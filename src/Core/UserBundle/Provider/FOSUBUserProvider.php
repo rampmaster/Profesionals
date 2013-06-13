@@ -57,10 +57,14 @@ class FOSUBUserProvider extends BaseClass
      * {@inheritdoc}
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
-    {
+    {   $rawResponse = $response->getResponse();
         $username = $response->getUsername();
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $username));
+        if (null === $user) {
+            $user = $this->userManager->findUserBy(array('email' => $rawResponse['emailAddress']));
+        }
         //when the user is registrating
+
         if (null === $user) {
             $service = $response->getResourceOwner()->getName();
             $setter = 'set'.ucfirst($service);
@@ -85,7 +89,7 @@ class FOSUBUserProvider extends BaseClass
             $user->addRole('ROLE_USER');
             $user->addRole('ROLE_PROFESIONAL');
             /* CUSTOM PROVIDER INFO */;
-                $rawResponse = $response->getResponse();
+                
                 $user->setName($rawResponse['firstName']);
                 $user->setSurname($rawResponse['lastName']);
                 $user->setEmail($rawResponse['emailAddress']);
