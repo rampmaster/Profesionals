@@ -181,7 +181,7 @@ class DefaultController extends Controller
         $useragent = new Agent();
         $salesManager = $this->get('sales_manager');
 
-        if(!$salesManager->checkIsAvailable('plan_test')){
+        if(!$salesManager->checkIsAvailable('basic_plan')){
             throw new \Exception('Producto no disponible');
         }
 
