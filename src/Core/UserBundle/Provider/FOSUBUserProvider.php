@@ -110,7 +110,7 @@ class FOSUBUserProvider extends BaseClass
         }
  
         //if user exists - go with the HWIOAuth way
-        $user = parent::loadUserByOAuthUserResponse($response);
+        //$user = parent::loadUserByOAuthUserResponse($response);
  
         $serviceName = $response->getResourceOwner()->getName();
         $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
