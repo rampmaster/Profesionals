@@ -1,0 +1,24 @@
+{% extends 'UserProfesionalBundle:Email:layout.html.twig' %}
+{% block title %}{% endblock %}
+{% block mail_title %}{% endblock %}
+{% block imagepath %}http://{{ app.request.host }}{{ asset('bundles/coreresources/images/logo.png') }}{% endblock %}
+{% block content %}
+ <p style="font-family: Georgia, &quot;Palatino-Roman&quot;, &quot;PalatinoLinotype-Roman&quot;, Times, serif;line-height: 1.8; color: #555;">Estimado Profesional,<br/>
+
+ 		Su plataforma profesional online ha sido creada correctamente.
+ 		Le enviamos en este correo la información necesaria para que pueda acceder a su nueva plataforma y comenzar a ofrecer sus servicios online.<br>
+
+          <p style="font-family: Georgia, &quot;Palatino-Roman&quot;, &quot;PalatinoLinotype-Roman&quot;, Times, serif;line-height: 1.8;color: #555;">Dirección web de su plataforma:</p>
+          <a href="http://{{ user.username }}.{{ app.request.host }}/">http://{{ user.username }}.{{ app.request.host }}/</a>
+
+          <div style="margin-left: 100px; width: 300px; box-shadow: 0px 0px 10px #444 inset; border:1px solid #333; padding: 14px; border-radius: 10px; margin-top: 30px; font-family: Georgia, &quot;Palatino-Roman&quot;, &quot;PalatinoLinotype-Roman&quot;, Times, serif; background-color: #CCC;">
+          	<b>Usuario:</b> {{ user.getEmail() }}<br>
+          	<b>Clave: </b> {{ pass }}
+          </div>
+
+          <p style="font-family: Georgia, &quot;Palatino-Roman&quot;, &quot;PalatinoLinotype-Roman&quot;, Times, serif;line-height: 1.8;color: #555;">
+          Le recomendamos que acceda a su perfil y cambie la contraseña lo antes posible. Si tiene alguna duda escribanos a <a href="mailto:hola@varavan.com">hola@varavan.com</a>.
+          Atentamente,</p>
+
+          <p style="font-family: Georgia, &quot;Palatino-Roman&quot;, &quot;PalatinoLinotype-Roman&quot;, Times, serif;line-height: 1.8;color: #555;">Iván Guillén & Iván Ruiz<br/><span class="small sans caps gray" style="font-size: 11px;font-family: Arial, Helvetica, sans-serif;text-transform: uppercase;color: #6C6C6C">VARAVAN.COM</span></p>
+{% endblock %}

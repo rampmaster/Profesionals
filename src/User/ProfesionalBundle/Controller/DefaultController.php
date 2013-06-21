@@ -24,6 +24,20 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/test", name="profesional_test")
+     */
+    public function testAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('CoreUserBundle:User')->find(5);
+
+        $data = array('user'=>$this->get('security.context')->getToken()->getUser(),'client'=>$user,'pass'=>'xQfyCd4');
+        return $this->render('UserProfesionalBundle:Email:signup.html.twig',$data);
+        
+    }
+
+    /**
      * @Route("/planes", name="profesional_plans")
      * @Template()
      */

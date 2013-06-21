@@ -1,0 +1,5 @@
+.background-main { background-color: rgb(232, 244, 255) }
+.color-extra input { background-color: white }
+.color-extra label, .color-extra { color: black }
+#login .input-group input[type=text], #login .input-group input[type=password] { background-color: white; }
+#login .input-group label { color: black; }
