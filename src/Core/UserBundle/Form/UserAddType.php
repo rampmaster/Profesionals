@@ -35,7 +35,8 @@ class UserAddType extends AbstractType
                 'label' => 'Número de móvil'
             ))
             ->add('plainPassword', 'repeated',array(
-                'label' => 'Contraseña'
+                'label' => 'Contraseña',
+                'required' => false
             ))
         ;
     }
