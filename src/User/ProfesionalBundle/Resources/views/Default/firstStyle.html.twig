@@ -21,7 +21,7 @@
             <div class="tab-header">
                 Personaliza tu consulta profesional
             </div>
-            <form method="post" class="fill-up" {{ form_enctype(form) }}>
+            <form id="form" method="post" class="fill-up" {{ form_enctype(form) }}>
                 <div class="padded">
                     <div class="row">
                         <div class="span4 offset2">
@@ -66,11 +66,11 @@
                         </div>
 
                     </div>
-
+                    <hr>
                     <div class="row">
                         <div class="span4 offset2">
                             <h3>Su nombre en varavan</h3>
-                            <span>Desde aqui puede intercambiar su nombre en varavan</span>
+                            <span style="color: #555;">Importante! Este nombre será el que se utilizará en su acceso, solo se permiten carácteres alfanuméricos</span>
                         </div>
                         <div class="span4">
                             {{ form_widget(form.professional.user.username) }}
@@ -88,8 +88,32 @@
             </form>
         </div>
     </div>
-{% endblock %}
 
+   
+{% endblock %}
+{% block extra_javascripts %}
+ <script>
+    jQuery(function(){
+        jQuery("#form").submit(function(e) {
+            var self = this;
+            e.preventDefault();
+            var letters = /^[a-zA-Z0-9]+$/;
+            var username = jQuery("#user_profesionalbundle_stylestype_professional_user_username").val();
+            if(letters.test(username)){
+                self.submit();    
+            }else{
+                jQuery("#user_profesionalbundle_stylestype_professional_user_username").css("background-color","rgb(231, 151, 76)")
+            }
+            return false;
+        });
+        jQuery("#user_profesionalbundle_stylestype_professional_user_username").focus(function(){
+            jQuery("#user_profesionalbundle_stylestype_professional_user_username").css("background-color","white")
+            
+        })
+    })
+    
+    </script>
+{% endblock %}
 {% block nav_secondary %}
     {% include 'UserAdminBundle:Professional:menu.html.twig' %}
 {% endblock %}

@@ -86,6 +86,9 @@ class ClientesController extends Controller
         $user->addRole('ROLE_CLIENTE');
         $user->setEnabled(true);
 
+        $plainPassword = $this->generateRandomString();
+        $user->setPlainPassword($plainPassword);
+
         $client->setUser($user);
         $user->setClient($client);
         $form = $this->createForm(new ClientType(), $client);
@@ -98,6 +101,7 @@ class ClientesController extends Controller
                 $client->setLastVisit(new \DateTime());
                 $user->setUsername(md5(uniqid()));
                 $user->upload();
+                $owner = $this->get('security.context')->getToken()->getUser();
 
                 $client->setProfessional($professional);
                 $professional->addClient($client);
@@ -107,6 +111,15 @@ class ClientesController extends Controller
                 $this->getDoctrine()->getManager()->flush();
                 $usermanager->updateUser($client->getUser());
                 $this->get('session')->getFlashBag()->add('notice', 'Cliente añadido con éxito.');
+                $message = \Swift_Message::newInstance()
+                    ->setSubject($owner->getName().' '.$owner->getSurname().' le ha añadido a su plataforma')
+                    ->setFrom('noreply@varavan.com')
+                    ->setTo($user->getEmail())
+                    ->setBody($this->renderView(
+                        'UserProfesionalBundle:Email:client_signup.html.twig',
+                            array('user'=>$owner,'client'=>$user,'pass'=>$plainPassword)),'text/html');
+                
+                $this->get('mailer')->send($message);
 
                 return $this->redirect($this->generateUrl('profesional_clientes'));
             }
@@ -183,6 +196,15 @@ class ClientesController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('profesional_clientes'));
+    }
+
+    private function generateRandomString($length = 8) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
     }
 
 

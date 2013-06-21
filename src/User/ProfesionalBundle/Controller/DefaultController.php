@@ -103,7 +103,7 @@ class DefaultController extends Controller
             $professional->setStyles($styles);
             $styles->setCreatedAt(new \DateTime());
         }
-
+        $plainPassword = $this->generateRandomString();
 
         $form = $this->createForm(new StylesType(), $styles);
         $request = $this->getRequest();
@@ -113,16 +113,30 @@ class DefaultController extends Controller
             if ($form->isValid()) {
                 $styles->setUpdatedAt(new \DateTime());
                 $styles->upload($username);
-
-                $usermanager->updateUser($styles->getProfessional()->getUser());
+                $user->setPlainPassword($plainPassword);
+                $usermanager->updateUser($user);
 
                 $em->persist($styles);
                 $em->persist($professional);
                 $em->flush();
+
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Bienvenido/a a Varavan.com')
+                    ->setFrom('noreply@varavan.com')
+                    ->setTo($user->getEmail())
+                    ->setBody($this->renderView(
+                        'UserProfesionalBundle:Email:signup.html.twig',
+                            array('user'=>$user,'pass'=>$plainPassword)),'text/html');
+                
+                $this->get('mailer')->send($message);
+
+                $this->get('sales_manager')->promoProduct('basic_plan','P3M');
                 $this->get('session')->getFlashBag()->add('notice', 'Tu plataforma se ha creado con éxito');
                 return $this->redirect($this->generateUrl('profesional_consulta'));
             }
         }
+
+
         return array('form' => $form->createView());
     }
 
@@ -252,5 +266,14 @@ class DefaultController extends Controller
         $user = $em->getRepository('CoreUserBundle:User')->find($id);
 
         return array('entity' => $user->getClient());
+    }
+
+    private function generateRandomString($length = 8) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
     }
 }
