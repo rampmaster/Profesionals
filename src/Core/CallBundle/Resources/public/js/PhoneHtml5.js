@@ -1,15 +1,4 @@
-/*
- Copyright (c) 2011 Flashphoner
- All rights reserved. This Code and the accompanying materials
- are made available under the terms of the GNU Public License v2.0
- which accompanies this distribution, and is available at
- http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
- Contributors:
- Flashphoner - initial API and implementation
-
- This code and accompanying materials also available under LGPL and MPL license for Flashphoner buyers. Other license versions by negatiation. Write us support@flashphoner.com with any questions.
- */
 
 var flashphoner;
 
@@ -119,7 +108,7 @@ function startCallWebRtc(sessionId, tokenId){
 
 function sessionConnectedHandler(event) {
     subscribeToStreams(event.streams);
-    var publisherProperties = {width: 440, height:300, name:"Powered by 3media"};
+    var publisherProperties = {width: 198, height:111, name:"Powered by 3media"};
     publisher = TB.initPublisher(openTokApiKey, 'publisher', publisherProperties);
     session.publish(publisher);
 }
@@ -132,7 +121,7 @@ function subscribeToStreams(streams) {
     for (var i = 0; i < streams.length; i++) {
         var stream = streams[i];
         if (stream.connection.connectionId != session.connection.connectionId) {
-            var publisherProperties = {width: 440, height:300};
+            var publisherProperties = {width: 767, height:432};
             session.subscribe(stream, 'videoconferenceHtml5', publisherProperties);
         }
     }
