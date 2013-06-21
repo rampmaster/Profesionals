@@ -43,8 +43,9 @@
                     <td colspan="2">
                         <div class="clearfix" style="padding: 0 5px;">
                             <div class="pull-left">
-                                <a href="#disableUser" role="button" class="button red" data-toggle="modal">Eliminar suscripción!</a>
+                                <a href="{{ path('profesional_clientes_edit', {'idUser': cliente.user.id}) }}" class="button blue">Editar cliente</a>
                                 <a href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}" class="button green">Añadir nuevo reporte</a>
+                                <a href="#disableUser" role="button" class="button red" data-toggle="modal">Eliminar suscripción!</a>
                             </div>
                         </div>
                     </td>

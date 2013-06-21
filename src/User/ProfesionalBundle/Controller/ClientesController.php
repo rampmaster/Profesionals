@@ -27,6 +27,48 @@ class ClientesController extends Controller
     }
 
     /**
+     * @Route("/clientes/edit/{idUser}", name="profesional_clientes_edit")
+     * @Template()
+     */
+    public function editAction($idUser)
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $professional = $user->getProfessional();
+
+        if(!$professional){
+            throw new \Exception("Professional not found");
+        }
+        $usermanager = $this->get('fos_user.user_manager');
+
+        $user = $this->getDoctrine()->getManager()->getRepository('CoreUserBundle:User')->find($idUser);
+        $client = $user->getClient();
+
+        $form = $this->createForm(new ClientType(), $client);
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+            if ($form->isValid()) {
+                $client->setLastVisit(new \DateTime());
+                $user->upload();
+
+                $client->setProfessional($professional);
+                $professional->addClient($client);
+                $this->getDoctrine()->getManager()->persist($client);
+                $this->getDoctrine()->getManager()->persist($professional);
+                $this->getDoctrine()->getManager()->persist($client->getUser());
+                $this->getDoctrine()->getManager()->flush();
+                $usermanager->updateUser($client->getUser());
+                $this->get('session')->getFlashBag()->add('notice', 'Cliente editado con éxito.');
+
+                return $this->redirect($this->generateUrl('profesional_clientes_show', array('idCliente' => $client->getId())));
+            }
+        }
+        return array('form' => $form->createView());
+    }
+
+    /**
      * @Route("/clientes/add", name="profesional_clientes_add")
      * @Template()
      */
@@ -54,6 +96,7 @@ class ClientesController extends Controller
             $form->bindRequest($request);
             if ($form->isValid()) {
                 $client->setLastVisit(new \DateTime());
+                $user->setUsername(md5(uniqid()));
                 $user->upload();
 
                 $client->setProfessional($professional);

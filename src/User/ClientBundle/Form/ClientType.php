@@ -2,7 +2,7 @@
 
 namespace User\ClientBundle\Form;
 
-use Core\UserBundle\Form\UserAddType;
+use Core\UserBundle\Form\UserAdd2Type;
 use Core\UserBundle\Form\UserType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +16,7 @@ class ClientType extends AbstractType
             ->add('alias', null, array(
                 'label' => 'Nombre identificativo para el cliente'
             ))
-            ->add('user', new UserAddType())
+            ->add('user', new UserAdd2Type())
         ;
     }
 
