@@ -33,7 +33,7 @@ class DefaultController extends Controller
         $user = $em->getRepository('CoreUserBundle:User')->find(5);
 
         $data = array('user'=>$this->get('security.context')->getToken()->getUser(),'client'=>$user,'pass'=>'xQfyCd4');
-        return $this->render('UserProfesionalBundle:Email:client_signup.html.twig',$data);
+        return $this->render('UserProfesionalBundle:Email:signup.html.twig',$data);
         
     }
 

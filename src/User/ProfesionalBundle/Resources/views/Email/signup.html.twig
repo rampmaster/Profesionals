@@ -12,13 +12,13 @@
           <a href="http://{{ user.username }}.{{ app.request.host }}/">http://{{ user.username }}.{{ app.request.host }}/</a>
 
           <div style="margin-left: 100px; width: 300px; box-shadow: 0px 0px 10px #444 inset; border:1px solid #333; padding: 14px; border-radius: 10px; margin-top: 30px; font-family: Georgia, &quot;Palatino-Roman&quot;, &quot;PalatinoLinotype-Roman&quot;, Times, serif; background-color: #CCC;">
-          	<b>Usuario:</b> {{ user.username }}<br>
+          	<b>Usuario:</b> {{ user.getEmail() }}<br>
           	<b>Clave: </b> {{ pass }}
           </div>
 
           <p style="font-family: Georgia, &quot;Palatino-Roman&quot;, &quot;PalatinoLinotype-Roman&quot;, Times, serif;line-height: 1.8;color: #555;">
-          Le recomendamos que acceda a su perfil y cambie la contraseña lo antes posible. Si tiene alguna duda escribanos a <a href="mailto:varavan.pro@gmail.com">varavan.pro@gmail.com</a>.
+          Le recomendamos que acceda a su perfil y cambie la contraseña lo antes posible. Si tiene alguna duda escribanos a <a href="mailto:hola@varavan.com">hola@varavan.com</a>.
           Atentamente,</p>
 
-          <p style="font-family: Georgia, &quot;Palatino-Roman&quot;, &quot;PalatinoLinotype-Roman&quot;, Times, serif;line-height: 1.8;color: #555;">Iván Guillén & Iván Ruiz<br/><span class="small sans caps gray" style="font-size: 11px;font-family: Arial, Helvetica, sans-serif;text-transform: uppercase;color: #6C6C6C">Equipo Fundador</span></p>
+          <p style="font-family: Georgia, &quot;Palatino-Roman&quot;, &quot;PalatinoLinotype-Roman&quot;, Times, serif;line-height: 1.8;color: #555;">Iván Guillén & Iván Ruiz<br/><span class="small sans caps gray" style="font-size: 11px;font-family: Arial, Helvetica, sans-serif;text-transform: uppercase;color: #6C6C6C">VARAVAN.COM</span></p>
 {% endblock %}
