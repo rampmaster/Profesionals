@@ -155,8 +155,8 @@ function reDrawContentVideoconference() {
         prot2.attr('id', 'publisher');
         prot2.removeClass('hide');
 
-        $("#contentVideoconferencehtml5 .first").append(prot);
-        $("#contentVideoconferencehtml5 .second").append(prot2);
+        $("#contentVideoconferencehtml5RemoteCamera").append(prot);
+        $("#contentVideoconferencehtml5MyCamera").append(prot2);
     }, 4000);
 }
 

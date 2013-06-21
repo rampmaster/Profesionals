@@ -42,8 +42,8 @@
                     <hr>
                     <div class="row">
                         <div class="span4 offset2">
-                            <h3>Color Secundario</h3>
-                            <span>Color del botón de la consulta</span>
+                            <h3>Color Caja</h3>
+                            <span>Color de la caja de "identificación" de la plataforma</span>
                         </div>
                         <div class="span4">
                             {{ form_widget(form.color_bg_secd) }}
@@ -53,11 +53,22 @@
                     <hr>
                     <div class="row">
                         <div class="span4 offset2">
-                            <h3>Color del Texto</h3>
-                            <span>Color del texto del botón de la consulta</span>
+                            <h3>Color de los botones</h3>
+                            <span>Color de los botones de la consulta</span>
                         </div>
                         <div class="span4">
-                            {{ form_widget(form.color_extra) }}
+                            {{ form_widget(form.color_button) }}
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="span4 offset2">
+                            <h3>Color del Texto</h3>
+                            <span>Color del texto de los botones</span>
+                        </div>
+                        <div class="span4">
+                            {{ form_widget(form.color_text_button) }}
                         </div>
 
                     </div>
@@ -65,7 +76,7 @@
                     <div class="row">
                         <div class="span4 offset2">
                             <h3>Su nombre en varavan</h3>
-                            <span>Desde aqui puede intercambiar su nombre en varavan</span>
+                            <span style="color: #555;">Importante! Este nombre será el que se utilizará en su acceso, solo se permiten carácteres alfanuméricos</span>
                         </div>
                         <div class="span4">
                             {{ form_widget(form.professional.user.username) }}

@@ -73,31 +73,46 @@
 
 
     <script type="text/javascript" src="{{ asset('bundles/coreresources/js/jquery.form.js') }}"></script>
-
-
 {% endblock %}
+{% block my_camera %}
+    <div class="box span5" style="min-height: 300px">
+        <div class="tab-header">
+            Cámara remota
+        <span class="pull-right">
+          <span class="options">
+            <a href="#"><i class="icon-facetime-video"></i></a>
+          </span>
+        </span>
+        </div>
+
+        <div id="videoconferenceHtml5Prototype" style="height: 300px; width: 440px; margin-left: 4px; margin-bottom: 4px" class="hide"></div>
+        <div id="videoconferenceHtml5" style=" height: 300px; width: 440px;margin-left: 4px; margin-bottom: 4px"></div>
+    </div>
+    {% endblock %}
 {% block panel %}
     <div class="browser panel" style="display:none">
         <h1>No tienes RTC</h1>
     </div>
     <div class="videoconference panel">
-    <div class="row-fluid">
-
+    <div class="row">
+        <div class="span8 offset1" style="overflow: hidden;">
         {{ render(controller('CoreCallBundle:Call:notifications')) }}
         {% include "CoreCallBundle:Call:videoconferencehtml5.html.twig" %}
+        </div>
     </div>
 
-    <div class="row-fluid">
-        <div class="span5">
+    <div class="row">
+        <div class="span4 offset1">
             {% include 'CoreCallBundle:Call:contactuser.html.twig' %}
         </div>
 
-        <div class="offset1 span5">
+        <div class="span4">
             {% include 'CoreCallBundle:Call:videoconferencecontrols.html.twig' %}
         </div>
     </div>
     </div>
 
     {% block extra_videoconference %}{% endblock %}
+
 
 {% endblock %}

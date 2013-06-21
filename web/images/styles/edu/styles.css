@@ -1,5 +1,4 @@
-.background-main { background-color: rgb(232, 244, 255) }
-.color-extra input { background-color: white }
-.color-extra label, .color-extra { color: black }
-#login .input-group input[type=text], #login .input-group input[type=password] { background-color: white; }
-#login .input-group label { color: black; }
+.background-main { background-color: #a3a3a3 }
+.container > .login-wrapper { background-color: #f2f2f2 }
+#login .input-group input[type=submit]  { color: #000000;
+background-color: #c4c4c4 }

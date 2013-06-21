@@ -1,5 +1,25 @@
-<div class="row-fluid">
-    <div class="span5">
+<link rel="stylesheet" type="text/css"
+      href="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.css') }}"/>
+<link rel="stylesheet" type="text/css"
+      href="{{ asset('bundles/coreresources/wyswyg/lib/css/bootstrap.min.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/lib/css/prettify.css') }}"/>
+<script src="{{ asset('bundles/coreresources/js/jquery.form.js') }}"></script>
+
+<style type="text/css" media="screen">
+    .btn.jumbo {
+        font-size: 20px;
+        font-weight: normal;
+        padding: 14px 24px;
+        margin-right: 10px;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+    }
+
+
+</style>
+<div class="row" id="ContentViewer">
+    <div class="offset1 span4">
         <div class="tabbable black-box" style="margin-bottom: 18px;">
 
             <div class="tab-header">
@@ -15,7 +35,9 @@
                     <div class="padded">
                         {% for r in entity.reports %}
                             <p>
-                                <span style="display: inline-block; min-width: 250px;"><a role="tabs-informes" target="{{ r.id }}">{{ r.title|truncate(30) }}</a></span>
+                                <span style="display: inline-block; min-width: 250px;"><a role="tabs-informes"
+                                                                                          class="btn"
+                                                                                          target="{{ r.id }}">{{ r.title|truncate(30) }}</a></span>
                                 <span>{{ r.createdAt|date('d/m/Y H:i') }}</span>
                             </p>
                         {% else %}
@@ -30,7 +52,7 @@
 
                 <div class="tab-pane" id="tab2">
                     <div class="padded">
-                        <a href="#" class="button green">Añadir nuevo informe</a>
+                        <a class="button green" onclick="javascript:pivotreport('report')">Añadir nuevo informe</a>
                         <a href="javascript:videoconferenceStart()" class="button grey">Recargar lista</a>
                     </div>
                 </div>
@@ -40,47 +62,126 @@
         </div>
     </div>
 
-    <div class="offset1 span5">
+    <div class="span4">
         {% for r in entity.reports %}
-        <div class="informeCliente black-box tex hide" id="informeCliente{{ r.id }}">
-            <div class="tab-header">
-                {{ r.title }}
-            </div>
-            <ul class="recent-comments">
+            <div class="informeCliente black-box tex hide" id="informeCliente{{ r.id }}">
+                <div class="tab-header">
+                    {{ r.title }}
+                </div>
+                <ul class="recent-comments">
 
 
-                <li class="separator">
-                    <div class="avatar pull-left">
-                        <img src="{{ asset('bundles/coreresources/theme/images/avatar3.png') }}">
-                    </div>
-
-                    <div class="article-post">
-                        <div class="user-info">Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}"</div>
-                        <div class="user-content">
-                            {{ r.text|raw }}
+                    <li class="separator">
+                        <div class="avatar pull-left">
+                            <img src="{{ asset('bundles/coreresources/theme/images/avatar3.png') }}">
                         </div>
 
+                        <div class="article-post">
+                            <div class="user-info">Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo
+                                "{{ r.type }}"
+                            </div>
+                            <div class="user-content">
+                                {{ r.text|raw }}
+                            </div>
 
-                    </div>
-                </li>
+
+                        </div>
+                    </li>
 
 
-
-
-
-            </ul>
-        </div>
+                </ul>
+            </div>
         {% endfor %}
     </div>
 </div>
+
+<div class="row hide" id="addReportContent">
+    <div class="offset1 span10">
+        <div class="box">
+            <div class="tab-header">
+                Añadir un nuevo informe
+                <span class="pull-right">
+                  <span class="options">
+                    <a href="#"><i class="icon-cog"></i></a>
+                  </span>
+                </span>
+            </div>
+            <form method="post" action="{{ path('profesional_clientes_add_report', {'idCliente': entity.id}) }}"
+                  class="fill-up" id="formAddReport">
+                <div class="padded">
+                    {{ form_widget(form) }}
+                </div>
+                <div class="form-actions">
+                    <button class="btn button blue">Registrar informe</button>
+
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
-    $("a[role=tabs-informes]").on('click', function(event){
+    $("a[role=tabs-informes]").on('click', function (event) {
         clearInformes();
         var informetarget = $(this).attr('target');
-        setTimeout(function(){
-            $("#informeCliente"+informetarget).fadeIn();
+        setTimeout(function () {
+            $("#informeCliente" + informetarget).fadeIn();
         }, 1000);
 
 
+    });
+
+    function pivotreport(target) {
+        if (target == 'report') {
+            $("#addReportContent").fadeIn();
+            $("#ContentViewer").fadeOut();
+        }
+        if (target == 'show') {
+            $("#addReportContent").fadeOut();
+            $("#ContentViewer").fadeIn();
+        }
+    }
+
+    $(document).ready(function () {
+        // bind 'myForm' and provide a simple callback function
+        $('#formAddReport').ajaxForm(function (data) {
+            if (data == 'Ok') {
+                videoconferenceStart();
+                Notifications.push({
+                    text: "Reporte añadido con éxito",
+                    autoDismiss: 3,
+                    bootstrapPositionClass: "notice"
+                });
+            }else{
+                Notifications.push({
+                    text: "Ha habido un error al añadir el reporte :(",
+                    autoDismiss: 3,
+                    bootstrapPositionClass: "error"
+                });
+            }
+
+        });
+    });
+
+</script>
+<script src="{{ asset('bundles/coreresources/js/jquery.js') }}"></script>
+<script src="{{ asset('bundles/coreresources/wyswyg/lib/js/wysihtml5-0.3.0.js') }}"></script>
+
+<script src="{{ asset('bundles/coreresources/wyswyg/lib/js/prettify.js') }}"></script>
+<script src="{{ asset('bundles/coreresources/wyswyg/lib/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.js') }}"></script>
+<script src="{{ asset('bundles/coreresources/wyswyg/lib/bootstrap-wysihtml5.es-ES.js') }}"></script>
+
+<script>
+    $('.textarea').wysihtml5({
+        "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+        "emphasis": true, //Italics, bold, etc. Default true
+        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+        "html": false, //Button which allows you to edit the generated HTML. Default false
+        "link": false, //Button to insert a link. Default true
+        "image": false, //Button to insert an image. Default true,
+        "color": false, //Button to change color of font
+        "locale": "es-ES"
     });
 </script>

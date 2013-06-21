@@ -10,6 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
+use Symfony\Component\HttpFoundation\Response;
+use User\ProfesionalBundle\Entity\Report;
+use User\ProfesionalBundle\Form\ReportType;
 use User\ProfesionalBundle\Form\StylesType;
 use User\ProfesionalBundle\Entity\Styles;
 
@@ -210,7 +213,9 @@ class DefaultController extends Controller
         $salesManager = $this->get('sales_manager');
 
         if(!$salesManager->checkIsAvailable('basic_plan')){
-            throw new \Exception('Producto no disponible');
+            $this->get('sales_manager')->promoProduct('basic_plan','P3M');
+            //throw new \Exception('Producto no disponible');
+
         }
 
         if (!$useragent->checkCapable()) {
@@ -221,6 +226,44 @@ class DefaultController extends Controller
 
         return array();
     }
+
+    /**
+     * @Route("/clientes/add-report/{idCliente}", name="profesional_clientes_add_report")
+     * @Template()
+     */
+    public function addreportAction($idCliente)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository('UserClientBundle:Client')->find($idCliente);
+
+        $report = new Report();
+
+        $report->setClient($client);
+
+        $form = $this->createForm(new ReportType(), $report);
+
+        $request = $this->getRequest();
+
+        if($request->getMethod() == 'POST'){
+            $form->bind($request);
+
+            if($form->isValid()){
+
+                $report->setCreatedAt(new \DateTime());
+                $client->addReport($report);
+
+                $em->persist($report);
+                $em->persist($client);
+                $em->flush();
+
+                return new Response('Ok');
+            }
+        }
+
+        return new Response('Error');
+    }
+
 
     /**
      * @Route("/settings", name="profesional_settings")
@@ -260,12 +303,20 @@ class DefaultController extends Controller
         if($this->getRequest()->getMethod() != 'POST'){
             throw new \Exception('Hack attemp :(');
         }
+        $me = $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
 
         $id = $this->getRequest()->get('idUser');
         $user = $em->getRepository('CoreUserBundle:User')->find($id);
 
-        return array('entity' => $user->getClient());
+        $report = new Report();
+        $report->setCreatedAt(new \DateTime());
+        $report->setClient($user->getClient());
+        $report->setProfessional($me->getProfessional());
+
+        $form = $this->createForm(new ReportType(), $report);
+
+        return array('entity' => $user->getClient(), 'form' => $form->createView());
     }
 
     private function generateRandomString($length = 8) {
