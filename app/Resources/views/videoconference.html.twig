@@ -1,15 +1,24 @@
 {% extends '::layout.html.twig' %}
+{% if app.user.id is not defined %}
+{% set guess = true %}
+{% else %}
+{% set guess = false %}
+{% endif %}
 {% block nav_secondary %}
     <nav id="secondary" class="main-nav">
         <div class="profile-menu">
 
             <div class="pull-left">
                 <div class="avatar">
+                    {% if guess %}
+                        <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}"/>
+                    {% else %}
                     {% if app.user.getWebPath() is not empty %}
                         <img src="{{ asset(app.user.getWebPath()) }}" width="50px" style="width: 50px" class="pull-right">
                         {% else %}
                         <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}"/>
                     {% endif %}
+                        {% endif %}
                 </div>
             </div>
 
@@ -47,7 +56,12 @@
         var callRouteToRetrieveInfoUser = "{{  path('core_call_retrieve_info_user') }}";
         var callRouteToXmlFlashphonerConfiguration = "{{ path('core_call_resources_config_xml') }}";
 
+        {% if guess %}
+        var callMyId = 'guess_'{{ professional.id }};
+        {% else %}
         var callMyId = {{ app.user.id }};
+        {% endif %}}
+
 
     </script>
     <script type="text/javascript">

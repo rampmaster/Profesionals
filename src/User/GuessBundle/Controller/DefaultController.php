@@ -2,6 +2,7 @@
 
 namespace User\GuessBundle\Controller;
 
+use Core\UserBundle\Request\Agent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -104,6 +105,30 @@ class DefaultController extends Controller
             throw new \Exception("OOps not login...");
         }
         return $response;
+    }
+
+    /**
+     * @Route("/consulta/{username}", name="consulta_guess")
+     * @Template()
+     */
+    public function consultaAction($username)
+    {
+
+        $professional = $this->getDoctrine()->getManager()->getRepository('CoreUserBundle:User')->findOneByUsername($username);
+
+        if(!$professional){
+            throw new \Exception('No professional found');
+        }
+
+        $useragent = new Agent();
+
+        if (!$useragent->checkCapable()) {
+            return $this->render('::browsernotsupported.html.twig');
+            throw new \Exception('Explorador no soportado');
+
+        }
+
+        return array('professional' => $professional);
     }
 
 }
