@@ -57,12 +57,43 @@
         var callRouteToXmlFlashphonerConfiguration = "{{ path('core_call_resources_config_xml') }}";
 
         {% if guess %}
-        var callMyId = 'guess_'{{ professional.id }};
+        var callMyId = 'guess_{{ professional.id }}';
         {% else %}
         var callMyId = {{ app.user.id }};
-        {% endif %}}
+        {% endif %}
 
 
+    </script>
+    <script type="text/javascript">
+        /*
+         Definicion de los tonos de llamada
+         */
+        var toneCall = document.createElement('audio');
+        toneCall.setAttribute('src', '{{ asset('bundles/corecall/sounds/llamando.mp3') }}');
+        toneCall.setAttribute('autoplay', 'autoplay');
+        toneCall.setAttribute('loop', 'loop');
+        toneCall.setAttribute('preload', 'preload');
+        //audioElement.load()
+        $.get();
+        toneCall.addEventListener("load", function() {
+            toneCall.play();
+        }, true);
+
+        toneCall.pause();
+
+
+
+        var toneRinging = document.createElement('audio');
+        toneRinging.setAttribute('src', '{{ asset('bundles/corecall/sounds/sonando.wav') }}');
+        toneRinging.setAttribute('autoplay', 'autoplay');
+        toneRinging.setAttribute('loop', 'loop');
+        //audioElement.load()
+        $.get();
+        toneRinging.addEventListener("load", function() {
+            toneCall.play();
+        }, true);
+
+        toneRinging.pause();
     </script>
     <script type="text/javascript">
 
@@ -117,7 +148,9 @@
 
     <div class="row">
         <div class="span4 offset1">
+
             {% include 'CoreCallBundle:Call:contactuser.html.twig' %}
+
         </div>
 
         <div class="span4">

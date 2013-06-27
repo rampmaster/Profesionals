@@ -1,1 +1,80 @@
 {% extends '::videoconference.html.twig' %}
+{# enseño al usuario#}
+{% block nav_secondary %}
+    <nav id="secondary" class="main-nav">
+        <div class="profile-menu">
+
+            <div class="pull-left">
+                <div class="avatar">
+                    {% if guess %}
+                        <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}"/>
+                    {% else %}
+                        {% if app.user.getWebPath() is not empty %}
+                            <img src="{{ asset(app.user.getWebPath()) }}" width="50px" style="width: 50px" class="pull-right">
+                        {% else %}
+                            <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}"/>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="pull-left">
+                <div class="title">
+                    Lista de usuarios
+                </div>
+
+            </div>
+
+            <div class="pull-right profile-menu-nav-collapse">
+                <button class="button black"><i class="icon-reorder"></i></button>
+            </div>
+
+        </div>
+
+
+
+        <ul class="secondary-nav-menu">
+
+            <li
+                    data-id="{{ professional.id }}"
+                    data-show="1"
+                    data-status="0"
+                    data-image="{{ professional.webPath  }}"
+                    data-name="{{ professional.name }}"
+                    data-surname="{{ professional.surname }}"
+                    data-fullname="{{ professional.name|lower }} {{ professional.surname|lower }}"
+                    {% if professional.hasRole('ROLE_PROFESIONAL') %}
+                        data-role="profesional"
+                    {% elseif professional.hasRole('ROLE_COLLABORATOR') %}
+                        data-role="collaborator"
+                    {% else %}
+                        data-role="client"
+                    {% endif %}
+
+                    >
+                <a>
+
+                    {% if professional.hasRole('ROLE_PROFESIONAL') %}
+                        <i class="icon-star"></i>
+                    {% elseif professional.hasRole('ROLE_COLLABORATOR') %}
+                        <i class="icon-headphones"></i>
+                    {% else %}
+                        <i class="icon-user"></i>
+                    {% endif %}
+                    {{ [professional.name," ", professional.surname]|join|truncate(14) }}
+
+
+
+                    {% if iOSApp is defined and iOSApp == true %}
+                        <span class="label label-important"
+                              style="float:right; margin-top: 10px; margin-right: 17px;">OFF</span>
+                    {% else %}
+                        <span class="label label-important"
+                              style="position: relative; right: 0px; top: 0px;">OFF</span>
+                    {% endif %}
+                </a>
+
+            </li>
+        </ul>
+    </nav>
+{% endblock %}

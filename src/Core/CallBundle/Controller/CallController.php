@@ -62,6 +62,14 @@ class CallController extends Controller
         if (isset($user)) {
 
             $idUser = $this->getRequest()->get('id');
+            //compruebo si es guess
+            if(!is_numeric($idUser)){
+                $array['profile_image'] = "/images/users/avatar.png";
+                $array['fullname'] = 'Invitado';
+                $array['email'] = 'nomail';
+
+                return new \Symfony\Component\HttpFoundation\Response(json_encode($array));
+            }
             $user = $this->getDoctrine()->getManager()->getRepository('CoreUserBundle:User')->find($idUser);
             /*
 
@@ -95,22 +103,30 @@ class CallController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        if($me->hasRole('ROLE_ADMIN')){
-            $users = $em->getRepository('CoreUserBundle:User')->findAll();
-        } elseif($me->hasRole('ROLE_PROFESIONAL')){
+        if (method_exists($me, 'hasRole')) {
 
+
+            if ($me->hasRole('ROLE_ADMIN')) {
+                $users = $em->getRepository('CoreUserBundle:User')->findAll();
+            } elseif ($me->hasRole('ROLE_PROFESIONAL')) {
+
+                $users = array();
+
+                foreach ($me->getProfessional()->getClients() as $c) {
+                    array_push($users, $c->getUser());
+                }
+
+            } elseif ($me->hasRole('ROLE_CLIENTE')) {
+
+                $users = array(
+                    $me->getClient()->getProfessional()->getUser()
+                );
+            }
+        }else{
             $users = array();
 
-            foreach($me->getProfessional()->getClients() as $c){
-                array_push($users, $c->getUser());
-            }
-
-        }elseif($me->hasRole('ROLE_CLIENTE')){
-
-            $users = array(
-                $me->getClient()->getProfessional()->getUser()
-            );
         }
+
 
 
 

@@ -42,7 +42,7 @@ var callhandler =
         call(user);
         if (canICall && currentCall == null) {
             calladminnotify.default('call to');
-
+            toneCall.play();
             //callnotify.default('Su petición se está procesando....');
 
             callStatus = callStatusStarted;
@@ -74,6 +74,11 @@ var callhandler =
         callVideoconferenceToCallStateStarted();
 
         videoconferenceStart();
+
+        toneCall.pause();
+        toneCall.currentTime = 0;
+        toneRinging.pause();
+        toneRinging.currentTime = 0;
 
 
     },
@@ -110,7 +115,7 @@ var callhandler =
             callVideoconferenceToRingingState();
             //sonando l telfono
             //hago que salga el boton de responder
-
+            toneRinging.play();
 
             $("#answerButton").removeClass('hide');
             callStatus = callStatusRinging;

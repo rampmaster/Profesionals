@@ -50,14 +50,51 @@
                         >
                     <a>
 
-                    {% if user.hasRole('ROLE_PROFESIONAL') %}
-                        <i class="icon-star"></i>
-                    {% elseif user.hasRole('ROLE_COLLABORATOR') %}
-                        <i class="icon-headphones"></i>
-                    {% else %}
-                        <i class="icon-user"></i>
-                    {% endif %}
+                        {% if user.hasRole('ROLE_PROFESIONAL') %}
+                            <i class="icon-star"></i>
+                        {% elseif user.hasRole('ROLE_COLLABORATOR') %}
+                            <i class="icon-headphones"></i>
+                        {% else %}
+                            <i class="icon-user"></i>
+                        {% endif %}
                         {{ [user.name," ", user.surname]|join|truncate(14) }}
+
+
+
+                        {% if iOSApp is defined and iOSApp == true %}
+                            <span class="label label-important"
+                                  style="float:right; margin-top: 10px; margin-right: 17px;">OFF</span>
+                        {% else %}
+                            <span class="label label-important"
+                                  style="position: relative; right: 0px; top: 0px;">OFF</span>
+                        {% endif %}
+                    </a>
+
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if users is not empty %}
+        {% if app.user.hasRole('ROLE_PROFESIONAL') %}
+            <li
+                    data-id="guess_{{ app.user.id }}"
+                    data-show="1"
+                    data-status="0"
+                    {# data-image="{{ user.webPath  }}" #}
+                    data-name="Invitado"
+                    data-surname=""
+                    data-fullname="invitado"
+
+                    data-role="guess"
+
+                    {% if numUsers > callContactMiniumNumUsersToHide %}
+                        class="hide"
+                    {% endif %}
+                    >
+                <a>
+
+
+                    <i class="icon-user"></i>
+                    Invitado
 
 
 
@@ -65,15 +102,17 @@
                         <span class="label label-important"
                               style="float:right; margin-top: 10px; margin-right: 17px;">OFF</span>
                     {% else %}
-                        <span class="label label-important" style="position: relative; right: 0px; top: 0px;">OFF</span>
+                        <span class="label label-important"
+                              style="position: relative; right: 0px; top: 0px;">OFF</span>
                     {% endif %}
-                    </a>
+                </a>
 
-                </li>
-            {% endif %}
-        {% endfor %}
+            </li>
+        {% endif %}
+        {% endif %}
+
     </ul>
 
 
-    </div>
+
 {% endif %}
