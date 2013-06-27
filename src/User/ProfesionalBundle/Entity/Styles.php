@@ -56,9 +56,16 @@ class Styles
     /**
      * @var string
      *
-     * @ORM\Column(name="color_extra", type="string", length=255,nullable=true)
+     * @ORM\Column(name="color_button", type="string", length=255,nullable=true)
      */
-    private $colorExtra;
+    private $colorButton;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="color_text_button", type="string", length=255,nullable=true)
+     */
+    private $colorTextButton;
 
     /**
      * @var string
@@ -146,16 +153,16 @@ class Styles
     }
 
     public function writeCss($filename){
-        
 
         $css  = ".background-main { ";
-        $css .= "background-color: ".$this->colorBgMain;
+        $css .= "background-color: #".$this->colorBgMain;
         $css .= " }\n";
-        $css .= ".color-extra input { ";
-        $css .= "background-color: ".$this->colorBgSecd;
+        $css .= ".container > .login-wrapper { ";
+        $css .= "background-color: #".$this->colorBgSecd;
         $css .= " }\n";
-        $css .= ".color-extra label, .color-extra { ";
-        $css .= "color: ".$this->colorExtra;
+        $css .= "#login .input-group input[type=submit]  { ";
+        $css .= "color: #".$this->colorTextButton.";\n";
+        $css .= "background-color: #".$this->colorButton;
         $css .= " }\n";
         $css .= $this->rawCss;
         if(!is_dir($filename)){
@@ -366,5 +373,51 @@ class Styles
     public function getRawCss()
     {
         return $this->rawCss;
+    }
+
+    /**
+     * Set colorButton
+     *
+     * @param string $colorButton
+     * @return Styles
+     */
+    public function setColorButton($colorButton)
+    {
+        $this->colorButton = $colorButton;
+
+        return $this;
+    }
+
+    /**
+     * Get colorButton
+     *
+     * @return string 
+     */
+    public function getColorButton()
+    {
+        return $this->colorButton;
+    }
+
+    /**
+     * Set colorTextButton
+     *
+     * @param string $colorTextButton
+     * @return Styles
+     */
+    public function setColorTextButton($colorTextButton)
+    {
+        $this->colorTextButton = $colorTextButton;
+
+        return $this;
+    }
+
+    /**
+     * Get colorTextButton
+     *
+     * @return string 
+     */
+    public function getColorTextButton()
+    {
+        return $this->colorTextButton;
     }
 }

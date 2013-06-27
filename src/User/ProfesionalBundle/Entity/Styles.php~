@@ -42,28 +42,35 @@ class Styles
     /**
      * @var string
      *
-     * @ORM\Column(name="color_bg_main", type="string", length=255)
+     * @ORM\Column(name="color_bg_main", type="string", length=255,nullable=true)
      */
     private $colorBgMain;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="color_bg_secd", type="string", length=255)
+     * @ORM\Column(name="color_bg_secd", type="string", length=255,nullable=true)
      */
     private $colorBgSecd;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="color_extra", type="string", length=255)
+     * @ORM\Column(name="color_button", type="string", length=255,nullable=true)
      */
-    private $colorExtra;
+    private $colorButton;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="raw_css", type="text")
+     * @ORM\Column(name="color_text_button", type="string", length=255,nullable=true)
+     */
+    private $colorTextButton;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="raw_css", type="text",nullable=true)
      */
     private $rawCss;
 
@@ -130,6 +137,7 @@ class Styles
 
     public function upload($username="default")
     {
+        $this->writeCss($this->getUploadRootDir("/".$username));
         if (null === $this->file) {
             return;
         }
@@ -139,24 +147,28 @@ class Styles
         // the entity from being persisted to the database on error
         $this->path =  'logo.' . $this->file->guessExtension();
         $this->file->move($this->getUploadRootDir("/".$username), $this->path);
-        $this->writeCss($this->getUploadRootDir("/".$username)."/styles.css");
+        
 
         $this->file = null;
     }
 
     public function writeCss($filename){
-        
 
         $css  = ".background-main { ";
         $css .= "background-color: ".$this->colorBgMain;
         $css .= " }\n";
-        $css .= ".color-extra input { ";
+        $css .= ".container > .login-wrapper { ";
         $css .= "background-color: ".$this->colorBgSecd;
         $css .= " }\n";
-        $css .= ".color-extra label, .color-extra { ";
-        $css .= "color: ".$this->colorExtra;
+        $css .= "#login .input-group input[type=submit]  { ";
+        $css .= "color: ".$this->colorButton.";\n";
+        $css .= "background-color: ".$this->colorTextButton;
         $css .= " }\n";
-        file_put_contents($filename, $css);
+        $css .= $this->rawCss;
+        if(!is_dir($filename)){
+            mkdir($filename);
+        }
+        file_put_contents($filename."/styles.css", $css);
     }
 
 
@@ -338,5 +350,28 @@ class Styles
     public function getProfessional()
     {
         return $this->professional;
+    }
+
+    /**
+     * Set rawCss
+     *
+     * @param string $rawCss
+     * @return Styles
+     */
+    public function setRawCss($rawCss)
+    {
+        $this->rawCss = $rawCss;
+
+        return $this;
+    }
+
+    /**
+     * Get rawCss
+     *
+     * @return string 
+     */
+    public function getRawCss()
+    {
+        return $this->rawCss;
     }
 }

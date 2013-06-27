@@ -22,7 +22,10 @@ class StylesType extends AbstractType
             ->add('color_bg_secd', 'genemu_jquerycolor', array(
                 'label' => 'Color del Fondo (2)',
             ))
-            ->add('color_extra', 'genemu_jquerycolor', array(
+            ->add('color_button', 'genemu_jquerycolor', array(
+                'label' => 'Color extra',
+            ))
+            ->add('color_text_button', 'genemu_jquerycolor', array(
                 'label' => 'Color extra',
             ))
             ->add('raw_css', 'textarea', array(
@@ -46,3 +49,4 @@ class StylesType extends AbstractType
         return 'user_profesionalbundle_stylestype';
     }
 }
+
