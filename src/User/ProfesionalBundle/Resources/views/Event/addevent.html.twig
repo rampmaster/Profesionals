@@ -1,43 +1,73 @@
 {% set active = 'calendar' %}
 {% extends '::layout.html.twig' %}
 
-{% block nav_secondary %}{% endblock %}
+{% block section_nav %}
+{% include 'UserProfesionalBundle:Event:menu.html.twig' %}
+{% endblock %}
+{% form_theme form 'CoreResourcesBundle:Form:fields.html.twig' %}
 {% block panel %}
-    <form action="{{ path('profesional_add_event') }}" method="post" {{ form_enctype(form) }}>
-        <div class="box span5">
-            <div class="tab-header">
-                ¿Cuando será la consulta?
-            </div>
+<br>
+<h5 class="widget-name">
+    <i class="icon-table"></i> Programar Cita
+</h5>
+<div class="widget">
+    <form action="{{ path('profesional_add_event') }}" class="form form-horizontal" method="post" {{ form_enctype(form) }}>
+            
+            <fieldset>
+                <div class="widget row-fluid">
 
-            <div class="padded">
-                {{ form_row(form.start_date) }}
-                {{ form_row(form.hour_date) }}
-                {{ form_row(form.duration) }}
-            </div>
-        </div>
+                    <div class="span6">
+                       <div class="widget">
+                            <div class="navbar">
+                                <div class="navbar-inner">
+                                    <h6><i class="icon-time"></i> ¿Cuando será la consulta?</h6>
+                                </div>
+                            </div>
+                            <div class="well body">
+                                <div class="padded">
+                                    {{ form_row(form.start_date) }}
+                                    {{ form_row(form.hour_date) }}
+                                    {{ form_row(form.duration) }}
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="box offset1 span5">
-            <div class="tab-header">
-                ¿Quien estará en la consulta?
-            </div>
+                       
+                    </div>
+                    <div class="span6">
+                       <div class="widget">
+                            <div class="navbar">
+                                <div class="navbar-inner">
+                                    <h6><i class="icon-user"></i> ¿Quien estará en la consulta?</h6>
+                                </div>
+                            </div>
+                            <div class="well body">
+                                <div class="padded">
+                                {{ form_row(form.client) }}
+                                {{ form_row(form.notify) }}
+                                {{ form_row(form.notify_at) }}
+                                {{ form_rest(form) }}
+                                </div>
+                            </div>
+                        </div>
 
-            <div class="padded">
-                {{ form_row(form.client) }}
-                {{ form_row(form.notify) }}
-                {{ form_row(form.notify_at) }}
-            </div>
-        </div>
+                       
+                    </div>
+
         <div style="clear:both"></div>
-        <div class="box offset2 span6">
-            <div class="padded">
-                <a href="{{ path('profesional_calendar') }}" class="button blue"><strong>Volver al calendario</strong></a>
-                <input type="submit" class="button green" value="Registrar evento"/>
+         <div style="text-align:center">
+                <input type="submit" class="btn btn-success button green" value="Registrar evento"/>
             </div>
-        </div>
-        {{ form_widget(form) }}
+        
+                </div>
+                    </fieldset>
+
+
+        
 
 
     </form>
+</div>
 {% endblock %}
 
 {% block header_scripts %}
@@ -55,3 +85,9 @@
 
     {{ form_javascript(form) }}
 {% endblock %}
+
+
+
+
+
+

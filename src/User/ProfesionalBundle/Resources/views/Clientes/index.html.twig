@@ -1,49 +1,52 @@
 {% set active = 'clientes' %}
 {% extends '::layout.html.twig' %}
 
+{% block section_nav %}
+{% include 'UserProfesionalBundle:Clientes:menu.html.twig' %}
+{% endblock %}
+
 {% block panel %}
-    <div class="span12">
-        <div class="box">
-            <div class="tab-header">
-                <i class="icon-th-list"></i> Mis clientes
-            </div>
-            <div class="padded">
-                Desde aqui podrás ver todos tus clientes registrados
+<br>
+<h5 class="widget-name">
+    <i class="icon-table"></i> Mis Clientes
+</h5>
+<div class="widget">
+    <div class="table-overflow">
+        <table class="table table-striped table-bordered table-checks media-table dataTable">
+            <thead>
+                <tr role="row">
+                    <th class="sorting_disabled" width="10%">Imagen</th>
+                    <th class="sorting_disabled" width="20%">Nombre</th>
+                    <th class="sorting_disabled" width="60%">Información</th>
+                    <th class="sorting_disabled" width="10%">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in app.user.professional.clients %}
+                <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
+                    <td class="  sorting_1"><a href="" title="" class="lightbox"><img src="{{ asset(cliente.user.webPath) }}" style="width: 50px" width="50px"></a></td>
+                    <td class=" ">{{ cliente.user.name }} {{ cliente.user.surname }}</td>
+                    <td class="file-info">
+                        <span><strong>Informes:</strong> {{ cliente.reports|length }}</span>
+                        <span><strong>Citas:</strong> {{ cliente.events|length }}</span>
+                        <span><strong>Archivos:</strong> 0</span>
+                    </td>
+                    <td class=" ">
+                        <ul class="navbar-icons">
+                            <li><a href="{{ path('profesional_clientes_show', {'idCliente': cliente.id}) }}" class="tip" title="" data-original-title="Ver más"><i class="icon-circle-arrow-right" style="font-size:22px"></i></a></li>
+                            <!--<li><a href="{{ path('profesional_clientes_show', {'idCliente': cliente.id}) }}" class="tip" title="" data-original-title="Editar Perfil"><i class="icon-cog"></i></a></li>-->  
+                        </ul>
+                    </td>
+                </tr>
+                {% else %}
+                <li><b>No existen clientes</b></li>
+                {% endfor %}
 
-            </div>
-        </div>
+            </tbody>
+        </table>
     </div>
-
-    <div class="row-fluid">
-        {% for cliente in app.user.professional.clients %}
-            <div class="span4">
-                <div class="black-box">
-                    <div class="tab-header">
-                        <i class="icon-user"></i> {{ cliente.user.name }} {{ cliente.user.surname }}
-                    </div>
-
-                    <div class="padded">
-                        <div class="profilepic pull-left" >
-                        <img src="{{ asset(cliente.user.webPath) }}" style="height: 78px" height="78px">
-                        </div>
-                        <a class="button large pull-right" href="{{ path('profesional_clientes_show', {'idCliente': cliente.id}) }}">
-                            <i class="icon-arrow-right"></i>
-                            <span>Ver más</span>
-                        </a>
-                    </div>
-                    <div style="clear:both"></div>
-                </div>
-            </div>
-
-        {% else %}
-            <li><b>No existen clientes</b></li>
-        {% endfor %}
-    </div>
-
+</div>
 
 
 {% endblock %}
 
-{% block nav_secondary %}
-    {% include 'UserProfesionalBundle:Clientes:menu.html.twig' %}
-{% endblock %}

@@ -31,10 +31,6 @@ class UserAdd2Type extends AbstractType
             ->add('mobile', null, array(
                 'label' => 'Número de móvil'
             ))
-            ->add('plainPassword', 'repeated',array(
-                'label' => 'Contraseña',
-                'required' => false
-            ))
         ;
     }
 

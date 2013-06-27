@@ -65,7 +65,7 @@ class ClientesController extends Controller
                 return $this->redirect($this->generateUrl('profesional_clientes_show', array('idCliente' => $client->getId())));
             }
         }
-        return array('form' => $form->createView());
+        return array('form' => $form->createView(),'cliente'=>$client);
     }
 
     /**
@@ -87,7 +87,7 @@ class ClientesController extends Controller
         $user->setEnabled(true);
 
         $plainPassword = $this->generateRandomString();
-        $user->setPlainPassword($plainPassword);
+        
 
         $client->setUser($user);
         $user->setClient($client);
@@ -100,6 +100,7 @@ class ClientesController extends Controller
             if ($form->isValid()) {
                 $client->setLastVisit(new \DateTime());
                 $user->setUsername(md5(uniqid()));
+                $user->setPlainPassword($plainPassword);
                 $user->upload();
                 $owner = $this->get('security.context')->getToken()->getUser();
 

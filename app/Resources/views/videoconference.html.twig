@@ -5,41 +5,28 @@
 {% set guess = false %}
 {% endif %}
 {% block nav_secondary %}
-    <nav id="secondary" class="main-nav">
-        <div class="profile-menu">
-
-            <div class="pull-left">
-                <div class="avatar">
+<!-- Sidebar user -->
+                    <div class="sidebar-user widget">
+                        <div class="navbar"><div class="navbar-inner"><h6>{{ app.user.name }} {{ app.user.surname }}</h6></div></div>
+                        <a href="#" title="" class="user">
                     {% if guess %}
-                        <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}"/>
+                    <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}" alt="" style="width:100%">
                     {% else %}
                     {% if app.user.getWebPath() is not empty %}
-                        <img src="{{ asset(app.user.getWebPath()) }}" width="50px" style="width: 50px" class="pull-right">
+                        <img src="{{ asset(app.user.getWebPath()) }}" style="width:100%">
                         {% else %}
-                        <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}"/>
+                        <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}" style="width:100%"/>
                     {% endif %}
                         {% endif %}
-                </div>
-            </div>
 
-            <div class="pull-left">
-                <div class="title">
-                    Lista de usuarios
-                </div>
-
-            </div>
-
-            <div class="pull-right profile-menu-nav-collapse">
-                <button class="button black"><i class="icon-reorder"></i></button>
-            </div>
-
-        </div>
+                        </a>
+                        
+                        {{ render(controller('CoreCallBundle:Call:contacts', { 'consulta': true })) }}
+                    </div>
+                    <!-- /sidebar user -->
 
 
-
-
-        {{ render(controller('CoreCallBundle:Call:contacts', { 'consulta': true })) }}
-    </nav>
+        
 {% endblock %}
 {% block header_scripts %}
     <script src="{{ asset('bundles/coreresources/js/jquery.js') }}"></script>

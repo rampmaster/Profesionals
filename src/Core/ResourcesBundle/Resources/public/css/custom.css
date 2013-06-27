@@ -9,6 +9,7 @@ width: 140px;
 margin-bottom: 30px;
 margin-left: 120px;
 }
+body { padding-top: 0px; padding-bottom: 20px;}
 .marketing header h3 { color: black;}
 
 .button.icon-home.icon { text-transform:none; }
@@ -108,7 +109,8 @@ margin-left: 120px;
 .container > .login-wrapper { padding: 10px; box-shadow: 0px 0px 4px #333; border-radius: 3px  ;
 
 }
-
+.conainer #content { 
+padding-bottom:30px; }
 /*
 background: rgb(249,252,247); 
 background: -moz-linear-gradient(top, rgba(249,252,247,1) 0%, rgba(245,249,240,1) 100%); 
@@ -119,3 +121,4 @@ background: -ms-linear-gradient(top, rgba(249,252,247,1) 0%,rgba(245,249,240,1) 
 background: linear-gradient(to bottom, rgba(249,252,247,1) 0%,rgba(245,249,240,1) 100%); 
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', endColorstr='#f5f9f0',GradientType=0 );
 */
+.modal-body.separator  { min-height: 200px;}

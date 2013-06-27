@@ -10,46 +10,13 @@
     <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>
 {% endblock %}
 {% block panel %}
-
+<div class="row-fluid">
     <div class="box padded offset2 span8">
     {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
     </div>
+</div>
 {% endblock %}
 
-{% block nav_secondary %}
-
-    <nav id="secondary" class="main-nav">
-
-        <div class="profile-menu">
-
-            <div class="pull-left">
-                <div class="avatar">
-                    <img src="{{ asset('bundles/coreresources/theme/images/cloud.png') }}" />
-                </div>
-            </div>
-
-            <div class="pull-left">
-                <div class="title">
-                    Calendario
-                </div>
-
-            </div>
-
-            <div class="pull-right profile-menu-nav-collapse">
-                <button class="button black"><i class="icon-reorder"></i></button>
-            </div>
-
-        </div>
-
-        <ul class="secondary-nav-menu">
-            <li class="">
-                <a href="{{ path('profesional_add_event') }}">
-                    <i class="icon-calendar"></i> Añadir un nuevo evento
-                </a>
-            </li>
-
-
-        </ul>
-
-    </nav>
+{% block section_nav %}
+{% include 'UserProfesionalBundle:Event:menu.html.twig' %}
 {% endblock %}

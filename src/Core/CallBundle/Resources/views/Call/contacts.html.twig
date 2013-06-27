@@ -10,25 +10,20 @@
         </div>
     </div>
 
-    <div style="min-height: 111px" id="contentVideoconferencehtml5MyCamera">
+    <div style="min-height: 111px; display:none;" id="contentVideoconferencehtml5MyCamera">
 
 
-        <div id="publisherPrototype" style=" height: 150px; width: 111px; margin-bottom: 4px" class="hide"></div>
-        <div id="publisher" style="height: 150px;width: 111px;margin-bottom: 4px "></div>
+        <div id="publisherPrototype" style="height: 123px;width: 220px; margin-bottom: 4px" class="hide"></div>
+        <div id="publisher" style="height: 123px;width: 220px;margin-bottom: 4px "></div>
     </div>
 
-    <div class="row" style="margin-bottom: 10px">
-        <div class="span2">
-            <input type="text" placeholder="Búsqueda" class="search contactlistsearch"
-                   style="margin-bottom: 0px;width: 193px; margin-left: 3px; height: 40px">
-        </div>
-    </div>
-
-
-    <ul class="secondary-nav-menu">
+<br>
+    <h6 class="widget-name"><i class="icon-search"></i>Usuarios</h6>
+    <div style="width: 100%; min-height: auto; height: auto;"><input class="search contactlistsearch" value="" placeholder="Búsqueda" style="width:184px; color: rgb(102, 102, 102);"></div>
+    <ul class="social-stats">
         {% for user in users %}
             {% if user.id != app.user.id %}
-                <li
+            <li
                         data-id="{{ user.id }}"
                         data-show="1"
                         data-status="0"
@@ -48,7 +43,7 @@
                             class="hide"
                         {% endif %}
                         >
-                    <a>
+                    <a class="">
 
                         {% if user.hasRole('ROLE_PROFESIONAL') %}
                             <i class="icon-star"></i>
@@ -57,10 +52,9 @@
                         {% else %}
                             <i class="icon-user"></i>
                         {% endif %}
-                        {{ [user.name," ", user.surname]|join|truncate(14) }}
-
-
-
+                    </a>
+                    <div>
+                        <h4>{{ [user.name," ", user.surname]|join|truncate(14) }}</h4>
                         {% if iOSApp is defined and iOSApp == true %}
                             <span class="label label-important"
                                   style="float:right; margin-top: 10px; margin-right: 17px;">OFF</span>
@@ -68,8 +62,7 @@
                             <span class="label label-important"
                                   style="position: relative; right: 0px; top: 0px;">OFF</span>
                         {% endif %}
-                    </a>
-
+                    </div>
                 </li>
             {% endif %}
         {% endfor %}
@@ -94,7 +87,10 @@
 
 
                     <i class="icon-user"></i>
-                    Invitado
+
+                    </a>
+                    <div>
+                    <h4>Invitado</h4>
 
 
 
@@ -105,13 +101,13 @@
                         <span class="label label-important"
                               style="position: relative; right: 0px; top: 0px;">OFF</span>
                     {% endif %}
-                </a>
+                </div>
 
             </li>
         {% endif %}
         {% endif %}
-
     </ul>
+
 
 
 

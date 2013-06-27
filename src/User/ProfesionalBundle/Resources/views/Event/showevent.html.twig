@@ -1,7 +1,11 @@
 {% set active = 'calendar' %}
 {% extends '::layout.html.twig' %}
 
-{% block nav_secondary %}{% endblock %}
+{% block section_nav %}
+{% include 'UserProfesionalBundle:Event:menu.html.twig' %}
+{% endblock %}
+
+
 {% block panel %}
 
     <div class="row-fluid">

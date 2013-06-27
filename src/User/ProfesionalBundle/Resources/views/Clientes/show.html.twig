@@ -1,60 +1,19 @@
 {% set active = 'clientes' %}
 {% extends '::layout.html.twig' %}
 
-{% block nav_secondary %}
-    {% include 'UserProfesionalBundle:Clientes:menu.html.twig' %}
-{% endblock %}
 
 {% block extra %}
     <script type="text/javascript" src="{{ asset('bundles/coreresources/js/bootstrap.min.js') }}"></script>
 {% endblock %}
 {% block panel %}
-
-    <div class="row">
-        <div class="offset1 span5">
-
-            <table class="table table-striped table-bordered box">
-                <thead>
-                <tr>
-                    <th colspan="2">Información del usuario</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Nombre completo:</td>
-                    <td><strong>{{ cliente.user.name }} {{ cliente.user.surname }}</strong></td>
-                </tr>
-                <tr>
-                    <td>Email:</td>
-                    <td>{{ cliente.user.email }}</td>
-                </tr>
-                <tr>
-                    <td>Número de movil:</td>
-                    <td class="red">{{ cliente.user.mobile }}</td>
-                </tr>
-                <tr>
-                    <td>Alias:</td>
-                    <td>{{ cliente.alias }}</td>
-                </tr>
-
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="2">
-                        <div class="clearfix" style="padding: 0 5px;">
-                            <div class="pull-left">
-                                <a href="{{ path('profesional_clientes_edit', {'idUser': cliente.user.id}) }}" class="button blue">Editar cliente</a>
-                                <a href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}" class="button green">Añadir nuevo reporte</a>
-                                <a href="#disableUser" role="button" class="button red" data-toggle="modal">Eliminar suscripción!</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-
-        </div>
-
+<br>
+{% include 'UserProfesionalBundle:Clientes:buttons.html.twig' %}
+<h5 class="widget-name">
+    <i class="icon-table"></i> Información del usuario
+</h5>
+<div class="widget">
+<div class="row-fluid">
+        
         <div class="span6">
             <div class="black-box tex">
                 <div class="tab-header">
@@ -97,6 +56,37 @@
                 </ul>
             </div>
         </div>
+        <div class="span6">
+            <table class="table table-striped table-bordered box">
+                <thead>
+                <tr>
+                    <th colspan="2">Información del usuario</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Nombre completo:</td>
+                    <td><strong>{{ cliente.user.name }} {{ cliente.user.surname }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{ cliente.user.email }}</td>
+                </tr>
+                <tr>
+                    <td>Número de movil:</td>
+                    <td class="red">{{ cliente.user.mobile }}</td>
+                </tr>
+                <tr>
+                    <td>Alias:</td>
+                    <td>{{ cliente.alias }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+
+
     </div>
 
 
@@ -115,8 +105,5 @@
 
     </div>
 
-
-
-
-
+</div>
 {% endblock %}

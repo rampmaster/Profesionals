@@ -1,12 +1,18 @@
 {% set active = 'clientes' %}
 {% extends '::layout.html.twig' %}
-
+{% form_theme form 'CoreResourcesBundle:Form:fields.html.twig' %}
 {% block panel %}
+<br>
+{% include 'UserProfesionalBundle:Clientes:buttons.html.twig' with {'cliente':cliente} %}
+<h5 class="widget-name">
+    <i class="icon-table"></i> Editar Cuenta
+</h5>
+<div class="widget">
+<div class="row-fluid">
 
 <div class="span12">
     <div class="box">
         <div class="tab-header">
-            Editar cliente
                 <span class="pull-right">
                   <span class="options">
                     <a href="#"><i class="icon-cog"></i></a>
@@ -14,18 +20,28 @@
                 </span>
         </div>
 
-        <form method="post" class="fill-up" {{form_enctype(form) }}>
-            <div class="padded">
-                {{ form_widget(form) }}
-            </div>
-            <hr>
+        <form method="post" class="form form-horizontal" {{form_enctype(form) }}>
+            <fieldset>
+
+                        <!-- General form elements -->
+                        <div class="widget row-fluid">
+
+                            <div class="well">
+                                {{ form_row(form.alias) }}
+                                {{ form_widget(form.user) }}
+                                {{ form_rest(form) }}
+                                
+                            </div>
+                        </div>
+                        <!-- /general form elements -->
+
+                    </fieldset>
+
             <input type="submit" class="btn btn-success" value="Editar cliente">
         </form>
     </div>
+</div>
+</div>
 
 
     {% endblock %}
-
-    {% block nav_secondary %}
-    {% include 'UserProfesionalBundle:Clientes:menu.html.twig' %}
-{% endblock %}

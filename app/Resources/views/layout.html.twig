@@ -8,8 +8,12 @@
     
     <link href="{{asset('images/styles')}}/{{app.session.get('subdomain')}}/styles.css" rel="stylesheet" media="screen">
     
-    <link href="{{ asset('bundles/coreresources/theme/stylesheets/application.css') }}" media="screen" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/coreresources/admintheme/css/main.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/coreresources/toastr/toastr-responsive.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/coreresources/toastr/toastr.css') }}" rel="stylesheet" type="text/css" />
+
     <link href="{{ asset('bundles/coreresources/css/custom.css') }}" media="screen" rel="stylesheet" type="text/css" />
+
     {% block header_scripts %}{% endblock %}
 
     {% block stylesheets %}
@@ -54,11 +58,32 @@
         </div>
     </div>
 </div>
-{% block aside %}
-<nav id="primary" class="main-nav">
-    <ul>
-    
-        {% block nav_primary %}{% if app.user is not empty %}
+<div class="container">
+    {% block aside %}
+    <div id="sidebar">
+        <div class="sidebar-tabs" data-easytabs="true">
+
+                <div id="general" class="active" style="display: block;">
+                    
+                    {% block nav_secondary %}
+                    <!-- Sidebar user -->
+                    <div class="sidebar-user widget">
+                        <div class="navbar"><div class="navbar-inner"><h6>{{ app.user.name }} {{ app.user.surname }}</h6></div></div>
+                        <a href="#" title="" class="user">
+                            {% if app.user.getWebPath() is not empty %}
+                                <img src="{{ asset(app.user.getWebPath()) }}" style="width:100%">
+                            {% else %}
+                                <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}" style="width:100%"/>
+                            {% endif %}
+                        </a>
+                        
+                    </div>
+                    <!-- /sidebar user -->
+                    {% endblock %}
+
+                    <!-- Main navigation -->
+                    <ul class="navigation widget">
+                        {% block nav_primary %}{% if app.user is not empty %}
             {% if app.user.hasRole('ROLE_PROFESIONAL') %}
                 <li class="{% if active == 'consulta' %}active{% endif %}">
                     <a href="{{ path('profesional_consulta') }}">
@@ -112,160 +137,63 @@
 
             {% endif %}
         {% endif %}{% endblock %}
+                    </ul>
+                    <!-- /main navigation -->
 
-    </ul>
-</nav>
 
-
-{% block nav_secondary %}
-<nav id="secondary" class="main-nav">
-
-    <div class="profile-menu">
-
-        <div class="pull-left">
-            <div class="avatar">
-                <img src="../../images/avatar.png" />
-            </div>
-        </div>
-
-        <div class="pull-left">
-            <div class="title">
-                Plastique
-            </div>
-            <div class="btn-group">
-                <button class="button mini inset black"><i class="icon-search"></i></button>
-                <button class="button mini inset black">Projects</button>
-                <button class="button mini inset black dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i></button>
-                <ul class="dropdown-menu black-box-dropdown">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
+                </div>
 
             </div>
-        </div>
 
-        <div class="pull-right profile-menu-nav-collapse">
-            <button class="button black"><i class="icon-reorder"></i></button>
-        </div>
+    </div>{% endblock %}
+    <div id="content">
+        <div class="wrapper">
 
-    </div>
+        {% block section_nav %}
+        {% endblock %}
 
-    <ul class="secondary-nav-menu">
-        <li class="active">
-            <a href="stats.html">
-                <i class="icon-dashboard"></i> Stats
-            </a>
-        </li>
-
-        <li>
-            <a href="#" id="modal-link">
-                <i class="icon-random"></i> Open Modal
-            </a>
-        </li>
-
-        <li id="notification-full-image">
-            <a href="#">
-                <i class="icon-list-alt"></i> Notification #1
-            </a>
-        </li>
-
-        <li id="notification-small-image">
-            <a href="#">
-                <i class="icon-table"></i> Notification #2
-            </a>
-        </li>
-    </ul>
-
-</nav>
-{% endblock %}
-{% endblock %}
-
-
-<section id="main">
-    <div style="padding: 10px"></div>
-<div class="container-fluid" >
-    {% block section_nav %}
-    {% endblock %}
-<div class="row-fluid">
-{% block panel %}
-
-{% endblock %}
-</div>
-
-
-<div class="row-fluid">
-    <div class="span12">
-        <div class="footer">
-            <div>2013 &copy; Profesional </div>
-            <div>Carefully developed by 3media</div>
+        {% block panel %}
+        {% endblock %}
         </div>
     </div>
 </div>
-</div>
-</section>
-{% raw %}
-<script type="text/html" id="template-notification">
-  <div class="notification animated fadeInLeftMiddle fast{{ item.itemClass }}">
-    <div class="left">
-      <div style="background-image: url({{ item.imagePath }})" class="{{ item.imageClass }}"></div>
-    </div>
-    <div class="right">
-      <div class="inner">{{ item.text }}</div>
-      <div class="time">{{ item.time }}</div>
-    </div>
 
-    <i class="icon-remove-sign hide"></i>
-  </div>
-</script>
-<script type="text/html" id="template-notifications">
-  <div class="container">
-    <div class="row" id="notifications-wrapper">
-      <div id="notifications" class="{{ bootstrapPositionClass }} notifications animated">
-        <div id="dismiss-all" class="dismiss-all button blue">Dismiss all</div>
-        <div id="content">
-          <div id="notes"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</script>
-{% endraw %}
+<div id="footer">
+        <div class="copyrights">©  Varavan.com.</div>
+        <ul class="footer-links">
+            <li><a href="" title=""><i class="icon-screenshot"></i>Reportar error</a></li>
+        </ul>
+</div>
+
+
 
 <script src="{{ asset('bundles/coreresources/theme/javascripts/application.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/coreresources/theme/javascripts/docs.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/coreresources/theme/javascripts/docs_charts.js') }}" type="text/javascript"></script>
-<script src="{{ asset('bundles/coreresources/theme/javascripts/documentation.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/coreresources/js/jquery.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/coreresources/toastr/toastr.js') }}" type="text/javascript"></script>
 <script src="{{ asset('bundles/coreresources/theme/javascripts/prettify.js') }}" type="text/javascript"></script>
 <link href="{{ asset('bundles/coreresources/theme/stylesheets/prettify.css') }}" media="screen" rel="stylesheet" type="text/css" />
 
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-
 <script type="text/javascript">
     prettyPrint()
     $(function(){
     {% for flashMessage in app.session.flashbag.get('notice') %}
-        Notifications.push({
-            text: "{{ flashMessage }}",
-            autoDismiss: 3,
-            bootstrapPositionClass: "notice"
-          });
-        
+        toastr['success']("{{ flashMessage }}")
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('info') %}
+        toastr['info']("{{ flashMessage }}")
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        toastr['warning']("{{ flashMessage }}")
     {% endfor %}
     {% for flashMessage in app.session.flashbag.get('error') %}
-        Notifications.push({
-            text: "{{ flashMessage }}",
-            autoDismiss: 3,
-            bootstrapPositionClass: "error"
-          });
-        
+        toastr['error']("{{ flashMessage }}")
     {% endfor %}
     })
 
 </script>
+
 {% block extra_javascripts %}
 {% endblock %}
 {% block javascripts %}{% endblock %}
