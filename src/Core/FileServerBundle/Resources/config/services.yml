@@ -1,0 +1,7 @@
+parameters:
+#    core_file_server.example.class: Core\FileServerBundle\Example
+
+services:
+#    core_file_server.example:
+#        class: %core_file_server.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,3 +1,7 @@
+core_file_server:
+    resource: "@CoreFileServerBundle/Resources/config/routing.yml"
+    prefix:   /
+
 
 #CORE
 

@@ -149,6 +149,10 @@ class User extends BaseUser
 
 
     //RELATIONS
+    /**
+     * @ORM\OneToMany(targetEntity="\Core\FileServerBundle\Entity\File", mappedBy="owner")
+     */
+    private $files;
 
     /**
      * @ORM\OneToOne(targetEntity="\User\ClientBundle\Entity\Client", inversedBy="user", cascade={ "all" })
@@ -453,5 +457,38 @@ class User extends BaseUser
     public function getExternalPath()
     {
         return $this->external_path;
+    }
+
+    /**
+     * Add files
+     *
+     * @param \Core\FileServerBundle\Entity\File $files
+     * @return User
+     */
+    public function addFile(\Core\FileServerBundle\Entity\File $files)
+    {
+        $this->files[] = $files;
+
+        return $this;
+    }
+
+    /**
+     * Remove files
+     *
+     * @param \Core\FileServerBundle\Entity\File $files
+     */
+    public function removeFile(\Core\FileServerBundle\Entity\File $files)
+    {
+        $this->files->removeElement($files);
+    }
+
+    /**
+     * Get files
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFiles()
+    {
+        return $this->files;
     }
 }

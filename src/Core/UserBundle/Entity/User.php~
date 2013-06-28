@@ -105,10 +105,9 @@ class User extends BaseUser
 
     public function getWebPath()
     {
-        if(null === $this->path){
-            return null === $this->external_path
-                ? null : $this->external_path;
 
+        if($this->path ==  "avatar.png" && $this->external_path!=null){
+            return $this->external_path;    
         }
         return null === $this->path
             ? null
@@ -150,6 +149,10 @@ class User extends BaseUser
 
 
     //RELATIONS
+    /**
+     * @ORM\OneToMany(targetEntity="\Core\FileServerBundle\Entity\File", mappedBy="owner")
+     */
+    private $files;
 
     /**
      * @ORM\OneToOne(targetEntity="\User\ClientBundle\Entity\Client", inversedBy="user", cascade={ "all" })
@@ -431,5 +434,28 @@ class User extends BaseUser
     public function getLinkedinAccessToken()
     {
         return $this->linkedin_access_token;
+    }
+
+    /**
+     * Set external_path
+     *
+     * @param string $externalPath
+     * @return User
+     */
+    public function setExternalPath($externalPath)
+    {
+        $this->external_path = $externalPath;
+
+        return $this;
+    }
+
+    /**
+     * Get external_path
+     *
+     * @return string 
+     */
+    public function getExternalPath()
+    {
+        return $this->external_path;
     }
 }

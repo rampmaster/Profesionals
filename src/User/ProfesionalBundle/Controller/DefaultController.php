@@ -228,7 +228,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/clientes/add-report/{idCliente}", name="profesional_clientes_add_report")
+     * @Route("/clientes/add-report-ajax/{idCliente}", name="profesional_clientes_add_report_ajax")
      * @Template()
      */
     public function addreportAction($idCliente)
