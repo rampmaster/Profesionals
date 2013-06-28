@@ -78,7 +78,7 @@ services:
      class: User\ProfesionalBundle\Listener\SubdomainListener
      tags:
          - { name: kernel.event_listener, event: kernel.request, method: subdomainParse }
-
+     arguments: [ @doctrine.orm.entity_manager ]
 genemu_form:
     select2: ~
     date: ~

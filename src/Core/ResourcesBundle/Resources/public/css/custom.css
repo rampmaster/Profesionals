@@ -124,3 +124,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', end
 .modal-body.separator  { min-height: 200px;}
 
 .user-links li.selected a{ background:#AAA;}
+
+a.custom-logo { 
+font-family: Arvo;
+font-size: 22px;
+margin-top: 12px;
+display:block;
+color: #ED786A;
+}
+
+ul.wysihtml5-toolbar li:first-child { max-width: 200px; float:left; }
+ul.wysihtml5-toolbar li:last-child { max-width: 200px; float:right; }
+#fullview { float:left; margin-left: -10px; margin-top: 8px; border-radius: 15px; padding: 3px; box-shadow: 0px 0px 4px black inset;  }
+#fullview i { font-size: 22px;  }

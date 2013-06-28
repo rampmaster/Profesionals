@@ -131,13 +131,13 @@ class Styles
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'images/styles';
+        return 'images/styles/'.$this->professional->getUser()->getUsername();
     }
 
 
     public function upload($username="default")
     {
-        $this->writeCss($this->getUploadRootDir("/".$username));
+        $this->writeCss($this->getUploadRootDir());
         if (null === $this->file) {
             return;
         }
