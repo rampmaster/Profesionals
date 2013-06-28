@@ -17,26 +17,28 @@
         <div class="span6">
             <div class="black-box tex">
                 <div class="tab-header">
-                    Informes del cliente
+                    <h3>Informes del cliente</h3>
+                    <hr>
                 </div>
                 <ul class="recent-comments">
 
 
                     {% for r in cliente.reports %}
-                    <li class="separator">
-                        <div class="avatar pull-left">
-                            <img src="{{ asset('bundles/coreresources/theme/images/avatar3.png') }}">
-                        </div>
+                    <li class="" style="width: 100%">
 
-                        <div class="article-post">
-                            <div class="user-info"> Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}" </div>
-                            <div class="user-content">
-                                {{ r.title }}
-                                <p>{{ r.text|raw }}</p>
+                            <div class="span12">
+                                <b>{{ r.title }}</b><br>
+                                <small>Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}"</small><br>
+
+                                    <blockquote style="margin-bottom: 10px; margin-left: 10px; margin-top:10px">
+                                    <p>{{ r.text|raw }}</p>
+                                    </blockquote>
+
                             </div>
 
 
-                        </div>
+                        <hr>
+                        <div style="clear:both; padding-bottom: 10px"></div>
                     </li>
                         {% else %}
                             <li class="separator">
