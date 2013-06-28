@@ -2,18 +2,21 @@
 {% extends '::layout.html.twig' %}
 
 {% block header_scripts %}
-    <link rel="stylesheet" href="{{ asset('bundles/coreresources/theme/stylesheets/fullcalendar/fullcalendar.css') }}" />
+    <!--<link rel="stylesheet" href="{{ asset('bundles/coreresources/theme/stylesheets/fullcalendar/fullcalendar.css') }}" />-->
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/admintheme/js/plugins/ui/jquery.fullcalendar.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>
 {% endblock %}
 {% block panel %}
-<div class="row-fluid">
-    <div class="box padded offset2 span8">
-    {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
-    </div>
+<div class="widget">
+                <!-- Calendar -->
+                
+					<div class="navbar"><div class="navbar-inner"><h6>Calendar</h6></div></div>
+                    	<div id="calendar-holder" class="well"></div>
+                	</div>
+                <!-- /calendar -->
 </div>
 {% endblock %}
 

@@ -34109,6 +34109,11 @@ plots, you can just fix the size of their placeholders.
 (function() {
 
   $(function() {
+
+    //load tooltipa
+    $("[data-toggle='tooltip']").tooltip();
+    $("[rel='tooltip']").tooltip();
+
     return $(".search-button-trigger").click(function() {
       return $(".search-bar-nav").toggleClass("open");
     });

@@ -1,7 +1,7 @@
 <ul class="round-buttons">
-<li><div class="depth"><a href="{{ path('profesional_clientes_show', {'idCliente': cliente.id}) }}" title="" class="tip" data-original-title="Añadir Informe"><i class="icon-reorder"></i></a></div></li>
-                                <li><div class="depth"><a href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}" title="" class="tip" data-original-title="Añadir Informe"><i class="icon-plus"></i></a></div></li>
-                                <li><div class="depth"><a href="{{ path('profesional_clientes_edit', {'idUser': cliente.user.id}) }}" title="" class="tip" data-original-title="Editar Cliente"><i class="icon-edit"></i></a></div></li>
-                                <li><div class="depth" style="background-color: rgb(221, 56, 56);"><a href="#disableUser" role="button" data-toggle="modal" class="tip" data-original-title="Eliminar Suscripción"><i class="icon-remove"></i></a></div></li>
-                                <li><div class="depth" style="background-color: rgb(166, 241, 53);"><a href="javascript:history.go(-1)" title="" class="tip" data-original-title="Volver Atrás"><i class="icon-arrow-left"></i></a></div></li>
+<li><div class="depth" ><a data-toggle="tooltip" title="Consultar Ficha" href="{{ path('profesional_clientes_show', {'idCliente': cliente.id}) }}"  class="tip" data-original-title="Información"><i class="icon-reorder"></i></a></div></li>
+                                <li><div class="depth"><a href="{{ path('profesional_clientes_add_report', {'idCliente': cliente.id}) }}" data-toggle="tooltip" title="Añadir Informe"><i class="icon-plus"></i></a></div></li>
+                                <li><div class="depth"><a href="{{ path('profesional_clientes_edit', {'idUser': cliente.user.id}) }}" data-toggle="tooltip" title="Modificar Ficha"><i class="icon-edit"></i></a></div></li>
+                                <li><div class="depth" style="background-color: rgb(221, 56, 56);"><a href="#disableUser" role="button" data-toggle="modal" rel="tooltip" title="Borrar Cliente"><i class="icon-remove"></i></a></div></li>
+                                <li><div class="depth" style="background-color: rgb(166, 241, 53);"><a href="javascript:history.go(-1)" data-toggle="tooltip" title="Volver Atrás"><i class="icon-arrow-left"></i></a></div></li>
                             </ul>

@@ -69,6 +69,8 @@ var callhandler =
         contactshandler.updateMyState(callPresenceBusy);
         callVideoconferenceToHangupState();
         $("#answerButton").addClass('hide');
+        $(".sidebar-user a.user").css("display","none")
+        $("#contentVideoconferencehtml5MyCamera").css("display","block")
         callStatus = callStatusTalking;
         //callActiveChat();
         callVideoconferenceToCallStateStarted();

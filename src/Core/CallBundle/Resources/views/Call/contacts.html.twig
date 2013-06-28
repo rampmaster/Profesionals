@@ -17,10 +17,11 @@
         <div id="publisher" style="height: 123px;width: 220px;margin-bottom: 4px "></div>
     </div>
 
+
 <br>
     <h6 class="widget-name"><i class="icon-search"></i>Usuarios</h6>
     <div style="width: 100%; min-height: auto; height: auto;"><input class="search contactlistsearch" value="" placeholder="Búsqueda" style="width:184px; color: rgb(102, 102, 102);"></div>
-    <ul class="social-stats">
+    <ul class="user-links secondary-nav-menu">
         {% for user in users %}
             {% if user.id != app.user.id %}
             <li
@@ -44,7 +45,6 @@
                         {% endif %}
                         >
                     <a class="">
-
                         {% if user.hasRole('ROLE_PROFESIONAL') %}
                             <i class="icon-star"></i>
                         {% elseif user.hasRole('ROLE_COLLABORATOR') %}
@@ -52,9 +52,8 @@
                         {% else %}
                             <i class="icon-user"></i>
                         {% endif %}
-                    </a>
-                    <div>
-                        <h4>{{ [user.name," ", user.surname]|join|truncate(14) }}</h4>
+                        {{ [user.name," ", user.surname]|join|truncate(14) }}
+                        <strong>
                         {% if iOSApp is defined and iOSApp == true %}
                             <span class="label label-important"
                                   style="float:right; margin-top: 10px; margin-right: 17px;">OFF</span>
@@ -62,7 +61,8 @@
                             <span class="label label-important"
                                   style="position: relative; right: 0px; top: 0px;">OFF</span>
                         {% endif %}
-                    </div>
+                        </strong>
+                    </a>
                 </li>
             {% endif %}
         {% endfor %}
@@ -84,23 +84,16 @@
                     {% endif %}
                     >
                 <a>
-
-
                     <i class="icon-user"></i>
-
-                    </a>
-                    <div>
-                    <h4>Invitado</h4>
-
-
-
+                    Invitado <strong>
                     {% if iOSApp is defined and iOSApp == true %}
                         <span class="label label-important"
                               style="float:right; margin-top: 10px; margin-right: 17px;">OFF</span>
                     {% else %}
                         <span class="label label-important"
                               style="position: relative; right: 0px; top: 0px;">OFF</span>
-                    {% endif %}
+                    {% endif %}</strong>
+                    </a>
                 </div>
 
             </li>
