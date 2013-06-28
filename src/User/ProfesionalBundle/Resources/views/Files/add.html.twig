@@ -1,0 +1,25 @@
+{% extends 'UserProfesionalBundle:Default:settings_layout.html.twig' %}
+{% set secondary_active = 'files' %}
+{% block panel %}
+    <div class="row-fluid">
+        <div class="span12 wizard">
+            <div class="box">
+                <div class="tab-header">
+                    Archivos
+                <span class="pull-right">
+                  <span class="options">
+                    <a href="#"><i class="icon-cog"></i></a>
+                  </span>
+                </span>
+                </div>
+
+                <form method="post" {{ form_enctype(form) }}>
+                {{ form_widget(form) }}
+
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

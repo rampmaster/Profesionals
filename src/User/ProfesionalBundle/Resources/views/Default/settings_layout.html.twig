@@ -15,5 +15,16 @@
       <div class="depth {% if secondary_active == 'plans' %} active{% endif %}">
         <a href="{{ path('profesional_plans') }}"  data-toggle="tooltip" title="Planes y Pagos"><i class="icon-credit-card"></i> Pagos<strong></strong></a></div>
     </li>
+
+
 </ul>
+
+        {#
+      <a class="button large{% if secondary_active == 'files' %} active{% endif %}" href="{{ path('profesional_files') }}">
+          <i class="icon-barcode"></i>
+          <span></span>
+      </a>
+      #}
+
+
     {% endblock %}

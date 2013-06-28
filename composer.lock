@@ -1,5 +1,9 @@
 {
-    "hash": "1ce2d160ee9029c05a5ee242a085057e",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "77dfd9dc1be1a8b17572e017b7f6fc88",
     "packages": [
         {
             "name": "adesigns/calendar-bundle",
@@ -1130,6 +1134,59 @@
                 "yahoo"
             ],
             "time": "2013-05-29 09:12:32"
+        },
+        {
+            "name": "igorw/file-serve-bundle",
+            "version": "v1.0.2",
+            "target-dir": "Igorw/FileServeBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/igorw/IgorwFileServeBundle",
+                "reference": "v1.0.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/igorw/IgorwFileServeBundle/zipball/v1.0.2",
+                "reference": "v1.0.2",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/http-foundation": "2.*"
+            },
+            "require-dev": {
+                "symfony/framework-bundle": "2.*"
+            },
+            "suggest": {
+                "symfony/framework-bundle": "2.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Igorw\\FileServeBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch",
+                    "homepage": "http://wiedler.ch/igor/"
+                }
+            ],
+            "description": "Symfony2 Bundle for serving protected files.",
+            "keywords": [
+                "file-system",
+                "sendfile"
+            ],
+            "time": "2012-10-24 07:48:24"
         },
         {
             "name": "jdorn/sql-formatter",

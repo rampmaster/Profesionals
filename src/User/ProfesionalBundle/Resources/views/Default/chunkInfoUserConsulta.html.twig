@@ -106,7 +106,7 @@
                   </span>
                 </span>
             </div>
-            <form method="post" action="{{ path('profesional_clientes_add_report', {'idCliente': entity.id}) }}"
+            <form method="post" action="{{ path('profesional_clientes_add_report_ajax', {'idCliente': entity.id}) }}"
                   class="fill-up" id="formAddReport">
                 <div class="padded">
                     {{ form_widget(form) }}

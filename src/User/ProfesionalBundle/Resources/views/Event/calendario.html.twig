@@ -6,20 +6,58 @@
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/coreresources/admintheme/js/plugins/ui/jquery.fullcalendar.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/coreresources/admintheme/js/plugins/ui/jquery.fullcalendar.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            $('#calendar-holder').fullCalendar({
+                header: {
+                    left: 'next, prev',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay,'
+                },
+                lazyFetching: true,
+                timeFormat: {
+                    // for agendaWeek and agendaDay
+                    agenda: 'h:mmt', // 5:00 - 6:30
+
+                    // for all other views
+                    '': 'h:mmt'            // 7p
+                },
+                eventSources: [
+                    {
+                        url: Routing.generate('fullcalendar_loader'),
+                        type: 'POST',
+                        error: function () {
+                            //alert('There was an error while fetching Google Calendar!');
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
 {% endblock %}
 {% block panel %}
-<div class="widget">
-                <!-- Calendar -->
-                
-					<div class="navbar"><div class="navbar-inner"><h6>Calendar</h6></div></div>
-                    	<div id="calendar-holder" class="well"></div>
-                	</div>
-                <!-- /calendar -->
-</div>
+    <div class="widget">
+        <!-- Calendar -->
+
+        <div class="navbar">
+            <div class="navbar-inner"><h6>Calendar</h6></div>
+        </div>
+        <div id="calendar-holder" class="well"></div>
+    </div>
+    <!-- /calendar -->
+    </div>
+
+
 {% endblock %}
 
 {% block section_nav %}
-{% include 'UserProfesionalBundle:Event:menu.html.twig' %}
+    {% include 'UserProfesionalBundle:Event:menu.html.twig' %}
 {% endblock %}
