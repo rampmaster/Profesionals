@@ -1,71 +1,22 @@
-{% block nav_secondary %}
-<nav id="secondary" class="main-nav">
+{% block section_nav %}
 
-    <div class="profile-menu">
+<ul class="round-buttons">
+    <li class="{% if active_sales == 'admin_sales_products' %}active{% endif %}"><div class="depth"><a href="{{ path('admin_sales_products') }}" data-toggle="tooltip" title="Productos"><i class="icon-lock"></i> Productos<strong></strong></a></div></li>
+    
 
-        <div class="pull-left">
-            <div class="avatar">
-                <img src="{{ asset('bundles/coreresources/theme/images/cloud.png') }}" />
-            </div>
-        </div>
-
-        <div class="pull-left">
-            <div class="title">
-                Sales
-            </div>
-
-        </div>
-
-        <div class="pull-right profile-menu-nav-collapse">
-            <button class="button black"><i class="icon-reorder"></i></button>
-        </div>
-
-    </div>
-
-    <ul class="secondary-nav-menu">
-        <li class="{% if active_sales == 'admin_sales_products' %}active{% endif %}">
-            <a href="{{ path('admin_sales_products') }}">
-                <i class="icon-lock"></i> Productos
-            </a>
-        </li>
-
-        <li class="{% if active_sales == 'admin_sales_plans' %}active{% endif %}">
-            <a href="{{ path('admin_sales_plans') }}">
-                <i class="icon-tags"></i> Planes
-            </a>
-        </li>
+    <li class="{% if active_sales == 'admin_sales_plans' %}active{% endif %}"><div class="depth"><a href="{{ path('admin_sales_plans') }}" data-toggle="tooltip" title="Planes"><i class="icon-tags"></i> Planes<strong></strong></a></div></li>
 
 
-        <li class="{% if active_sales == 'admin_sales_pays_history' %}active{% endif %}">
-            <a href="{{ path('admin_sales_pays_history', {'firstResult': 0, 'maxResult': 10}) }}">
-                <i class="icon-gift"></i> Registro de pagos
-            </a>
-        </li>
+    <li class="{% if active_sales == 'admin_sales_pays_history' %}active{% endif %}"><div class="depth"><a href="{{ path('admin_sales_pays_history', {'firstResult': 0, 'maxResult': 10}) }}" data-toggle="tooltip" title="Registro de Pagos"><i class="icon-gift"></i> Registro de Pagos<strong></strong></a></div></li>
 
-        <li class="{% if active_sales == 'admin_sales_plan_history' %}active{% endif %}">
-            <a href="{{ path('admin_sales_plan_history') }}">
-                <i class="icon-list"></i> Registro de suscripciones
-            </a>
-        </li>
 
-        <li class="{% if active_sales == 'admin_sales_tools' %}active{% endif %}">
-            <a href="{{ path('admin_sales_tools') }}">
-                <i class="icon-wrench"></i> Herramientas
-            </a>
-        </li>
+    <li class="{% if active_sales == 'admin_sales_plan_history' %}active{% endif %}"><div class="depth"><a href="{{ path('admin_sales_plan_history') }}" data-toggle="tooltip" title="Registro de Suscripciones"><i class="icon-list"></i> Registro de Suscripciones<strong></strong></a></div></li>
 
-        <li class="{% if active_sales == 'admin_sales_promotions' %}active{% endif %}">
-            <a href="{{ path('admin_sales_promotions') }}">
-                <i class="icon-qrcode"></i> Promociones
-            </a>
-        </li>
+    <li class="{% if active_sales == 'admin_sales_tools' %}active{% endif %}"><div class="depth"><a href="{{ path('admin_sales_tools') }}" data-toggle="tooltip" title="Herramientas"><i class="icon-wrench"></i> Herramientas<strong></strong></a></div></li>
 
-        <li class="{% if active_sales == 'admin_sales_commissions' %}active{% endif %}">
-            <a href="{{ path('admin_sales_commissions') }}">
-                <i class="icon-book"></i> Comisiones
-            </a>
-        </li>
-    </ul>
+    <li class="{% if active_sales == 'admin_sales_promotions' %}active{% endif %}"><div class="depth"><a href="{{ path('admin_sales_promotions') }}" data-toggle="tooltip" title="Promociones"><i class="icon-qrcode"></i> Promociones<strong></strong></a></div></li>
+    <li class="{% if active_sales == 'admin_sales_commissions' %}active{% endif %}"><div class="depth"><a href="{{ path('admin_sales_commissions') }}" data-toggle="tooltip" title="Comisiones"><i class="icon-book"></i> Comisiones<strong></strong></a></div></li>
+</ul>
 
-</nav>
+
 {% endblock %}

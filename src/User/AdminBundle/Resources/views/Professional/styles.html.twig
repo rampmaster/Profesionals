@@ -1,24 +1,44 @@
 {% set active = 'professional' %}
 {% extends 'UserAdminBundle::layout.html.twig' %}
-
-{% block panel %}
-
-    <div class="span8">
-        <div class="box">
-        <div class="tab-header">
-            Editar estilos del profesional
-        </div>
-        <form method="post" class="fill-up" {{ form_enctype(form) }}>
-        <div class="padded">
-        {{ form_widget(form) }}
-        <hr>
-            <input type="submit" class="btn btn-block btn-success" value="Guardar cambios">
-            </div>
-        </form>
-        </div>
-    </div>
+{% form_theme form 'CoreResourcesBundle:Form:fields.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('bundles/coreresources/colorpicker/css/colorpicker.css') }}" rel="stylesheet"/>
+    {{ form_stylesheet(form) }}
 {% endblock %}
 
-{% block nav_secondary %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/coreresources/colorpicker/js/colorpicker.js') }}"></script>
+    {{ form_javascript(form) }}
+{% endblock %}
+{% block panel %}
+
+<h5 class="widget-name"><i class="icon-plus"></i>Editar estilos del profesional</h5>
+<div class="span12">
+    <div class="box">
+
+        <form method="post" class="form form-horizontal" {{form_enctype(form) }}>
+        <fieldset>
+
+                        <!-- General form elements -->
+                        <div class="widget row-fluid">
+
+                            <div class="well">
+                                {{ form_rest(form) }}
+                                
+                            </div>
+                        </div>
+                        <!-- /general form elements -->
+
+                    </fieldset>
+            <div style="text-align:center">
+                <input type="submit" class="btn btn-block btn-success" value="Guardar cambios">
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block section_nav %}
     {% include 'UserAdminBundle:Professional:menu.html.twig' %}
 {% endblock %}

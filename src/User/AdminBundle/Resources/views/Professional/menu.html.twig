@@ -1,40 +1,5 @@
 
-<nav id="secondary" class="main-nav">
-
-    <div class="profile-menu">
-
-        <div class="pull-left">
-            <div class="avatar">
-                <img src="{{ asset('bundles/coreresources/theme/images/avatar2.png') }}" />
-            </div>
-        </div>
-
-        <div class="pull-left">
-            <div class="title">
-                Profesionales
-            </div>
-
-        </div>
-
-        <div class="pull-right profile-menu-nav-collapse">
-            <button class="button black"><i class="icon-reorder"></i></button>
-        </div>
-
-    </div>
-
-    <ul class="secondary-nav-menu">
-        <li class="">
-            <a href="{{ path('admin_professionals') }}">
-                <i class="icon-th-list"></i> Lista de Clientes
-            </a>
-        </li>
-        <li class="">
-            <a href="{{ path('admin_professionals_add') }}">
-                <i class="icon-plus"></i> Añadir un nuevo cliente
-            </a>
-        </li>
-
-
-    </ul>
-
-</nav>
+<ul class="round-buttons">
+    <li><div class="depth"><a href="{{ path('admin_professionals') }}" data-toggle="tooltip" title="Listar Profesionales"><i class="icon-reorder"></i> Listar Profesionales<strong></strong></a></div></li>
+    <li><div class="depth"><a href="{{ path('admin_professionals_add') }}" data-toggle="tooltip" title="Añadir Cliente"><i class="icon-plus"></i> Añadir Profesional<strong></strong></a></div></li>
+</ul>
