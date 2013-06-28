@@ -75,7 +75,6 @@
 </div>
 
 {% endblock %}
-
 {% block section_nav %}
-{% include 'UserProfesionalBundle:Clientes:menu.html.twig' %}
+{% include 'UserProfesionalBundle:Clientes:buttons.html.twig' with {cliente:cliente} %}
 {% endblock %}
