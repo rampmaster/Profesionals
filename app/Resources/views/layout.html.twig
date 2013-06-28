@@ -69,11 +69,11 @@
                     <!-- Sidebar user -->
                     <div class="sidebar-user widget">
                         <div class="navbar"><div class="navbar-inner"><h6>{{ app.user.name }} {{ app.user.surname }}</h6></div></div>
-                        <a href="#" title="" class="user">
+                        <a href="#" title="" class="user" style="width: 190px; margin-left: 10px; box-shadow: 0px 0px 5px #888; margin-top: 10px; border: 1px solid #EEE; border-radius: 3px;">
                             {% if app.user.getWebPath() is not empty %}
-                                <img src="{{ asset(app.user.getWebPath()) }}" style="width:100%">
+                                <img src="{{ asset(app.user.getWebPath()) }}" style="width:100%; border-radius: 3px;">
                             {% else %}
-                                <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}" style="width:100%"/>
+                                <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}" style="width:100%; border-radius: 3px;"/>
                             {% endif %}
                         </a>
                         
