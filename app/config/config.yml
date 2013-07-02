@@ -82,6 +82,11 @@ services:
 genemu_form:
     select2: ~
     date: ~
+    file:
+        swf: /bundles/coreresources/uploadify/uploadify.swf
+        enabled:    true
+        cancel_img: '/bundles/genemuform/images/cancel.png'
+        folder:     'upload'
 
 doctrine_mongodb:
     connections:

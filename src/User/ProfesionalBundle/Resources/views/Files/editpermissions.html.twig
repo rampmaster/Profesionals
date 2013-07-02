@@ -1,0 +1,67 @@
+{% set active = 'files' %}
+{% extends '::layout.html.twig' %}
+{% block panel %}
+    <ul class="round-buttons">
+        <li><div class="depth"><a href="{{ path('profesional_files') }}" data-toggle="tooltip" data-original-title="Lista de archivos"><i class="icon-list"></i> Lista de  Archivos<strong></strong></a></div></li>
+        <li><div class="depth"><a href="{{ path('profesional_files_add') }}" data-toggle="tooltip" data-original-title="Añadir archivo"><i class="icon-plus"></i> Añadir Archivo<strong></strong></a></div></li>
+    </ul>
+
+    <h5 class="widget-name">
+        <i class="icon-table"></i> Editar archivo
+    </h5>
+
+
+    <form method="post" {{ form_enctype(form) }} action="{{ path('profesional_files_edit_permissions', {'hash': file.hash}) }}">
+        {{ form_label(form.permissions) }}
+        <ul id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
+
+            {% for emailField in form.permissions %}
+                <li>
+                    {{ form_errors(emailField) }}
+                    {{ form_widget(emailField) }}
+                    <a href="#" class="btn btn-danger" id="delete-perm">Eliminar permiso</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="#" id="add-another-perm" class="btn btn-info">Añadir un nuevo permiso</a>
+        {{ form_widget(form) }}
+
+
+        <input type="submit" class="btn btn-success" value="Editar">
+    </form>
+
+
+
+    <script type="text/javascript">
+        // keep track of how many email fields have been rendered
+        var emailCount = '{{ form.permissions | length }}';
+
+        window.onload=function(){
+
+            $('#add-another-perm').click(function() {
+                var emailList = jQuery('#perm-fields-list');
+
+                // grab the prototype template
+                var newWidget = emailList.attr('data-prototype');
+                // replace the "__name__" used in the id and name of the prototype
+                // with a number that's unique to your emails
+                // end name attribute looks like name="contact[emails][2]"
+                newWidget = newWidget.replace(/__name__/g, emailCount);
+                emailCount++;
+
+                // create a new list element and add it to the list
+                var newLi = jQuery('<li></li>').html(newWidget);
+                newLi.appendTo(jQuery('#perm-fields-list'));
+
+                return false;
+            });
+
+            $('#delete-perm').click(function() {
+               $(this).parent().remove();
+
+            });
+        };
+    </script>
+
+{% endblock %}

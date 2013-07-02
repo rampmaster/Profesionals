@@ -12,10 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
  * File
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Core\FileServerBundle\Entity\FileRepository")
  */
 class File
 {
+
+    public function removeAllPermissions(){
+        foreach($this->permissions as $p){
+            $this->removePermission($p);
+        }
+    }
+
     //RELATIONS
 
     /**
@@ -25,7 +32,7 @@ class File
     private $owner;
 
     /**
-     * @ORM\OneToMany(targetEntity="Permissions", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Permissions", mappedBy="file")
      */
     private $permissions;
 
@@ -48,11 +55,29 @@ class File
     private $title;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="public", type="boolean")
+     *
+     * publico para todos mis clientes
+     */
+    private $public;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hash", type="string")
+     */
+    private $hash;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="chmod", type="integer")
+     * @ORM\Column(name="size", type="integer")
+     *
+     * size in Kb
      */
-    private $chmod;
+    private $size;
 
     /**
      * @var \DateTime
@@ -95,7 +120,7 @@ class File
         return 'uploads/documents';
     }
 
-    public function upload()
+    public function upload($file)
     {
         if (null === $this->file) {
             return;
@@ -104,16 +129,18 @@ class File
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
-        $this->path = uniqid() . '.' . $this->file->guessExtension();
-        $this->file->move($this->getUploadRootDir(), $this->path);
+        $old = $this->path;
+        $this->hash = uniqid();
+        $this->size = $file->getSize();
+        $file->move($this->getUploadRootDir(), $file->getBasename());
+        //rename($file->getRealPath(), __DIR__.$this->getUploadRootDir()."/".$file->getBasename());
+        //$this->file->move($this->getUploadRootDir(), $this->path);
 
 
         $this->file = null;
     }
 
-    /**
-     * @Assert\File(maxSize="6000000")
-     */
+
     private $file;
 
     /**
@@ -121,7 +148,7 @@ class File
      *
      * @param UploadedFile $file
      */
-    public function setFile(UploadedFile $file = null)
+    public function setFile($file = null)
     {
         $this->file = $file;
     }
@@ -170,28 +197,7 @@ class File
         return $this->title;
     }
 
-    /**
-     * Set chmod
-     *
-     * @param integer chmod
-     * @return File
-     */
-    public function setChmod($chmod)
-    {
-        $this->chmod = $chmod;
-
-        return $this;
-    }
-
-    /**
-     * Get chmod
-     *
-     * @return integer 
-     */
-    public function getChmod()
-    {
-        return $this->chmod;
-    }
+    
 
     /**
      * Set createdAt
@@ -282,6 +288,7 @@ class File
         return $this;
     }
 
+
     /**
      * Remove permissions
      *
@@ -300,5 +307,80 @@ class File
     public function getPermissions()
     {
         return $this->permissions;
+    }
+
+    /**
+     * Set public
+     *
+     * @param boolean $public
+     * @return File
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Get public
+     *
+     * @return boolean 
+     */
+    public function getPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * Set hash
+     *
+     * @param string $hash
+     * @return File
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+
+        return $this;
+    }
+
+    /**
+     * Get hash
+     *
+     * @return string 
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * Set size
+     *
+     * @param integer $size
+     * @return File
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return integer 
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    public function getSizeHum(){
+        $kb =  $this->size/1000;
+
+        return $kb." Kb";
     }
 }

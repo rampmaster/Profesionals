@@ -12,12 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Permissions
 {
+
+
     //Relations
 
 
     /**
      * @ORM\ManyToOne(targetEntity="File")
-     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="file_id", referencedColumnName="id")
      */
     private $file;
 
@@ -42,6 +44,13 @@ class Permissions
      * @var integer
      *
      * @ORM\Column(name="permission", type="integer")
+     *
+     * tipo de acceso al archivo
+     *
+     * >= 4 se puede leer,
+     * >= 6 se puede leer y escribir
+     * standar chmod
+     *
      */
     private $permission;
 
