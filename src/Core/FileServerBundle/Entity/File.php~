@@ -4,6 +4,7 @@ namespace Core\FileServerBundle\Entity;
 
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * File
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Core\FileServerBundle\Entity\FileRepository")
  */
 class File
 {
@@ -47,11 +48,29 @@ class File
     private $title;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="public", type="boolean")
+     *
+     * publico para todos mis clientes
+     */
+    private $public;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hash", type="string")
+     */
+    private $hash;
+
+    /**
      * @var integer
      *
-     * @ORM\Column(name="chmod", type="integer")
+     * @ORM\Column(name="size", type="integer")
+     *
+     * size in Kb
      */
-    private $chmod;
+    private $size;
 
     /**
      * @var \DateTime
@@ -104,6 +123,8 @@ class File
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
         $this->path = uniqid() . '.' . $this->file->guessExtension();
+        $this->size = $this->file->getSize();
+        $this->hash = uniqid();
         $this->file->move($this->getUploadRootDir(), $this->path);
 
 
@@ -169,28 +190,7 @@ class File
         return $this->title;
     }
 
-    /**
-     * Set chmod
-     *
-     * @param integer chmod
-     * @return File
-     */
-    public function setChmod($chmod)
-    {
-        $this->chmod = $chmod;
-
-        return $this;
-    }
-
-    /**
-     * Get chmod
-     *
-     * @return integer 
-     */
-    public function getChmod()
-    {
-        return $this->chmod;
-    }
+    
 
     /**
      * Set createdAt
@@ -213,5 +213,160 @@ class File
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->permissions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return File
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param \Core\UserBundle\Entity\User $owner
+     * @return File
+     */
+    public function setOwner(\Core\UserBundle\Entity\User $owner = null)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \Core\UserBundle\Entity\User 
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Add permissions
+     *
+     * @param \Core\FileServerBundle\Entity\Permissions $permissions
+     * @return File
+     */
+    public function addPermission(\Core\FileServerBundle\Entity\Permissions $permissions)
+    {
+        $this->permissions[] = $permissions;
+
+        return $this;
+    }
+
+    /**
+     * Remove permissions
+     *
+     * @param \Core\FileServerBundle\Entity\Permissions $permissions
+     */
+    public function removePermission(\Core\FileServerBundle\Entity\Permissions $permissions)
+    {
+        $this->permissions->removeElement($permissions);
+    }
+
+    /**
+     * Get permissions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+
+    /**
+     * Set public
+     *
+     * @param boolean $public
+     * @return File
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Get public
+     *
+     * @return boolean 
+     */
+    public function getPublic()
+    {
+        return $this->public;
+    }
+
+    /**
+     * Set hash
+     *
+     * @param string $hash
+     * @return File
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+
+        return $this;
+    }
+
+    /**
+     * Get hash
+     *
+     * @return string 
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * Set size
+     *
+     * @param integer $size
+     * @return File
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return integer 
+     */
+    public function getSize()
+    {
+        return $this->size;
     }
 }

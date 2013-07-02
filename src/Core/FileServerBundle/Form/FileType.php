@@ -12,9 +12,30 @@ class FileType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('chmod')
-            ->add('createdAt')
-            ->add('file')
+            ->add('file', 'genemu_jqueryfile', array(
+                'label' => 'Archivo',
+                'multiple' => false,
+                'configs' => array(
+                    'auto' => true
+                )
+            ))
+            ->add('public', 'choice', array(
+                'label' => 'Tipo de acceso',
+                'choices' => array(
+                    false => 'Acceso restringido',
+                    true => 'Todo el mundo tiene acceso'
+                )
+            ))
+
+            ->add('permissions', 'collection', array(
+
+                'type' => new PermissionsType($options['data']),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                )
+
+            )
         ;
     }
 

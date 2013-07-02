@@ -26,6 +26,7 @@ class DefaultController extends Controller
 
         }
 
+
         return array();
     }
 
@@ -53,6 +54,21 @@ class DefaultController extends Controller
 
 
         return array('form' => $form->createView());
+    }
+
+    /**
+     * @Route("/files", name="client_files")
+     * @Template()
+     */
+    public function filesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $files = $em->getRepository('CoreFileServerBundle:File')->retrieveUserFilesAccess($user);
+
+        return array('files' => $files);
+
     }
 
 

@@ -1,0 +1,14 @@
+{% set active = 'files' %}
+{% extends '::layout.html.twig' %}
+
+{% block panel %}
+
+    <ul>
+        {% for file in files %}
+        <li><a href="{{ path('core_fileserver_downloader', {'hash': file.hash}) }}">descargar</a> </li>
+        {% else %}
+        <li><b>No hay archivos</b></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

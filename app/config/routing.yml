@@ -1,6 +1,3 @@
-core_file_server:
-    resource: "@CoreFileServerBundle/Resources/config/routing.yml"
-    prefix:   /
 
 
 #CORE
@@ -22,6 +19,12 @@ core_sales:
     resource: "@CoreSalesBundle/Controller/"
     type:     annotation
     prefix:   /
+
+core_file_server:
+    resource: "@CoreFileServerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 
 
 #USERS
@@ -94,3 +97,6 @@ adesigns_calendar:
   resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+genemu_upload:
+    resource: "@GenemuFormBundle/Resources/config/routing/upload.xml"
