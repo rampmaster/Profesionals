@@ -21,13 +21,7 @@
 {% endblock %}
 {% block section_nav %}
 
-<ul class="round-buttons">
-    <li><div class="depth"><a href="#" data-toggle="tooltip" title="Camara"><i class="icon-facetime-video"></i> Camara<strong></strong></a></div></li>
-    <li><div class="depth"><a href="#" data-toggle="tooltip" title="Pizarra"><i class="icon-pencil"></i> Pizarra<strong></strong></a></div></li>
-    <li><div class="depth"><a href="#" data-toggle="tooltip" title="Informes"><i class="icon-paper-clip"></i> Informes<strong></strong></a></div></li>
-    <li><div class="depth"><a href="#" data-toggle="tooltip" title="Archivos"><i class="icon-folder-open"></i> Archivos<strong></strong></a></div></li>
-    
-</ul>
+
 
 {% endblock %}
 {% block header_scripts %}
@@ -37,6 +31,9 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
     <script type="text/javascript" src="http://{{ app.request.host }}:2021/socket.io/socket.io.js"></script>
+
+    <script type="text/javascript" src="http://{{ app.request.host }}:2025/socket.io/socket.io.js"></script>
+
     <script type="text/javascript">
 
         //call vars
@@ -104,9 +101,21 @@
     <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/notifications.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/videoconferencehtml5.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/corecall/scripts/chat.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/js/consulta.js') }}"></script>
+
 
 
     <script type="text/javascript" src="{{ asset('bundles/coreresources/js/jquery.form.js') }}"></script>
+    <style type="text/css">
+canvas#mipizarra {
+  position: absolute;
+  margin-top: 2px;
+  margin-left: 40px;
+  border: 1px solid #333;
+  box-shadow: 0px 0px 10px #AAA;
+  cursor: pointer;
+}</style>
+
 {% endblock %}
 {% block my_camera %}
 
@@ -128,13 +137,51 @@
     <div class="browser panel" style="display:none">
         <h1>No tienes RTC</h1>
     </div>
-    <div class="videoconference panel">
-    <div class="row">
+    <div id="consultaTabbable" class="videoconference panel">
+
+    <ul class="round-buttons call-buttons not-active etabs">
+    <li class="tab"><div class="depth"><a href="#conferencia" data-toggle="tooltip" title="Camara"><i class="icon-facetime-video"></i> Camara<strong></strong></a></div></li>
+    <li class="tab"><div class="depth"><a href="#pizarra" data-toggle="tooltip" title="Pizarra"><i class="icon-pencil"></i> Pizarra<strong></strong></a></div></li>
+        <li class="tab"><div class="depth"><a href="#informes" data-toggle="tooltip" title="Informes"><i class="icon-paper-clip"></i> Informes<strong></strong></a></div></li>
+        <li class="tab"><div class="depth"><a href="#archivos" data-toggle="tooltip" title="Archivos"><i class="icon-folder-open"></i> Archivos<strong></strong></a></div></li>
+    
+    </ul>
+    <div id="pizarra" style="min-height:495px; min-width: 800px;">
+    <h5 class="widget-name"><i class="icon-picture"></i> Pizarra</h5>
+    <canvas id="mipizarra" width="768" height="432">Tu Navegador no acepta canvas.</canvas>
+    </div>
+    <div id="archivos">
+    <h5 class="widget-name"><i class="icon-folder-open"></i> Archivos</h5>
+    </div>
+    <div id="informes">
+    <h5 class="widget-name"><i class="icon-paper-clip"></i> Informes</h5>
+    Informes
+    </div>
+    <div id="conferencia" class="row">
+    <h5 class="widget-name"><i class="icon-facetime-video"></i> Conferencia</h5>
         <div class="span8 offset1" style="overflow: hidden;">
         {{ render(controller('CoreCallBundle:Call:notifications')) }}
         {% include "CoreCallBundle:Call:videoconferencehtml5.html.twig" %}
         </div>
     </div>
+
+    </div>  
+
+    <div class="consultaWrapper">
+
+<h5 class="widget-name"><i class="icon-reorder"></i> Consulta Profesional</h5>
+            <div class="well body">
+            <div class="span6">
+                Este es el espacio de la consulta profesional, llama a un usuario a través panel lateral izquierdo para comenzar una sesión.
+            </div>
+
+        </div>
+
+    
+
+
+</div>
+
 
     <div class="row">
         <div class="span4 offset1">
@@ -146,7 +193,6 @@
         <div class="span4">
             {% include 'CoreCallBundle:Call:videoconferencecontrols.html.twig' %}
         </div>
-    </div>
     </div>
 
     {% block extra_videoconference %}{% endblock %}

@@ -54,6 +54,7 @@ function callShowUser(target) {
     $("#callUsers").html('');
     callVideoconferenceToLoadingView(2);
     $("#infoUser").css("display", "none");
+    $(".consultaWrapper").css("display","none")
     $("#callUser").css("display", "none");
     if (target != callMyId) {
         $.post(callRouteToRetrieveInfoUser, { id: target },
@@ -73,9 +74,14 @@ function callShowUser(target) {
                     role = "Operadora"
                 }
                 var content = obj.fullname.trunc(19) + "<br><a href='mailto:" + obj.email + "'>" + obj.email.trunc(19) + "</a>";
+                var mailContent = "<a href='mailto:" + obj.email + "'>" + obj.email.trunc(19) + "</a>";
                 if (obj.hospital != undefined) {
                     content = content + '<br/><a target="_blanck" href="https://maps.google.es/maps?q=' + obj.hospital.split(" ").join("+") + '">' + obj.hospital.trunc(19) + '</a>';
                 }
+                $("#infoUser .name").html(obj.fullname);
+                $("#infoUser .email").html(mailContent);
+
+                
                 $("#infoUser .padded .second").html(content);
                 $("#infoUser .padded .first img").attr("src", obj.profile_image);
                 $("#infoUser").fadeIn();

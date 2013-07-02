@@ -71,11 +71,16 @@ var callhandler =
         $("#answerButton").addClass('hide');
         $(".sidebar-user a.user").css("display","none")
         $("#contentVideoconferencehtml5MyCamera").css("display","block")
+
+        $(".remoteCameraWrapper").css("display","block");
+        $(".call-buttons").toggleClass("not-active");
+        
         callStatus = callStatusTalking;
         //callActiveChat();
         callVideoconferenceToCallStateStarted();
 
         videoconferenceStart();
+        initCallInterface(currentCall);
 
         toneCall.pause();
         toneCall.currentTime = 0;

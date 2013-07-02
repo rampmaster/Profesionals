@@ -33,7 +33,7 @@ function callChatAppendMessage(message, own, userid) {
 
 $(function () {
 
-    $('#callchatuploadForm').ajaxForm({
+/*    $('#callchatuploadForm').ajaxForm({
         type:'POST',
         beforeSubmit:function () {
 
@@ -55,7 +55,7 @@ $(function () {
             }
         }
     });
-
+*/
 
     $("#callchatinput").keyup(function (e) {
         var message = $(this).val();

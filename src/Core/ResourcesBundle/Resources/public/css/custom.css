@@ -137,3 +137,5 @@ ul.wysihtml5-toolbar li:first-child { max-width: 200px; float:left; }
 ul.wysihtml5-toolbar li:last-child { max-width: 200px; float:right; }
 #fullview { float:left; margin-left: -10px; margin-top: 8px; border-radius: 15px; padding: 3px; box-shadow: 0px 0px 4px black inset;  }
 #fullview i { font-size: 22px;  }
+.not-active .depth { background-color: rgb(206,206,206); }
+.depth.active { background-color: rgb(201, 65, 65); }

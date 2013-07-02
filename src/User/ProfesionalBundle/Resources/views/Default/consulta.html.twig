@@ -17,10 +17,10 @@
 
     <script type="text/javascript">
         function videoconferenceStart() {
-            $("#infoUserInCall").html("");
+            //$("#infoUserInCall").html("");
             //saco la informacion del usuario
 
-            $("#loadingInfoUser").fadeIn();
+            //$("#loadingInfoUser").fadeIn();
 
             //peticion ajax para sacar la info del usuario
 
@@ -29,10 +29,10 @@
                 { idUser: callCallerId },
                 function(response){
                     //la response que llega la metemos directamente en su sitio
-                    $("#loadingInfoUser").fadeOut();
-                    $("#infoUserInCall").html(response);
+                    //$("#loadingInfoUser").fadeOut();
+                    //$("#infoUserInCall").html(response);
                     setTimeout(function(){
-                        $("#infoUserInCall").fadeIn();
+                        //$("#infoUserInCall").fadeIn();
                     }, 2000);
 
 
@@ -41,7 +41,7 @@
             );
         }
         function clearInformes(){
-            $(".informeCliente").fadeOut();
+            //$(".informeCliente").fadeOut();
         }
     </script>
 
