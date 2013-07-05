@@ -50,19 +50,7 @@
             );
 
             //recibo archivos
-            $.get(
-                    Routing.generate('core_fileserver_uploader', { idUser: anotherSideUser, redirect: 'ajax'}),
-                    { idUser: callCallerId },
-                    function(response){
 
-                        var buffer = "<div id='file_upload_container'>"+response+"</div>";
-
-                        $("#archivos").append(buffer);
-
-
-                    }
-
-            );
 
         }
         function clearInformes(){

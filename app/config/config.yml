@@ -113,4 +113,4 @@ hwi_oauth:
             scope: r_basicprofile,r_fullprofile,r_emailaddress
 
 fos_js_routing:
-    routes_to_expose: [ core_fileserver_uploader ]
+    routes_to_expose: [ core_fileserver_uploader, core_fileserver_listfiles ]

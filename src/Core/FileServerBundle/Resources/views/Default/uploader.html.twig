@@ -1,85 +1,90 @@
 <div id="content_uploader">
-<script type="text/javascript" src="{{ asset('bundles/coreresources/uploadify/jquery.uploadify.min.js') }}"></script>
-<link href="{{ asset('bundles/coreresources/uploadify/uploadify.css') }}" rel="stylesheet">
-{{ form_stylesheet(form) }}
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        var $field = $('#core_fileserverbundle_filetype_file_upload');
-        var $form = $field.closest('form');
-        var $queue = $('#core_fileserverbundle_filetype_file_queue');
-        var $nbQueue = 0;
+  {% if redirect == 'ajax' %}
+      <script src="http://malsup.github.com/jquery.form.js"></script>
+  {% endif %}
+    <script type="text/javascript"
+            src="{{ asset('bundles/coreresources/uploadify/jquery.uploadify.min.js') }}"></script>
+    <link href="{{ asset('bundles/coreresources/uploadify/uploadify.css') }}" rel="stylesheet">
+    {{ form_stylesheet(form) }}
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            var $field = $('#core_fileserverbundle_filetype_file_upload');
+            var $form = $field.closest('form');
+            var $queue = $('#core_fileserverbundle_filetype_file_queue');
+            var $nbQueue = 0;
 
-        var $configs = $.extend({
-            "script":"genemu_upload",
-            "swf":"\/bundles\/coreresources\/uploadify\/uploadify.swf",
-            "cancelImg":"\/bundles\/genemuform\/images\/cancel.png",
-            "folder":"\/upload",
-            "auto":true,
-            "multi":false,
-            "uploader":"\/app_dev.php\/genemu_upload",
-            "queueID":"core_fileserverbundle_filetype_file_queue",
-            "removeCompleted": false
-        }, {
-            onUploadSuccess: function(file, data, response) {
-                data = jQuery.parseJSON(data);
+            var $configs = $.extend({
+                "script": "genemu_upload",
+                "swf": "\/bundles\/coreresources\/uploadify\/uploadify.swf",
+                "cancelImg": "\/bundles\/genemuform\/images\/cancel.png",
+                "folder": "\/upload",
+                "auto": true,
+                "multi": false,
+                "uploader": "\/app_dev.php\/genemu_upload",
+                "queueID": "core_fileserverbundle_filetype_file_queue",
+                "removeCompleted": false
+            }, {
+                onUploadSuccess: function (file, data, response) {
+                    data = jQuery.parseJSON(data);
 
-                if (data.result == '1') {
-                    var value = data.file;
+                    if (data.result == '1') {
+                        var value = data.file;
 
-                    $('#core_fileserverbundle_filetype_file').val(value);
-                    $nbQueue--;
+                        $('#core_fileserverbundle_filetype_file').val(value);
+                        $nbQueue--;
 
-                    $("#core_fileserverbundle_filetype_file_upload").css('display', 'none');
-                    //$("#button_upload_file").css('visibility', 'visible');
+                        $("#core_fileserverbundle_filetype_file_upload").css('display', 'none');
+                        //$("#button_upload_file").css('visibility', 'visible');
 
-                } else {
-                    alert('Error');
+                    } else {
+                        alert('Error');
+                    }
+                },
+                onSelect: function (file) {
+                    $nbQueue++;
+                },
+                onUploadError: function (file, errorCode, errorMsg, errorString) {
+                    alert('error');
                 }
-            },
-            onSelect: function(file) {
-                $nbQueue++;
-            },
-            onUploadError: function(file, errorCode, errorMsg, errorString) {
-                alert('error');
-            }
-        });
+            });
 
-        $form.submit(function(event) {
-            return $joinFiles();
-        });
+            $form.submit(function (event) {
+                return $joinFiles();
+            });
 
-        var $joinFiles = function() {
-            if ($files = $field.data('files')) {
-                $field.val($files.join(','));
+            var $joinFiles = function () {
+                if ($files = $field.data('files')) {
+                    $field.val($files.join(','));
+                }
+
+                return true;
             }
 
-            return true;
-        }
-
-        $field.uploadify($configs);
-    });
-</script>
+            $field.uploadify($configs);
+        });
+    </script>
 
 
-<form id="form_upload" method="post" {{ form_enctype(form) }} action="{{ path('core_fileserver_uploader', {'redirect': redirect}) }}">
-    {{ form_label(form.permissions) }}
-    <ul id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
+    <form id="form_upload" method="post" {{ form_enctype(form) }}
+          action="{{ path('core_fileserver_uploader', {'redirect': redirect}) }}">
+        {{ form_label(form.permissions) }}
+        <ul id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
 
-        {% for emailField in form.permissions %}
-            <li>
-                {{ form_errors(emailField) }}
-                {{ form_widget(emailField) }}
+            {% for emailField in form.permissions %}
+                <li>
+                    {{ form_errors(emailField) }}
+                    {{ form_widget(emailField) }}
 
-            </li>
-        {% endfor %}
-    </ul>
+                </li>
+            {% endfor %}
+        </ul>
 
-    <a href="#" id="add-another-perm" class="btn btn-success">Añadir un nuevo permiso</a>
-    {{ form_widget(form) }}
+        <a href="#" id="add-another-perm" class="btn btn-success">Añadir un nuevo permiso</a>
+        {{ form_widget(form) }}
 
 
-    <input type="submit" class="btn btn-info" value="Subir archivo" id="button_upload_file">
-</form>
+        <input type="submit" class="btn btn-info" value="Subir archivo" id="button_upload_file">
+    </form>
 </div>
 <div id="content_uploader_success" style="display:none">
     <div class="alert alert-info">Archivo colgado correctamente</div>
@@ -94,9 +99,9 @@
     // keep track of how many email fields have been rendered
     var emailCount = '{{ form.permissions | length }}';
 
-    window.onload=function(){
+    jQuery(document).ready(function($) {
 
-        $('#add-another-perm').click(function() {
+        $('#add-another-perm').click(function () {
             var emailList = jQuery('#perm-fields-list');
 
             // grab the prototype template
@@ -114,28 +119,39 @@
             return false;
         });
 
+        {% if redirect == 'ajax' %}
 
-    };
-</script>
+        $('#form_upload').submit(function () {
 
-{% if redirect == 'ajax' %}
-<script>
-    // wait for the DOM to be loaded
-        // bind 'myForm' and provide a simple callback function
-        $('#form_upload').submit(function() {
+            console.log($(this));
 
+            $.post("{{ path('core_fileserver_uploader', {'redirect': 'ajax'}) }}", $(this).serialize(),
+                    function(data){
+
+                        if(data == 'Ok'){
+                            toastr['success']('Archivo subido correctamente');
+                            $("#content_uploader").css('visibility', 'hidden');
+                        }else{
+                            toastr['error']('Error al subir el archivo');
+                            $("#content_uploader").css('visibility', 'hidden');
+                        }
+
+                        return false;
+                    });
+            return false;
+            /*
             $.ajax({
                 type: "POST",
-                url: "{{ path('core_fileserver_uploader', {'redirect': 'ajax'}) }}",
+                url: "",
                 data: $(this).serialize(),
-                success: function(response){
-                    if(response == 'Ok'){
+                success: function (response) {
+                    if (response == 'Ok') {
 
                         toastr['success']('Archivo subido correctamente');
                         $("#content_uploader").css('display', 'none');
                         $("#content_uploader_success").fadeIn();
                         return false
-                    }else{
+                    } else {
                         toastr['error']('Error al subir el archivo');
                         $("#content_uploader").css('display', 'none');
                         $("#content_uploader_success").fadeIn();
@@ -143,7 +159,7 @@
                     }
 
                 },
-                error: function(){
+                error: function () {
 
                     return false;
                 }
@@ -152,7 +168,10 @@
 
 
             return false;
+            */
         });
-</script>
 
-{% endif %}
+        {% endif %}
+
+    });
+</script>

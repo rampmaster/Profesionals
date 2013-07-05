@@ -162,4 +162,22 @@ class DefaultController extends Controller
 
 
     }
+
+    /**
+     * @Route("/core/listfiles/{idUser}", name="core_fileserver_listfiles", defaults={ "idUser" = "0" })
+     * @Template()
+     *
+     * devuelvo el formulario para subir archivos
+     */
+    public function listfilesAction($idUser)
+    {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $user = $em->getRepository('CoreUserBundle:User')->find($idUser);
+
+            $files = $em->getRepository('CoreFileServerBundle:File')->retrieveUserFilesAccess($user);
+
+            return array('files' => $files);
+    }
 }

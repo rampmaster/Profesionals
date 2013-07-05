@@ -12,5 +12,5 @@
 
 
                 {% set redirect  = 'profesional_files' %}
-                {{ render(controller('CoreFileServerBundle:Default:uploader',  { 'redirect': redirect})) }}
+                {{ render(controller('CoreFileServerBundle:Default:uploader',  { 'redirect': redirect, 'idUser': 0})) }}
        {% endblock %}
