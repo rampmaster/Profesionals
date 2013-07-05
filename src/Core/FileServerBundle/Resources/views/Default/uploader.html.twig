@@ -1,3 +1,6 @@
+<div id="content_uploader">
+<script type="text/javascript" src="{{ asset('bundles/coreresources/uploadify/jquery.uploadify.min.js') }}"></script>
+<link href="{{ asset('bundles/coreresources/uploadify/uploadify.css') }}" rel="stylesheet">
 {{ form_stylesheet(form) }}
 <script type="text/javascript">
     jQuery(document).ready(function($) {
@@ -27,6 +30,7 @@
                     $nbQueue--;
 
                     $("#core_fileserverbundle_filetype_file_upload").css('display', 'none');
+                    //$("#button_upload_file").css('visibility', 'visible');
 
                 } else {
                     alert('Error');
@@ -55,10 +59,9 @@
         $field.uploadify($configs);
     });
 </script>
-<script type="text/javascript" src="{{ asset('bundles/coreresources/uploadify/jquery.uploadify.min.js') }}"></script>
-<link href="{{ asset('bundles/coreresources/uploadify/uploadify.css') }}" rel="stylesheet">
 
-<form method="post" {{ form_enctype(form) }} action="{{ path('core_fileserver_uploader', {'redirect': redirect}) }}">
+
+<form id="form_upload" method="post" {{ form_enctype(form) }} action="{{ path('core_fileserver_uploader', {'redirect': redirect}) }}">
     {{ form_label(form.permissions) }}
     <ul id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
 
@@ -66,18 +69,25 @@
             <li>
                 {{ form_errors(emailField) }}
                 {{ form_widget(emailField) }}
-                <a href="#" id="delete-another-email">Añadir un nuevo permiso</a>
+
             </li>
         {% endfor %}
     </ul>
 
-    <a href="#" id="add-another-perm">Añadir un nuevo permiso</a>
+    <a href="#" id="add-another-perm" class="btn btn-success">Añadir un nuevo permiso</a>
     {{ form_widget(form) }}
 
 
-    <input type="submit">
+    <input type="submit" class="btn btn-info" value="Subir archivo" id="button_upload_file">
 </form>
+</div>
+<div id="content_uploader_success" style="display:none">
+    <div class="alert alert-info">Archivo colgado correctamente</div>
+</div>
 
+<div id="content_uploader_success" style="display:none">
+    <div class="alert alert-info">El archivo no pudo colgarse</div>
+</div>
 
 
 <script type="text/javascript">
@@ -107,3 +117,42 @@
 
     };
 </script>
+
+{% if redirect == 'ajax' %}
+<script>
+    // wait for the DOM to be loaded
+        // bind 'myForm' and provide a simple callback function
+        $('#form_upload').submit(function() {
+
+            $.ajax({
+                type: "POST",
+                url: "{{ path('core_fileserver_uploader', {'redirect': 'ajax'}) }}",
+                data: $(this).serialize(),
+                success: function(response){
+                    if(response == 'Ok'){
+
+                        toastr['success']('Archivo subido correctamente');
+                        $("#content_uploader").css('display', 'none');
+                        $("#content_uploader_success").fadeIn();
+                        return false
+                    }else{
+                        toastr['error']('Error al subir el archivo');
+                        $("#content_uploader").css('display', 'none');
+                        $("#content_uploader_success").fadeIn();
+                        return false;
+                    }
+
+                },
+                error: function(){
+
+                    return false;
+                }
+                dataType: 'json'
+            });
+
+
+            return false;
+        });
+</script>
+
+{% endif %}

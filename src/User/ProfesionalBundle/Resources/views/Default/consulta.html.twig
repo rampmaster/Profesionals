@@ -17,6 +17,14 @@
 
     <script type="text/javascript">
         function videoconferenceStart() {
+
+            if(currentCall.caller == callMyId){
+                var anotherSideUser = currentCall.receiver;
+            }else{
+                var anotherSideUser = currentCall.caller;
+            }
+
+
             //$("#infoUserInCall").html("");
             //saco la informacion del usuario
 
@@ -24,6 +32,7 @@
 
             //peticion ajax para sacar la info del usuario
 
+            //recibo informes
             $.post(
                 "{{ path('profesional_retrieve_chunk_user') }}",
                 { idUser: callCallerId },
@@ -39,6 +48,22 @@
                 }
 
             );
+
+            //recibo archivos
+            $.get(
+                    Routing.generate('core_fileserver_uploader', { idUser: anotherSideUser, redirect: 'ajax'}),
+                    { idUser: callCallerId },
+                    function(response){
+
+                        var buffer = "<div id='file_upload_container'>"+response+"</div>";
+
+                        $("#archivos").append(buffer);
+
+
+                    }
+
+            );
+
         }
         function clearInformes(){
             //$(".informeCliente").fadeOut();

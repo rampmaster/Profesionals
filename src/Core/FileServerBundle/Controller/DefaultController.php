@@ -3,6 +3,7 @@
 namespace Core\FileServerBundle\Controller;
 
 use Core\FileServerBundle\Entity\File;
+use Core\FileServerBundle\Entity\Permissions;
 use Core\FileServerBundle\Form\FileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -85,12 +86,12 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/core/uploader/{redirect}", name="core_fileserver_uploader", defaults={ "redirect" = "none" })
+     * @Route("/core/uploader/{idUser}/{redirect}", name="core_fileserver_uploader", defaults={ "redirect" = "none", "idUser" = "0" })
      * @Template()
      *
      * devuelvo el formulario para subir archivos
      */
-    public function uploaderAction($redirect)
+    public function uploaderAction($idUser,$redirect)
     {
 
         $me = $this->get('security.context')->getToken()->getUser();
@@ -99,6 +100,15 @@ class DefaultController extends Controller
         $file->setCreatedAt(new \DateTime());
 
         $file->setOwner($me);
+
+        if($idUser > 0){
+            //añadimos un usuario como permiso
+            $permission = new Permissions();
+            $permission->setFile($file);
+            $permission->setUser($idUser);
+
+            $file->addPermission($permission);
+        }
 
 
         $form = $this->createForm(new FileType(), $file);
