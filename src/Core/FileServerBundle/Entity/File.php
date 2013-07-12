@@ -69,6 +69,12 @@ class File
      * @ORM\Column(name="hash", type="string")
      */
     private $hash;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mime", type="string")
+     */
+    private $mime;
 
     /**
      * @var integer
@@ -132,6 +138,7 @@ class File
         $old = $this->path;
         $this->hash = uniqid();
         $this->size = $file->getSize();
+        $this->mime = $file->getMimeType();
         $file->move($this->getUploadRootDir(), $file->getBasename());
         //rename($file->getRealPath(), __DIR__.$this->getUploadRootDir()."/".$file->getBasename());
         //$this->file->move($this->getUploadRootDir(), $this->path);
@@ -382,5 +389,28 @@ class File
         $kb =  $this->size/1000;
 
         return $kb." Kb";
+    }
+
+    /**
+     * Set mime
+     *
+     * @param string $mime
+     * @return File
+     */
+    public function setMime($mime)
+    {
+        $this->mime = $mime;
+
+        return $this;
+    }
+
+    /**
+     * Get mime
+     *
+     * @return string 
+     */
+    public function getMime()
+    {
+        return $this->mime;
     }
 }

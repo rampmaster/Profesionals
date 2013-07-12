@@ -111,3 +111,6 @@ hwi_oauth:
             infos_url:           http://api.linkedin.com/v1/people/~:(id,first-name,last-name,headline,picture-url,email-address,skills)
             client_secret:       boEcwyI2HPTVyhSL
             scope: r_basicprofile,r_fullprofile,r_emailaddress
+
+fos_js_routing:
+    routes_to_expose: [ core_fileserver_uploader, core_fileserver_listfiles ]

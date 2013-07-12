@@ -16,6 +16,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class File
 {
+
+    public function removeAllPermissions(){
+        foreach($this->permissions as $p){
+            $this->removePermission($p);
+        }
+    }
+
     //RELATIONS
 
     /**
@@ -25,7 +32,7 @@ class File
     private $owner;
 
     /**
-     * @ORM\OneToMany(targetEntity="Permissions", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Permissions", mappedBy="file")
      */
     private $permissions;
 
@@ -62,6 +69,12 @@ class File
      * @ORM\Column(name="hash", type="string")
      */
     private $hash;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mime", type="string")
+     */
+    private $mime;
 
     /**
      * @var integer
@@ -113,7 +126,7 @@ class File
         return 'uploads/documents';
     }
 
-    public function upload()
+    public function upload($file)
     {
         if (null === $this->file) {
             return;
@@ -122,18 +135,18 @@ class File
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
-        $this->path = uniqid() . '.' . $this->file->guessExtension();
-        $this->size = $this->file->getSize();
+        $old = $this->path;
         $this->hash = uniqid();
-        $this->file->move($this->getUploadRootDir(), $this->path);
+        $this->size = $file->getSize();
+        $file->move($this->getUploadRootDir(), $file->getBasename());
+        //rename($file->getRealPath(), __DIR__.$this->getUploadRootDir()."/".$file->getBasename());
+        //$this->file->move($this->getUploadRootDir(), $this->path);
 
 
         $this->file = null;
     }
 
-    /**
-     * @Assert\File(maxSize="6000000")
-     */
+
     private $file;
 
     /**
@@ -141,7 +154,7 @@ class File
      *
      * @param UploadedFile $file
      */
-    public function setFile(UploadedFile $file = null)
+    public function setFile($file = null)
     {
         $this->file = $file;
     }
@@ -281,6 +294,7 @@ class File
         return $this;
     }
 
+
     /**
      * Remove permissions
      *
@@ -368,5 +382,11 @@ class File
     public function getSize()
     {
         return $this->size;
+    }
+
+    public function getSizeHum(){
+        $kb =  $this->size/1000;
+
+        return $kb." Kb";
     }
 }

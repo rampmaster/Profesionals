@@ -1,23 +1,27 @@
 {% extends '::layout.html.twig' %}
 {% if app.user.id is not defined %}
-{% set guess = true %}
+    {% set guess = true %}
 {% else %}
-{% set guess = false %}
+    {% set guess = false %}
 {% endif %}
 {% block nav_secondary %}
-<!-- Sidebar user -->
-                    <div class="sidebar-user widget">
-                        <div class="navbar"><div class="navbar-inner"><h6>{{ app.user.name }} {{ app.user.surname }}</h6></div></div>
-                        <a href="#" title="" class="user" style="width: 190px; margin-left: 10px; box-shadow: 0px 0px 5px #888; margin-top: 10px; border: 1px solid #EEE; border-radius: 3px;">
-                            {% if app.user.getWebPath() is not empty %}
-                                <img src="{{ asset(app.user.getWebPath()) }}" style="width:100%; border-radius: 3px;">
-                            {% else %}
-                                <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}" style="width:100%; border-radius: 3px;"/>
-                            {% endif %}
-                        </a>
-                        {{ render(controller('CoreCallBundle:Call:contacts', { 'consulta': true })) }}
-                    </div>
-                    <!-- /sidebar user -->        
+    <!-- Sidebar user -->
+    <div class="sidebar-user widget">
+        <div class="navbar">
+            <div class="navbar-inner"><h6>{{ app.user.name }} {{ app.user.surname }}</h6></div>
+        </div>
+        <a href="#" title="" class="user"
+           style="width: 190px; margin-left: 10px; box-shadow: 0px 0px 5px #888; margin-top: 10px; border: 1px solid #EEE; border-radius: 3px;">
+            {% if app.user.getWebPath() is not empty %}
+                <img src="{{ asset(app.user.getWebPath()) }}" style="width:100%; border-radius: 3px;">
+            {% else %}
+                <img src="{{ asset('bundles/coreresources/theme/images/avatar.png') }}"
+                     style="width:100%; border-radius: 3px;"/>
+            {% endif %}
+        </a>
+        {{ render(controller('CoreCallBundle:Call:contacts', { 'consulta': true })) }}
+    </div>
+    <!-- /sidebar user -->
 {% endblock %}
 {% block section_nav %}
 
@@ -61,12 +65,11 @@
         toneCall.setAttribute('preload', 'preload');
         //audioElement.load()
         $.get();
-        toneCall.addEventListener("load", function() {
+        toneCall.addEventListener("load", function () {
             toneCall.play();
         }, true);
 
         toneCall.pause();
-
 
 
         var toneRinging = document.createElement('audio');
@@ -75,20 +78,73 @@
         toneRinging.setAttribute('loop', 'loop');
         //audioElement.load()
         $.get();
-        toneRinging.addEventListener("load", function() {
+        toneRinging.addEventListener("load", function () {
             toneCall.play();
         }, true);
 
         toneRinging.pause();
+
+        function showFilesChunk() {
+            console.log('ver archivos');
+            {% if  app.user.hasRole('ROLE_CLIENTE') %}
+            anotherSideUser = callMyId;
+
+            {% else %}
+            if (currentCall.caller == callMyId) {
+                var anotherSideUser = currentCall.receiver;
+            } else {
+                var anotherSideUser = currentCall.caller;
+            }
+            {% endif %}
+
+            $.get(
+                    Routing.generate('core_fileserver_listfiles', { idUser: anotherSideUser }),
+                    { idUser: callCallerId },
+                    function (response) {
+
+                        var buffer = "<div id='file_upload_container'>" + response + "</div>";
+
+
+                        $("#files_content").html(buffer);
+
+
+                    }
+
+            );
+        }
+
+        function showUploaderFilesChunk() {
+            console.log('subir archivos');
+            if (currentCall.caller == callMyId) {
+                var anotherSideUser = currentCall.receiver;
+            } else {
+                var anotherSideUser = currentCall.caller;
+            }
+
+            $.get(
+                    Routing.generate('core_fileserver_uploader', { idUser: anotherSideUser, redirect: 'ajax'}),
+                    { idUser: callCallerId },
+                    function (response) {
+
+                        var buffer = "<div id='file_upload_container'>" + response + "</div>";
+
+
+                        $("#files_content").html(buffer);
+
+
+                    }
+
+            );
+        }
     </script>
     <script type="text/javascript">
 
         $(document).ready(function () {
 
             callhandler.init();
-            if (!window.webkitRTCPeerConnection && !window.webkitRTCPeerConnection){ 
-                $(".videoconference.panel").css("display",'none')
-                $(".browser.panel").css("display",'block')
+            if (!window.webkitRTCPeerConnection && !window.webkitRTCPeerConnection) {
+                $(".videoconference.panel").css("display", 'none')
+                $(".browser.panel").css("display", 'block')
             }
 
         });
@@ -107,14 +163,14 @@
 
     <script type="text/javascript" src="{{ asset('bundles/coreresources/js/jquery.form.js') }}"></script>
     <style type="text/css">
-canvas#mipizarra {
-  position: absolute;
-  margin-top: 2px;
-  margin-left: 40px;
-  border: 1px solid #333;
-  box-shadow: 0px 0px 10px #AAA;
-  cursor: pointer;
-}</style>
+        canvas#mipizarra {
+            position: absolute;
+            margin-top: 2px;
+            margin-left: 40px;
+            border: 1px solid #333;
+            box-shadow: 0px 0px 10px #AAA;
+            cursor: pointer;
+        }</style>
 
 {% endblock %}
 {% block my_camera %}
@@ -129,58 +185,77 @@ canvas#mipizarra {
         </span>
         </div>
 
-        <div id="videoconferenceHtml5Prototype" style="height: 300px; width: 440px; margin-left: 4px; margin-bottom: 4px" class="hide"></div>
+        <div id="videoconferenceHtml5Prototype"
+             style="height: 300px; width: 440px; margin-left: 4px; margin-bottom: 4px" class="hide"></div>
         <div id="videoconferenceHtml5" style=" height: 300px; width: 440px;margin-left: 4px; margin-bottom: 4px"></div>
     </div>
-    {% endblock %}
+{% endblock %}
 {% block panel %}
     <div class="browser panel" style="display:none">
         <h1>No tienes RTC</h1>
     </div>
     <div id="consultaTabbable" class="videoconference panel">
 
-    <ul class="round-buttons call-buttons not-active etabs">
-    <li class="tab"><div class="depth"><a href="#conferencia" data-toggle="tooltip" title="Camara"><i class="icon-facetime-video"></i> Camara<strong></strong></a></div></li>
-    <li class="tab"><div class="depth"><a href="#pizarra" data-toggle="tooltip" title="Pizarra"><i class="icon-pencil"></i> Pizarra<strong></strong></a></div></li>
-        <li class="tab"><div class="depth"><a href="#informes" data-toggle="tooltip" title="Informes"><i class="icon-paper-clip"></i> Informes<strong></strong></a></div></li>
-        <li class="tab"><div class="depth"><a href="#archivos" data-toggle="tooltip" title="Archivos"><i class="icon-folder-open"></i> Archivos<strong></strong></a></div></li>
-    
-    </ul>
-    <div id="pizarra" style="min-height:495px; min-width: 800px;">
-    <h5 class="widget-name"><i class="icon-picture"></i> Pizarra</h5>
-    <canvas id="mipizarra" width="768" height="432">Tu Navegador no acepta canvas.</canvas>
-    </div>
-    <div id="archivos">
-    <h5 class="widget-name"><i class="icon-folder-open"></i> Archivos</h5>
-    </div>
-    <div id="informes">
-    <h5 class="widget-name"><i class="icon-paper-clip"></i> Informes</h5>
-    Informes
-    </div>
-    <div id="conferencia" class="row">
-    <h5 class="widget-name"><i class="icon-facetime-video"></i> Conferencia</h5>
-        <div class="span8 offset1" style="overflow: hidden;">
-        {{ render(controller('CoreCallBundle:Call:notifications')) }}
-        {% include "CoreCallBundle:Call:videoconferencehtml5.html.twig" %}
-        </div>
-    </div>
+        <ul class="round-buttons call-buttons not-active etabs">
+            <li class="tab">
+                <div class="depth"><a href="#conferencia" data-toggle="tooltip" title="Camara"><i
+                                class="icon-facetime-video"></i> Camara<strong></strong></a></div>
+            </li>
+            <li class="tab">
+                <div class="depth"><a href="#pizarra" data-toggle="tooltip" title="Pizarra"><i class="icon-pencil"></i>
+                        Pizarra<strong></strong></a></div>
+            </li>
+            <li class="tab">
+                <div class="depth"><a href="#informes" data-toggle="tooltip" title="Informes"><i
+                                class="icon-paper-clip"></i> Informes<strong></strong></a></div>
+            </li>
+            <li class="tab">
+                <div class="depth"><a href="#archivos" data-toggle="tooltip" title="Archivos"><i
+                                class="icon-folder-open"></i> Archivos<strong></strong></a></div>
+            </li>
 
-    </div>  
+        </ul>
+        <div id="pizarra" style="min-height:495px; min-width: 800px;">
+            <h5 class="widget-name"><i class="icon-picture"></i> Pizarra</h5>
+            <canvas id="mipizarra" width="768" height="432">Tu Navegador no acepta canvas.</canvas>
+        </div>
+        <div id="archivos">
+            <h5 class="widget-name"><i class="icon-folder-open"></i> Archivos</h5>
+            <a class="btn btn-success" onclick="javascript:showFilesChunk()">Ver archivos</a>
+            {% if app.user.hasRole('ROLE_PROFESIONAL') %}
+                <a class="btn btn-warning" onclick="javascript:showUploaderFilesChunk()">Subir archivos</a>
+            {% endif %}
+            <div id="files_content"></div>
+        </div>
+        <div id="informes">
+            <h5 class="widget-name"><i class="icon-paper-clip"></i> Informes</h5>
+            Informes
+        </div>
+        <div id="conferencia" class="row">
+            <h5 class="widget-name"><i class="icon-facetime-video"></i> Conferencia</h5>
+
+            <div class="span8 offset1" style="overflow: hidden;">
+                {{ render(controller('CoreCallBundle:Call:notifications')) }}
+                {% include "CoreCallBundle:Call:videoconferencehtml5.html.twig" %}
+            </div>
+        </div>
+
+    </div>
 
     <div class="consultaWrapper">
 
-<h5 class="widget-name"><i class="icon-reorder"></i> Consulta Profesional</h5>
-            <div class="well body">
+        <h5 class="widget-name"><i class="icon-reorder"></i> Consulta Profesional</h5>
+
+        <div class="well body">
             <div class="span6">
-                Este es el espacio de la consulta profesional, llama a un usuario a través panel lateral izquierdo para comenzar una sesión.
+                Este es el espacio de la consulta profesional, llama a un usuario a través panel lateral izquierdo para
+                comenzar una sesión.
             </div>
 
         </div>
 
-    
 
-
-</div>
+    </div>
 
 
     <div class="row-fluid">

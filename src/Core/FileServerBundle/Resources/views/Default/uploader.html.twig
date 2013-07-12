@@ -1,113 +1,107 @@
-{% form_theme form 'CoreResourcesBundle:Form:fields.html.twig' %}
-{{ form_stylesheet(form) }}
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        var $field = $('#core_fileserverbundle_filetype_file_upload');
-        var $form = $field.closest('form');
-        var $queue = $('#core_fileserverbundle_filetype_file_queue');
-        var $nbQueue = 0;
+<div id="content_uploader">
+  {% if redirect == 'ajax' %}
+      <script src="http://malsup.github.com/jquery.form.js"></script>
+  {% endif %}
+    <script type="text/javascript"
+            src="{{ asset('bundles/coreresources/uploadify/jquery.uploadify.min.js') }}"></script>
+    <link href="{{ asset('bundles/coreresources/uploadify/uploadify.css') }}" rel="stylesheet">
+    {{ form_stylesheet(form) }}
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            var $field = $('#core_fileserverbundle_filetype_file_upload');
+            var $form = $field.closest('form');
+            var $queue = $('#core_fileserverbundle_filetype_file_queue');
+            var $nbQueue = 0;
 
-        var $configs = $.extend({
-            "script":"genemu_upload",
-            "swf":"\/bundles\/coreresources\/uploadify\/uploadify.swf",
-            "cancelImg":"\/bundles\/genemuform\/images\/cancel.png",
-            "folder":"\/upload",
-            "auto":true,
-            "multi":false,
-            "uploader":"\/app_dev.php\/genemu_upload",
-            "queueID":"core_fileserverbundle_filetype_file_queue",
-            "removeCompleted": false
-        }, {
-            onUploadSuccess: function(file, data, response) {
-                data = jQuery.parseJSON(data);
+            var $configs = $.extend({
+                "script": "genemu_upload",
+                "swf": "\/bundles\/coreresources\/uploadify\/uploadify.swf",
+                "cancelImg": "\/bundles\/genemuform\/images\/cancel.png",
+                "folder": "\/upload",
+                "auto": true,
+                "multi": false,
+                "uploader": "\/app_dev.php\/genemu_upload",
+                "queueID": "core_fileserverbundle_filetype_file_queue",
+                "removeCompleted": false
+            }, {
+                onUploadSuccess: function (file, data, response) {
+                    data = jQuery.parseJSON(data);
 
-                if (data.result == '1') {
-                    var value = data.file;
+                    if (data.result == '1') {
+                        var value = data.file;
 
-                    $('#core_fileserverbundle_filetype_file').val(value);
-                    $nbQueue--;
+                        $('#core_fileserverbundle_filetype_file').val(value);
+                        $nbQueue--;
 
-                    $("#core_fileserverbundle_filetype_file_upload").css('display', 'none');
+                        $("#core_fileserverbundle_filetype_file_upload").css('display', 'none');
+                        //$("#button_upload_file").css('visibility', 'visible');
 
-                } else {
-                    alert('Error');
+                    } else {
+                        alert('Error');
+                    }
+                },
+                onSelect: function (file) {
+                    $nbQueue++;
+                },
+                onUploadError: function (file, errorCode, errorMsg, errorString) {
+                    alert('error');
                 }
-            },
-            onSelect: function(file) {
-                $nbQueue++;
-            },
-            onUploadError: function(file, errorCode, errorMsg, errorString) {
-                alert('error');
-            }
-        });
+            });
 
-        $form.submit(function(event) {
-            return $joinFiles();
-        });
+            $form.submit(function (event) {
+                return $joinFiles();
+            });
 
-        var $joinFiles = function() {
-            if ($files = $field.data('files')) {
-                $field.val($files.join(','));
+            var $joinFiles = function () {
+                if ($files = $field.data('files')) {
+                    $field.val($files.join(','));
+                }
+
+                return true;
             }
 
-            return true;
-        }
+            $field.uploadify($configs);
+        });
+    </script>
 
-        $field.uploadify($configs);
-    });
-</script>
-<script type="text/javascript" src="{{ asset('bundles/coreresources/uploadify/jquery.uploadify.min.js') }}"></script>
-<link href="{{ asset('bundles/coreresources/uploadify/uploadify.css') }}" rel="stylesheet">
 
-<form class="form form-horizontal" method="post" {{ form_enctype(form) }} action="{{ path('core_fileserver_uploader', {'redirect': redirect}) }}">
-<fieldset>
+    <form id="form_upload" method="post" {{ form_enctype(form) }}
+          action="{{ path('core_fileserver_uploader', {'redirect': redirect}) }}">
+        {{ form_label(form.permissions) }}
+        <ul id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
 
-                        <!-- General form elements -->
-                        <div class="widget row-fluid">
+            {% for emailField in form.permissions %}
+                <li>
+                    {{ form_errors(emailField) }}
+                    {{ form_widget(emailField) }}
 
-                            <div class="well">
-                            <div class="span6">
-                                {{ form_row(form.title) }}
-                                {{ form_row(form.file) }}
-                                {{ form_row(form.public) }}
-                            </div>
-                            <div class="span6">
-  <div class="control-group">
-    {{ form_label(form.permissions) }}
-    <ul id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
+                </li>
+            {% endfor %}
+        </ul>
 
-        {% for emailField in form.permissions %}
-            <li>
-                {{ form_errors(emailField) }}
-                {{ form_widget(emailField) }}
-                <a href="#" id="delete-another-email">Añadir un nuevo permiso</a>
-            </li>
-        {% endfor %}
-    </ul>
-    
-    <a href="#" id="add-another-perm">Añadir un nuevo permiso</a>
-    {{ form_row(form._token) }}
-    </div>
-                            </div>
+        <a href="#" id="add-another-perm" class="btn btn-success">Añadir un nuevo permiso</a>
+        {{ form_widget(form) }}
 
-    <div style="text-align:center; clear:both; margin-bottom: 10px">
-    <input type="submit" class="btn btn-success btn-large">
-    <br>
-    </div>
-    </div>
-    </div>
-    </fieldset>
-</form>
 
+        <input type="submit" class="btn btn-info" value="Subir archivo" id="button_upload_file">
+    </form>
+</div>
+<div id="content_uploader_success" style="display:none">
+    <div class="alert alert-info">Archivo colgado correctamente</div>
+</div>
+
+<div id="content_uploader_success" style="display:none">
+    <div class="alert alert-info">El archivo no pudo colgarse</div>
+</div>
 
 
 <script type="text/javascript">
     // keep track of how many email fields have been rendered
     var emailCount = '{{ form.permissions | length }}';
 
-    window.onload=function(){
+    jQuery(document).ready(function($) {
 
-        $('#add-another-perm').click(function() {
+        $('#add-another-perm').click(function () {
             var emailList = jQuery('#perm-fields-list');
 
             // grab the prototype template
@@ -125,6 +119,59 @@
             return false;
         });
 
+        {% if redirect == 'ajax' %}
 
-    };
+        $('#form_upload').submit(function () {
+
+            console.log($(this));
+
+            $.post("{{ path('core_fileserver_uploader', {'redirect': 'ajax'}) }}", $(this).serialize(),
+                    function(data){
+
+                        if(data == 'Ok'){
+                            toastr['success']('Archivo subido correctamente');
+                            $("#content_uploader").css('visibility', 'hidden');
+                        }else{
+                            toastr['error']('Error al subir el archivo');
+                            $("#content_uploader").css('visibility', 'hidden');
+                        }
+
+                        return false;
+                    });
+            return false;
+            /*
+            $.ajax({
+                type: "POST",
+                url: "",
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response == 'Ok') {
+
+                        toastr['success']('Archivo subido correctamente');
+                        $("#content_uploader").css('display', 'none');
+                        $("#content_uploader_success").fadeIn();
+                        return false
+                    } else {
+                        toastr['error']('Error al subir el archivo');
+                        $("#content_uploader").css('display', 'none');
+                        $("#content_uploader_success").fadeIn();
+                        return false;
+                    }
+
+                },
+                error: function () {
+
+                    return false;
+                }
+                dataType: 'json'
+            });
+
+
+            return false;
+            */
+        });
+
+        {% endif %}
+
+    });
 </script>
