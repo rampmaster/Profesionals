@@ -28,7 +28,7 @@ class FileType extends AbstractType
             ))
 
             ->add('permissions', 'collection', array(
-
+                'label' => "Permisos",
                 'type' => new PermissionsType($options['data']),
                 'allow_add' => true,
                 'allow_delete' => true,

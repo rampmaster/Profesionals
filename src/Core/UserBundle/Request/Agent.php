@@ -91,7 +91,6 @@ class Agent
 
     public function checkCapable()
     {
-
         $val = true;
         //css test
 

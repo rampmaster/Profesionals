@@ -183,16 +183,17 @@ canvas#mipizarra {
 </div>
 
 
-    <div class="row">
-        <div class="span4 offset1">
+    <div class="row-fluid">
+        <div class="span6">
 
             {% include 'CoreCallBundle:Call:contactuser.html.twig' %}
 
         </div>
 
-        <div class="span4">
+        <div class="span6">
             {% include 'CoreCallBundle:Call:videoconferencecontrols.html.twig' %}
         </div>
+        
     </div>
 
     {% block extra_videoconference %}{% endblock %}
