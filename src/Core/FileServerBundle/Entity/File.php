@@ -17,8 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
 class File
 {
 
-    public function removeAllPermissions(){
-        foreach($this->permissions as $p){
+    public function removeAllPermissions()
+    {
+        foreach ($this->permissions as $p) {
             $this->removePermission($p);
         }
     }
@@ -35,7 +36,6 @@ class File
      * @ORM\OneToMany(targetEntity="Permissions", mappedBy="file")
      */
     private $permissions;
-
 
 
     /**
@@ -102,21 +102,21 @@ class File
     {
         return null === $this->path
             ? null
-            : $this->getUploadRootDir().'/'.$this->path;
+            : $this->getUploadRootDir() . '/' . $this->path;
     }
 
     public function getWebPath()
     {
         return null === $this->path
             ? null
-            : $this->getUploadDir().'/'.$this->path;
+            : $this->getUploadDir() . '/' . $this->path;
     }
 
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../../../../security/'.$this->getUploadDir();
+        return __DIR__ . '/../../../../security/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -170,11 +170,43 @@ class File
         return $this->file;
     }
 
+    public function getMimeHuman()
+    {
 
+        $chunks = explode("/", $this->mime);
+        switch ($chunks[0]) {
+
+            default:
+                return "unknown";
+                break;
+
+            case "video":
+                return 'video';
+                break;
+
+            case 'image':
+                return 'image';
+                break;
+
+            case 'audio':
+                return 'audio';
+                break;
+
+            case 'application':
+                if ($chunks[1] == 'pdf') {
+                    return 'pdf';
+                } else {
+                    return "unknown";
+                }
+
+        }
+    }
+
+    ///
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -197,14 +229,13 @@ class File
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
         return $this->title;
     }
 
-    
 
     /**
      * Set createdAt
@@ -222,12 +253,13 @@ class File
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
+
     /**
      * Constructor
      */
@@ -252,7 +284,7 @@ class File
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
     public function getPath()
     {
@@ -275,7 +307,7 @@ class File
     /**
      * Get owner
      *
-     * @return \Core\UserBundle\Entity\User 
+     * @return \Core\UserBundle\Entity\User
      */
     public function getOwner()
     {
@@ -309,7 +341,7 @@ class File
     /**
      * Get permissions
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPermissions()
     {
@@ -332,7 +364,7 @@ class File
     /**
      * Get public
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPublic()
     {
@@ -355,7 +387,7 @@ class File
     /**
      * Get hash
      *
-     * @return string 
+     * @return string
      */
     public function getHash()
     {
@@ -378,17 +410,18 @@ class File
     /**
      * Get size
      *
-     * @return integer 
+     * @return integer
      */
     public function getSize()
     {
         return $this->size;
     }
 
-    public function getSizeHum(){
-        $kb =  $this->size/1000;
+    public function getSizeHum()
+    {
+        $kb = $this->size / 1000;
 
-        return $kb." Kb";
+        return $kb . " Kb";
     }
 
     /**
@@ -407,10 +440,12 @@ class File
     /**
      * Get mime
      *
-     * @return string 
+     * @return string
      */
     public function getMime()
     {
         return $this->mime;
     }
+
+
 }
