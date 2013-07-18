@@ -1,5 +1,6 @@
 {% set active = 'files' %}
 {% extends '::layout.html.twig' %}
+{% form_theme form 'CoreResourcesBundle:Form:fields.html.twig' %}
 {% block panel %}
     <ul class="round-buttons">
         <li><div class="depth"><a href="{{ path('profesional_files') }}" data-toggle="tooltip" data-original-title="Lista de archivos"><i class="icon-list"></i> Lista de  Archivos<strong></strong></a></div></li>
@@ -8,28 +9,45 @@
     </ul>
 
     <h5 class="widget-name">
-        <i class="icon-table"></i> Editar archivo
+        <i class="icon-table"></i> Editar información de un archivo
     </h5>
 
 
     <form method="post" {{ form_enctype(form) }} action="{{ path('profesional_files_edit_permissions', {'hash': file.hash}) }}">
-        {{ form_label(form.permissions) }}
-        <ul id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
+        <fieldset>
+            <div class="widget row-fluid">
+                <div class="well">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.public) }}
 
-            {% for emailField in form.permissions %}
-                <li>
-                    {{ form_errors(emailField) }}
-                    {{ form_widget(emailField) }}
-                    <a href="#" class="btn btn-danger" id="delete-perm">Eliminar permiso</a>
-                </li>
-            {% endfor %}
-        </ul>
+                    <div class="control-group">
+                        {{ form_label(form.permissions) }}
+                        <a href="#" id="add-another-perm" class="btn btn-info">Añadir un nuevo permiso</a>
+                        <div id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
+                            {% for emailField in form.permissions %}
+                                <div class="span4">
 
-        <a href="#" id="add-another-perm" class="btn btn-info">Añadir un nuevo permiso</a>
-        {{ form_widget(form) }}
+                                    {{ form_errors(emailField) }}
+                                    {{ form_widget(emailField) }}
+
+                                </div>
+                            {% endfor %}
+                        </div>
 
 
-        <input type="submit" class="btn btn-success" value="Editar">
+                    </div>
+
+                    <div style="clear:both"></div>
+                    {{ form_widget(form) }}
+
+
+
+                </div>
+            </div>
+        </fieldset>
+        <div style="text-align: center">
+            <input type="submit" class="btn btn-success" value="Editar">
+        </div>
     </form>
 
 
@@ -49,12 +67,19 @@
                 // with a number that's unique to your emails
                 // end name attribute looks like name="contact[emails][2]"
                 newWidget = newWidget.replace(/__name__/g, emailCount);
-                emailCount++;
+
+
+
+
 
                 // create a new list element and add it to the list
-                var newLi = jQuery('<li></li>').html(newWidget);
+                var newLi = jQuery('<div class="span4"></div>').html(newWidget);
                 newLi.appendTo(jQuery('#perm-fields-list'));
 
+                var $field =$("#core_fileserverbundle_filetype_permissions_"+emailCount+"_user");
+
+                $field.select2({"placeholder":"Select a value","allowClear":false,"minimumInputLength":0,"width":"element"});
+                emailCount++;
                 return false;
             });
 
@@ -65,4 +90,29 @@
         };
     </script>
 
+{% endblock %}
+{% block header_scripts %}
+
+    <style>
+      #perm-fields-list{
+          background-color: black;
+      }
+      #perm-fields-list div{
+        margin-left: 0%;
+
+
+      }
+    </style>
+    <link href="{{ asset('bundles/coreresources/select2/select2.css') }}" rel="stylesheet" />
+    {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+
+
+
+    <script src="{{ asset('bundles/coreresources/select2/select2.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/select2/select2_locale_es.js') }}"></script>
+
+    {{ form_javascript(form) }}
 {% endblock %}

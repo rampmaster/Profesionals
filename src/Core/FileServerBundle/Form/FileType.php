@@ -11,9 +11,14 @@ class FileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('title', null, array(
+                'label' => 'Título del archivo',
+                'attr' => array(
+                    'class' => 'span6'
+                )
+            ))
             ->add('file', 'genemu_jqueryfile', array(
-                'label' => 'Archivo',
+                'label' => 'Seleccionar el archivo',
                 'multiple' => false,
                 'configs' => array(
                     'auto' => true
@@ -28,7 +33,7 @@ class FileType extends AbstractType
             ))
 
             ->add('permissions', 'collection', array(
-                'label' => "Permisos",
+                'label' => "Permisos de acceso",
                 'type' => new PermissionsType($options['data']),
                 'allow_add' => true,
                 'allow_delete' => true,

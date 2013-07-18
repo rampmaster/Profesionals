@@ -1,3 +1,12 @@
+{% form_theme form 'CoreResourcesBundle:Form:fields.html.twig' %}
+<link href="{{ asset('bundles/coreresources/select2/select2.css') }}" rel="stylesheet" />
+{{ form_stylesheet(form) }}
+
+<script src="{{ asset('bundles/coreresources/select2/select2.js') }}"></script>
+<script src="{{ asset('bundles/coreresources/select2/select2_locale_es.js') }}"></script>
+
+{{ form_javascript(form) }}
+
 <div id="content_uploader">
   {% if redirect == 'ajax' %}
       <script src="http://malsup.github.com/jquery.form.js"></script>
@@ -64,27 +73,47 @@
         });
     </script>
 
-
     <form id="form_upload" method="post" {{ form_enctype(form) }}
           action="{{ path('core_fileserver_uploader', {'redirect': redirect}) }}">
-        {{ form_label(form.permissions) }}
-        <ul id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
+        <fieldset>
+            <div class="widget row-fluid">
+                <div class="well">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.public) }}
+                    {{ form_row(form.file) }}
+                    <div class="control-group">
+                        {{ form_label(form.permissions) }}
 
-            {% for emailField in form.permissions %}
-                <li>
-                    {{ form_errors(emailField) }}
-                    {{ form_widget(emailField) }}
+                        <a href="#" id="add-another-perm" class="btn btn-info">Añadir un nuevo permiso</a>
+                        <div id="perm-fields-list" data-prototype="{{ form_widget(form.permissions.vars.prototype) | e }}">
+                            {% for emailField in form.permissions %}
+                                <div class="span4">
 
-                </li>
-            {% endfor %}
-        </ul>
+                                    {{ form_errors(emailField) }}
+                                    {{ form_widget(emailField) }}
 
-        <a href="#" id="add-another-perm" class="btn btn-success">Añadir un nuevo permiso</a>
-        {{ form_widget(form) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {{ form_widget(form.permissions) }}
+
+                    </div>
+
+                    <div style="clear:both"></div>
+                    {{ form_widget(form) }}
 
 
-        <input type="submit" class="btn btn-info" value="Subir archivo" id="button_upload_file">
+
+                </div>
+            </div>
+        </fieldset>
+        <div style="text-align: center">
+            <input type="submit" class="btn btn-success" value="Subir archivo">
+            <input type="submit" class="btn btn-danger" value="Volver a empezar">
+        </div>
     </form>
+
+
 </div>
 <div id="content_uploader_success" style="display:none">
     <div class="alert alert-info">Archivo colgado correctamente</div>
@@ -110,12 +139,15 @@
             // with a number that's unique to your emails
             // end name attribute looks like name="contact[emails][2]"
             newWidget = newWidget.replace(/__name__/g, emailCount);
-            emailCount++;
+
 
             // create a new list element and add it to the list
-            var newLi = jQuery('<li></li>').html(newWidget);
+            var newLi = jQuery('<div class="span4"></div>').html(newWidget);
             newLi.appendTo(jQuery('#perm-fields-list'));
+            var $field =$("#core_fileserverbundle_filetype_permissions_"+emailCount+"_user");
 
+            $field.select2({"placeholder":"Select a value","allowClear":false,"minimumInputLength":0,"width":"element"});
+            emailCount++;
             return false;
         });
 

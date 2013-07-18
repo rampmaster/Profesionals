@@ -11,7 +11,12 @@ class FilePropertiesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('title', null, array(
+                'label' => 'Título del archivo',
+                'attr' => array(
+                    'class' => 'span6'
+                )
+            ))
             ->add('public', 'choice', array(
                 'label' => 'Tipo de acceso',
                 'choices' => array(
@@ -24,7 +29,8 @@ class FilePropertiesType extends AbstractType
 
                 'type' => new PermissionsType($options['data']),
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
+                'label' => 'Permisos de acceso'
                 )
 
             )
