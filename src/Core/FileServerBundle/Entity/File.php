@@ -27,7 +27,7 @@ class File
     //RELATIONS
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Core\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="\Core\UserBundle\Entity\User", inversedBy="files")
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $owner;

@@ -20,7 +20,7 @@ class PermissionsType extends AbstractType
         //print_r($this->file->getOwner());
         $clients = array();
         foreach($this->file->getOwner()->getProfessional()->getClients() as $c){
-            $clients[$c->getUser()->getId()] = $c->getUser()->getName();
+            $clients[$c->getUser()->getId()] = $c->getUser()->getSurname().", ".$c->getUser()->getName();
         }
 
         $builder
