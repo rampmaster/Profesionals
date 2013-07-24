@@ -20,15 +20,15 @@ class FileRepository extends EntityRepository
     public function retrieveUserFilesAccess(\Core\UserBundle\Entity\User $user){
 
         $qb = $this->getEntityManager()
-            ->createQuery("SELECT p, f FROM CoreFileServerBundle:Permissions p LEFT JOIN p.file f WHERE p.user = :user AND p.permission > :permissions")
+            ->createQuery("SELECT p, f FROM CoreFileServerBundle:Permissions p LEFT JOIN p.file f WHERE p.user = :user AND p.permission >= :permissions")
             ->setParameter('user', $user->getId())
             ->setParameter('permissions', 4);
 
         $result = $qb->getResult();
 
-        $result = $this->getEntityManager()->getRepository('CoreFileServerBundle:Permissions')->findAll();
+        $result = $this->getEntityManager()->getRepository('CoreFileServerBundle:File')->findAll();
         $return = array();
-
+        return $result;
         foreach($result as $r){
             array_push($return, $r->getFile());
         }

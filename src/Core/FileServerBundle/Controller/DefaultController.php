@@ -143,7 +143,11 @@ class DefaultController extends Controller
                 $this->getDoctrine()->getManager()->flush();
 
                 //return new Response('Ok');
-                //$redirect = $request->get('redirect');
+
+                if(is_null($redirect)){
+                    $redirect = $request->get('redirect');
+                }
+                //
 
                 if($redirect == 'ajax' OR $redirect == 'none'){
                     return new Response('Ok');
@@ -176,8 +180,20 @@ class DefaultController extends Controller
 
             $user = $em->getRepository('CoreUserBundle:User')->find($idUser);
 
-            $files = $em->getRepository('CoreFileServerBundle:File')->retrieveUserFilesAccess($user);
+        $qb = $em
+            ->createQuery("SELECT p, f FROM CoreFileServerBundle:Permissions p LEFT JOIN p.file f WHERE p.user = :user AND p.permission >= :permissions")
+            ->setParameter('user', $user->getId())
+            ->setParameter('permissions', 4);
 
-            return array('files' => $files);
+        $result = $qb->getResult();
+
+        $files = array();
+        foreach($result as $r){
+            array_push($files, $r->getFile());
+        }
+
+        
+
+        return array('files' => $files);
     }
 }

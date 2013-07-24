@@ -62,12 +62,8 @@ class DefaultController extends Controller
      */
     public function filesAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')->getToken()->getUser();
 
-        $files = $em->getRepository('CoreFileServerBundle:File')->retrieveUserFilesAccess($user);
-
-        return array('files' => $files);
+        return array();
 
     }
 
