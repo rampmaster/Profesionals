@@ -192,7 +192,7 @@ class DefaultController extends Controller
             array_push($files, $r->getFile());
         }
 
-        
+
 
         return array('files' => $files);
     }
