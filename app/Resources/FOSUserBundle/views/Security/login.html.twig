@@ -1,0 +1,34 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+{% if error %}
+    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
+{% endif %}
+            <form action="{{ path("fos_user_security_check") }}" method="post" class="row-fluid">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <div class="control-group">
+                    <!--<label class="control-label">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>-->
+                    <div class="controls"><input class="span12" type="text" id="username" required="required" name="_username" placeholder="Correo Electrónico" value="{{ last_username }}"/></div>
+                </div>
+                
+                <div class="control-group">
+                    <!--<label class="control-label">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>-->
+                    <div class="controls"><input class="span12" type="password" id="password" name="_password" placeholder="Contraseña" /></div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls"><label class="checkbox inline"><input type="checkbox" name="_remember_me" id="remember_me" class="styled" value="on" checked="checked">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label></div>
+                </div>
+
+                <div class="login-btn"><input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-danger btn-block" /></div>
+            </form>
+            <div style="text-align:center;">
+            	- o -
+            </div>
+            <div style="text-align:center; margin-top: 8px;">
+				<a href="{{ path('hwi_oauth_service_redirect',{service:'linkedin'}) }}"><img src="http://developer.linkedin.com/sites/default/files/spanish-sign-in.png"></a><br>
+				utilizando tu cuenta de linkedin.
+            </div>
+            <br>
+
+{% endblock fos_user_content %}
