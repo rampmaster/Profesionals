@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 
+
 class FilesController extends Controller
 {
 
@@ -44,6 +45,8 @@ class FilesController extends Controller
      */
     public function editpermissionsAction($hash)
     {
+
+
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
 

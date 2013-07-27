@@ -30,6 +30,7 @@ class EventController extends Controller
      */
     public function addeventAction()
     {
+
         $event = new ProfessionalEvent();
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
