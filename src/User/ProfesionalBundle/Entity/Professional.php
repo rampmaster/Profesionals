@@ -72,7 +72,7 @@ class Professional
     private $events;
 
     /**
-     * @ORM\OneToMany(targetEntity="\User\ClientBundle\Entity\Client", mappedBy="professional")
+     * @ORM\ManyToMany(targetEntity="\User\ClientBundle\Entity\Client", mappedBy="professionals")
      */
     private $clients;
 

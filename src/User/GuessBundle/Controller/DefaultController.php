@@ -36,20 +36,21 @@ class DefaultController extends Controller
         if($securityContext->isGranted('ROLE_ADMIN')){
             return $this->redirect($this->generateUrl('admin_professionals'));
         }
-
+        /*
         if($securityContext->isGranted('ROLE_PROFESIONAL')){
-
             return $this->redirect($this->generateUrl('profesional_consulta'));
         }elseif($securityContext->isGranted('ROLE_CLIENTE')){
             return $this->redirect($this->generateUrl('client_consulta'));
         }
+        */
 
         $host = $this->get('session')->get('subdomain');
         $usermanager = $this->get('fos_user.user_manager');
         $professional = $usermanager->findUserByUsername($host);
         if($host){
             if($professional){
-                return $this->redirect($this->generateUrl('fos_user_security_login'));            
+                return $this->render('UserProfesionalBundle:Template:index.html.twig',array('user'=>$professional));
+                //return $this->redirect($this->generateUrl('fos_user_security_login'));            
             }else{
                 die($host);
                 throw new \Exception("No se encontró la página",404);
@@ -60,6 +61,53 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('home_web'));
     }
 
+
+    /**
+     * @Route("/acceso", name="guess_route")
+     */
+    public function routeAction()
+    {
+        $userManager = $this->get('fos_user.user_manager');
+       $user = $this->get('security.context')->getToken()->getUser();
+        $securityContext = $this->get('security.context');
+
+        if($securityContext->isGranted('ROLE_ADMIN')){
+            return $this->redirect($this->generateUrl('admin_professionals'));
+        }
+        $host = $this->get('session')->get('subdomain');
+        $professional = false;
+        
+        if($host){
+            $professional = $userManager->findUserByUsername($host);
+        }
+        if($professional && $user){
+
+            if($professional->getId() == $user->getId()){
+
+                return $this->redirect($this->generateUrl('profesional_consulta'));
+            }else{
+                //check if I have client entity, and if 
+                //-> I have, go client_consulta
+                //-> I don't have, go client_request_profesional
+                //return $this->redirect($this->generateUrl('home_guess'));    
+                return $this->redirect($this->generateUrl('client_guess'));        
+            }
+        }
+        if($professional && !$user){
+            return $this->render('UserProfesionalBundle:Template:index.html.twig',array('user'=>$professional));
+        }
+
+        if($securityContext->isGranted('ROLE_PROFESIONAL')){
+            return $this->redirect($this->generateUrl('profesional_consulta'));    
+        }
+        if($securityContext->isGranted('ROLE_CLIENTE')){
+            return $this->redirect($this->generateUrl('client_consulta'));
+        }
+
+        return $this->redirect($this->generateUrl('home_web'));
+
+        
+    }
 
 
     /**

@@ -58,6 +58,10 @@ class User extends BaseUser
  
     /** @ORM\Column(name="linkedin_access_token", type="array", nullable=true) */
     protected $linkedin_access_token;
+ 
+    /** @ORM\Column(name="linkedin_information", type="array", nullable=true) */
+    protected $linkedin_information;
+
 
     //FILE UPLOAD
 

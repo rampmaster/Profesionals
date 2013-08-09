@@ -1,0 +1,52 @@
+{% extends '::layout.html.twig' %}
+{% block nav_primary %}
+<li class="{% if active == 'consulta' %}active{% endif %}">
+                    <a href="{{ path('profesional_consulta') }}">
+                        <i class="icon-facetime-video"></i> Presupuestos
+                    </a>
+                </li>
+
+                <li class="{% if active == 'clientes' %}active{% endif %}">
+                    <a href="{{ path('profesional_clientes') }}">
+                        <i class="icon-user"></i> Mis Profesionales
+                    </a>
+                </li>
+
+                <li class="{% if active == 'calendar' %}active{% endif %}">
+                    <a href="{{ path('profesional_calendar') }}">
+                        <i class="icon-calendar"></i> Citas
+                    </a>
+                </li>
+
+                <li class="">
+                    <a href="{{ path('client_settings') }}">
+                        <i class="icon-wrench"></i> Area personal
+                    </a>
+                </li>
+
+                <li class="">
+                    <a href="{{ path('client_files') }}">
+                        <i class="icon-file"></i> Archivos
+                    </a>
+                </li>
+
+
+                <li class="">
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        <i class="icon-remove"></i> Desconexión
+                    </a>
+                </li>
+
+{% endblock %}
+{% block panel %}
+
+    <ul class="round-buttons">
+        <li>
+            <div class="depth"><a href="{{ path('client_jobs_new') }}" data-toggle="tooltip"
+                                  data-original-title="Solicitar Presupuesto"><i class="icon-plus"></i> Solicitar Presupuesto<strong></strong></a></div>
+        </li>
+
+    </ul>
+    {% block section %}
+    {% endblock  %}
+{% endblock %}

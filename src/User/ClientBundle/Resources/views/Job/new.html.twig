@@ -1,0 +1,22 @@
+{% extends 'UserClientBundle::layout.html.twig' %}
+{% set active = 'jobs' %}
+{% form_theme form 'CoreResourcesBundle:Form:fields.html.twig' %}
+
+{% block section -%}
+    <h1>Job creation</h1>
+
+    <form action="{{ path('client_jobs_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit">Create</button>
+        </p>
+    </form>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('client_jobs') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

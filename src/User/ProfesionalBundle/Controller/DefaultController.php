@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use Symfony\Component\HttpFoundation\Response;
 use User\ProfesionalBundle\Entity\Report;
+use User\ClientBundle\Entity\Client;
 use User\ProfesionalBundle\Form\ReportType;
 use User\ProfesionalBundle\Form\StylesType;
 use User\ProfesionalBundle\Entity\Styles;
@@ -195,14 +196,36 @@ class DefaultController extends Controller
      */
     public function consultaAction()
     {
-
+        $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
         if(!$user){
             throw new \Exception("User not found");
         }
         $professional = $user->getProfessional();
-        if(!$professional){
-            throw new \Exception("Profile not found");
+        
+        $host = $this->get('session')->get('subdomain');
+        $usermanager = $this->get('fos_user.user_manager');
+        $hostProfessional = $usermanager->findUserByUsername($host);
+        $hostProfesionalId = $hostProfessional ? $hostProfessional->getId() : 0;
+        if($hostProfessional){
+
+        if(!$professional || ($professional->getId() != $hostProfesionalId)){
+            $client = $user->getClient();
+            if($client){
+                /*$client = new Client();
+                $client->setLastVisit(new \DateTime());
+                $client->setUser($user);
+                $user->setClient($client);
+                $em->persist($user);
+                $em->persist($client);
+                $em->flush();
+                */
+                return $this->redirect($this->generateUrl('client_consulta'));    
+            }else{
+                return $this->redirect($this->generateUrl('guess_route'));    
+            }
+            
+        }
         }
         $styles = $professional->getStyles();
         if(!$styles){

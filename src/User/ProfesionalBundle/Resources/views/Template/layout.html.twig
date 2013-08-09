@@ -1,0 +1,140 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>FlexiCV vCard template</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Titillium+Web:400,600|Patua+One:400|Titillium+Web:400italic,700italic&subset=latin,latin-ext"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/persotheme/css/reset.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/persotheme/css/color-blue.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/persotheme/css/style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/persotheme/css/jquery.fancybox.css') }}"/>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/persotheme/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/persotheme/js/jquery.easytabs.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/persotheme/js/jquery.isotope.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/persotheme/js/jquery.adipoli.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/persotheme/js/jquery.fancybox.pack.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/persotheme/js/jquery.gmap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/persotheme/js/response.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/coreresources/persotheme/js/custom.js') }}"></script>
+</head>
+<body>
+
+    <!-- Wrapper --><div id = "wrapper" class = "wrapper">
+
+        <!-- Navigation <ul id = "navigation-menu" class = "navigation-menu">
+            <li class="first"><a class = "profile" href="#profile"><span>Profile</span></a></li>
+            <li><a class = "cv" href="#cv"><span>CV</span></a></li>
+            <li><a class = "documents" href="#documents"><span>Documents</span></a></li>
+            <li><a class = "portfolio" href="#portfolio"><span>Portfolio</span></a></li>
+            <li><a class = "blog" href="#blog"><span>Blog</span></a></li>
+            <li class="last"><a class = "contacts" href="#contacts"><span>Contacts</span></a></li>
+        </ul>/Navigation -->
+        <div id="navigation" style="margin-bottom: 20px; margin-top: -30px; text-align:right; padding-right: 60px;">
+            {% block nav %}
+            <a class="yellowButton" href="login">Acceder a la Consulta</a>
+            {% endblock %}
+        </div>
+
+        <!-- Container --><div id = "container">
+
+        <!-- Profile --><div id = "profile">
+
+            <!-- Info --><div id = "info">
+
+                <div class = "photo">
+                        
+                    {% if app.session.get('subdomain') %}
+                        {% if app.session.get('style') %}
+                            <img src="{{asset(app.session.get('style'))}}" width="100%" style="width:100%">
+                        {% else %}
+                            <img src="{{asset('images/styles')}}/{{app.session.get('subdomain')}}/logo.png" width="100%" style="width:100%">
+                        {% endif %}
+                    {% else %}
+                    {% endif %}
+                </div>
+
+                <div class = "personal-info">
+
+                    <div class = "name-position">
+                        <div class = "name">{% if app.session.get('subdomain') %}{% if app.session.get('style') %}{{ app.session.get('theme_name') }}{% endif %}{% endif %}</div>
+                        <!--<div class = "position">Profesional</div>-->
+                    </div>
+
+                    <div class = "motto">
+                        <div class = "motto-text">{% if app.session.get('subdomain') %}{% if app.session.get('style') %}{{ app.session.get('theme_headline') }}{% endif %}{% endif %}</div>
+                    </div>
+
+                </div>
+
+            </div><!-- /Info -->
+
+            <!-- Content Inner --><div class = "content-inner">
+
+                <!-- Left Sidebar --><div class = "left-sidebar">
+                    {% block sidebar %}
+                    <div id = "information" class = "block">
+
+                        <h2>Perfil</h2>
+                        <div class = "block-content">
+                            <div class = "field">
+                            <img src="{{ asset(user.getWebPath()) }}" width="100%">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="block-content">
+                            <a href="#" class="button" style="margin-left: 44px">Contactar</a>
+                        </div>
+                    </div>
+
+                    {% endblock %}
+                </div><!-- /Left Sidebar -->
+
+                <!-- Content --><div class = "content">
+                    {% block content %}
+                    <div class = "body">
+                    <h1>Profesional de la Agricultura porcina</h1>
+                        <p>Sed sed leo sit amet elit sagittis fermentum. Nulla posuere commodo erat. Nam ac nunc ipsum, id espara tincidunt orci. Quisque adipiscing molestie dolor, ut congue sem porta et. Sed sapien urna, auctor et accumsan ut, accumsan sit amet dui.</p>
+                    </div>
+                    <h1>{{ user.getName() }} domina las siguientes áreas:</h1>
+                    <ul id="portfolio-menu">
+                        <li><a>Phonegap</a></li>
+                        <li><a>CSS3</a></li>
+                        <li><a>JavaScript</a></li>
+                    </ul>
+                    {% endblock %}
+
+                </div><!-- /Content -->
+
+                <!-- Cleaner --><div class="clear"></div><!-- /Cleaner -->
+
+            </div><!-- /Content Inner -->
+
+        </div><!-- /Profile-->
+
+        
+
+        <!-- Social Button --><div id = "social">
+            <ul class = "pos-button">
+                <li class = "first"><a href = "#" class = "facebook"title="Facebook"></a></li>
+                <li><a href = "#" class = "google" title="Google+"></a></li>
+                <li><a href = "#" class = "twitter" title="Twitter"></a></li>
+                <li><a href = "#" class = "linkedin" title="Linkedin"></a></li>
+            </ul>
+        </div><!-- /Social Button -->
+
+        
+        </div><!-- /Container -->
+
+        <!-- Footer --><div id = "footer">
+            <div id = "copyright">powered by <a href="http://varavan.com">varavan.com</a></div>
+        </div><!-- /Footer -->
+
+    </div><!-- /Wrapper -->
+
+
+</body>
+</html>

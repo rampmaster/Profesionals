@@ -35,6 +35,10 @@ class SubdomainListener
           $session->set('style',false);
           if($user){
             $session->set('style',$user->getProfessional()->getStyles()->getWebPath());
+            $session->set('theme_headline',$user->getProfessional()->getHeadline());
+            $session->set('theme_skills',$user->getProfessional()->getSkills());
+            $session->set('theme_name',$user->getName()." ".$user->getSurname());
+            $session->set('theme_id',$user->getId());
           }
        }
        $session->set('subdomain', $username);

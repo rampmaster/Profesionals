@@ -23,7 +23,7 @@ class Client
 
     /**
      * @var string
-     *
+     * !DEPRECATED
      * @ORM\Column(name="alias", type="string", length=255)
      */
     private $alias;
@@ -52,11 +52,13 @@ class Client
      */
     private $events;
 
+    private $currentProfessional;
+
     /**
-     * @ORM\ManyToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="client")
-     * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
+     * @ORM\ManyToMany(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="clients")
+     * @ORM\JoinTable(name="professionals_clients")
      */
-    private $professional;
+    private $professionals;
 
     public function __toString(){
 
@@ -216,25 +218,46 @@ class Client
     }
 
     /**
-     * Set professional
+     * Get events
      *
-     * @param \User\ProfesionalBundle\Entity\Professional $professional
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCurrentProfessional()
+    {
+        return $this->currentProfessional;
+    }
+
+
+    /**
+     * Add professionals
+     *
+     * @param \User\ProfesionalBundle\Entity\Professional $professionals
      * @return Client
      */
-    public function setProfessional(\User\ProfesionalBundle\Entity\Professional $professional = null)
+    public function addProfessional(\User\ProfesionalBundle\Entity\Professional $professionals)
     {
-        $this->professional = $professional;
-    
+        $this->professionals[] = $professionals;
+
         return $this;
     }
 
     /**
-     * Get professional
+     * Remove professionals
      *
-     * @return \User\ProfesionalBundle\Entity\Professional 
+     * @param \User\ProfesionalBundle\Entity\Professional $professionals
      */
-    public function getProfessional()
+    public function removeProfessional(\User\ProfesionalBundle\Entity\Professional $professionals)
     {
-        return $this->professional;
+        $this->professionals->removeElement($professionals);
+    }
+
+    /**
+     * Get professionals
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProfessionals()
+    {
+        return $this->professionals;
     }
 }

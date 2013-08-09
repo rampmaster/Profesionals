@@ -70,6 +70,7 @@ class FOSUBUserProvider extends BaseClass
             $setter = 'set'.ucfirst($service);
             $setter_id = $setter.'Id';
             $setter_token = $setter.'AccessToken';
+            $setter_info = $setter.'Information';
             // create new user here
             $user = $this->userManager->createUser();
             $user->$setter_id($username);
@@ -80,29 +81,17 @@ class FOSUBUserProvider extends BaseClass
             $user->setEmail($username);
             $user->setPassword($username);
             $user->setEnabled(true);
-
-            $professional = new Professional();
-            $professional->setUpdatedAt(new \DateTime());
-            $professional->setCreatedAt(new \DateTime());
-            $professional->setUser($user);
-            $user->setProfessional($professional);
+            $user->$setter_info($rawResponse);
             $user->addRole('ROLE_USER');
-            $user->addRole('ROLE_PROFESIONAL');
-            /* CUSTOM PROVIDER INFO */;
-                
-                $user->setName($rawResponse['firstName']);
-                $user->setSurname($rawResponse['lastName']);
-                $user->setEmail($rawResponse['emailAddress']);
-                $user->setExternalPath($rawResponse['pictureUrl']);
-                $professional->setHeadline($rawResponse['headline']);
-                $skills = Array();
-                $rawskills = $rawResponse['skills'];
-                foreach($rawskills['values'] as $skill){
-                    $skills[] = $skill['skill']['name'];
-                }
-                $professional->setSkills($skills);
 
-            $this->entityManager->persist($professional);
+                
+            /* CUSTOM LKD-IN PROVIDER INFO */;
+            $user->setName($rawResponse['firstName']);
+            $user->setSurname($rawResponse['lastName']);
+            $user->setEmail($rawResponse['emailAddress']);
+            $user->setExternalPath($rawResponse['pictureUrl']);
+                
+
             $this->userManager->updateUser($user);
             $this->entityManager->flush();
             

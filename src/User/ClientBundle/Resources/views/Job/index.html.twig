@@ -1,0 +1,98 @@
+{% extends 'UserClientBundle::layout.html.twig' %}
+{% set active = 'jobs' %}
+{% block section -%}
+
+
+
+
+    <h5 class="widget-name">
+        <i class="icon-table"></i> Mis trabajos
+    </h5>
+
+    <div class="widget">
+        <div class="table-overflow">
+            {% if entities|length > 0 %}
+                <table class="table table-striped table-bordered table-checks media-table dataTable" id="data-table"
+                       aria-describedby="data-table_info">
+                    <thead>
+                    <tr role="row">
+                        <th class="sorting_disabled" width="40px" style="text-align: center">Tipo</th>
+                        <th class="sorting_disabled">Nombre</th>
+                        <th class="sorting_disabled" width="30%">Información</th>
+                        <th class="sorting_disabled" width="40px" style="text-align: center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody ole="alert" aria-live="polite" aria-relevant="all">
+                    {% for entity in entities %}
+                        <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
+                            <td class="icons-files">
+                                <i class="icon icon-ban-circle"></i>
+                            </td>
+                            <td class=" "><a
+                                        href="#"
+                                        class="tip" title="" data-original-title="Ver más">{{ entity.description }}</a></td>
+                            <td class="file-info">
+                            {% for skill in entity.skills%}
+                                <span><strong>{{ skill }}</strong></span>
+                            {% endfor %}
+                            </td>
+                            <td class="download-icon ">
+                                {% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            {% else %}
+
+                <h4>No has solicitado ningún presupuesto, haz click en el botón + para empezar.</h4>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block stylesheets %}
+    <style>
+        .icons-files i {
+            font-size: 50px;
+            padding: 5px;
+
+        }
+
+        .download-icon a {
+            color: #555;
+        }
+
+        .download-icon a:hover {
+            color: #8b0000;
+        }
+
+        .download-icon a i {
+            font-size: 50px;
+            padding: 5px;
+
+        }
+    </style>
+{% endblock %}
+{% block header_scripts %}
+    <script type="text/javascript"
+            src="{{ asset('bundles/coreresources/admintheme/js/plugins/tables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#data-table').dataTable({
+                "bJQueryUI": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sDom": '<"datatable-header"fl>t<"datatable-footer"ip>',
+                "oLanguage": {
+                    "sSearch": "<span>Filtro de búsqueda:</span> _INPUT_",
+                    "sLengthMenu": "<span>Número de entradas a mostrar:</span> _MENU_",
+                    "oPaginate": { "sFirst": "Inicio", "sLast": "Fin", "sNext": ">", "sPrevious": "<" }
+                }
+            });
+        });
+    </script>
+{% endblock %}

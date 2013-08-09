@@ -13,9 +13,6 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('alias', null, array(
-                'label' => 'Nombre identificativo para el cliente'
-            ))
             ->add('user', new UserAdd2Type())
         ;
     }
