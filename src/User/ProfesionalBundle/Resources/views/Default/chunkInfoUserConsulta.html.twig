@@ -1,10 +1,11 @@
+{% form_theme form 'CoreResourcesBundle:Form:fields.html.twig' %}
 <link rel="stylesheet" type="text/css"
       href="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.css') }}"/>
-<link rel="stylesheet" type="text/css"
-      href="{{ asset('bundles/coreresources/wyswyg/lib/css/bootstrap.min.css') }}"/>
-<link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/lib/css/prettify.css') }}"/>
 <script src="{{ asset('bundles/coreresources/js/jquery.form.js') }}"></script>
+<script src="{{ asset('bundles/coreresources/wyswyg/lib/js/wysihtml5-0.3.0.js') }}"></script>
 
+<script src="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.js') }}"></script>
+<script src="{{ asset('bundles/coreresources/wyswyg/lib/bootstrap-wysihtml5.es-ES.js') }}"></script>
 <style type="text/css" media="screen">
     .btn.jumbo {
         font-size: 20px;
@@ -18,116 +19,134 @@
 
 
 </style>
-<div class="row" id="ContentViewer">
-    <div class="offset1 span4">
-        <div class="tabbable black-box" style="margin-bottom: 18px;">
+<div id="ContentViewer">
+    <ul class="nav nav-tabs" id="tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">Historico del cliente</a></li>
+        <li><a href="#tab2" data-toggle="tab">Otros</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <div class="padded" id="list-informs-container">
+                {% for r in entity.reports %}
+                    <p>
+                                <span style="display: inline-block; min-width: 250px;"><a
+                                            role=tabs-informes
+                                            class="btn"
+                                            target="{{ r.id }}">{{ r.title|truncate(30) }}</a></span>
 
-            <div class="tab-header">
-                Herramientas de cliente
+
+                        <span>{{ r.createdAt|date('d/m/Y H:i') }}</span>
+                    </p>
+                {% else %}
+
+                    <p>
+                        <strong>No existen reportes</strong>
+                    </p>
+                {% endfor %}
+
             </div>
 
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab1" data-toggle="tab">Historico del cliente</a></li>
-                <li><a href="#tab2" data-toggle="tab">Otros</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="tab1">
-                    <div class="padded">
-                        {% for r in entity.reports %}
-                            <p>
-                                <span style="display: inline-block; min-width: 250px;"><a role="tabs-informes"
-                                                                                          class="btn"
-                                                                                          target="{{ r.id }}">{{ r.title|truncate(30) }}</a></span>
-                                <span>{{ r.createdAt|date('d/m/Y H:i') }}</span>
-                            </p>
-                        {% else %}
+            <div class="padded hide" id="inform-container">
+                {% for r in entity.reports %}
+                    <div class="widget hide" role="inform" id="informeCliente{{ r.id }}">
+                        <div class="navbar">
+                            <div class="navbar-inner"><h6>{{ r.title }}</h6></div>
+                        </div>
+                        <div class="well">
+                            <blockquote style="margin-bottom: 10px; margin-left: 10px; margin-top:10px">
+                                <p>{{ r.text|raw }}</p>
+                            </blockquote>
 
-                            <p>
-                                <strong>No existen reportes</strong>
-                            </p>
-                        {% endfor %}
-
+                            <div class="control-group">
+                                Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}"
+                            </div>
+                        </div>
+                        <a class="btn btn-success" data-role="close-informe">Volver</a>
                     </div>
-                </div>
 
-                <div class="tab-pane" id="tab2">
-                    <div class="padded">
-                        <a class="button green" onclick="javascript:pivotreport('report')">Añadir nuevo informe</a>
-                        <a href="javascript:videoconferenceStart()" class="button grey">Recargar lista</a>
+
+
+
+                {% else %}
+                    <div class="widget">
+                        <div class="navbar">
+                            <div class="navbar-inner"><h6>No hay informes</h6></div>
+                        </div>
+                        <div class="well body">
+                            <blockquote style="margin-bottom: 10px; margin-left: 10px; margin-top:10px">
+                                No ha registrado ningún informe con este cliente.
+                            </blockquote>
+
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+        <div class="tab-pane" id="tab2">
+            <div class="padded">
+                <a class="button green" onclick="javascript:pivotreport('report')">Añadir nuevo informe</a>
+                <a href="javascript:videoconferenceStart()" class="button grey">Recargar lista</a>
 
 
             </div>
         </div>
+
+
     </div>
 
-    <div class="span4">
-        {% for r in entity.reports %}
-            <div class="informeCliente black-box tex hide" id="informeCliente{{ r.id }}">
-                <div class="tab-header">
-                    {{ r.title }}
-                </div>
-                <ul class="recent-comments">
 
-
-                    <li class="separator">
-                        <div class="avatar pull-left">
-                            <img src="{{ asset('bundles/coreresources/theme/images/avatar3.png') }}">
-                        </div>
-
-                        <div class="article-post">
-                            <div class="user-info">Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo
-                                "{{ r.type }}"
-                            </div>
-                            <div class="user-content">
-                                {{ r.text|raw }}
-                            </div>
-
-
-                        </div>
-                    </li>
-
-
-                </ul>
-            </div>
-        {% endfor %}
-    </div>
 </div>
 
 <div class="row hide" id="addReportContent">
-    <div class="offset1 span10">
+    <h5 class="widget-name"><i class="icon-plus"></i>Añadir un nuevo informe</h5>
+    <div class="span12">
         <div class="box">
-            <div class="tab-header">
-                Añadir un nuevo informe
-                <span class="pull-right">
-                  <span class="options">
-                    <a href="#"><i class="icon-cog"></i></a>
-                  </span>
-                </span>
-            </div>
-            <form method="post" action="{{ path('profesional_clientes_add_report_ajax', {'idCliente': entity.id}) }}"
-                  class="fill-up" id="formAddReport">
-                <div class="padded">
-                    {{ form_widget(form) }}
+
+            <form method="post" class="form form-horizontal" {{form_enctype(form) }}>
+                <fieldset>
+
+                    <!-- General form elements -->
+                    <div class="widget row-fluid">
+
+                        <div class="well">
+                            {{ form_rest(form) }}
+
+                        </div>
+                    </div>
+                    <!-- /general form elements -->
+
+                </fieldset>
+                <div style="text-align:center">
+                    <a  class="btn button green" onclick="javascript:pivotreport('show')">Volver</a>
+                    <input type="submit" class="btn button blue" value="Registrar informe">
                 </div>
-                <div class="form-actions">
-                    <button class="btn button blue">Registrar informe</button>
-
-
-                </div>
-
             </form>
         </div>
     </div>
 </div>
+
 <script type="text/javascript">
+    $("a[data-role=close-informe]").on('click', function (event) {
+        $("#inform-container").addClass('hide');
+
+        $parent = $(this).parent();
+        $parent.addClass('hide');
+        $("#list-informs-container").removeClass('hide');
+        $("a[role=inform]").addClass("hide");
+    });
+
     $("a[role=tabs-informes]").on('click', function (event) {
-        clearInformes();
+
         var informetarget = $(this).attr('target');
-        setTimeout(function () {
-            $("#informeCliente" + informetarget).fadeIn();
-        }, 1000);
+
+        $("#list-informs-container").addClass('hide');
+        $("#inform-container").removeClass('hide');
+        $("#informeCliente" + informetarget).removeClass('hide');
+
 
 
     });
@@ -153,7 +172,7 @@
                     autoDismiss: 3,
                     bootstrapPositionClass: "notice"
                 });
-            }else{
+            } else {
                 Notifications.push({
                     text: "Ha habido un error al añadir el reporte :(",
                     autoDismiss: 3,
@@ -165,13 +184,7 @@
     });
 
 </script>
-<script src="{{ asset('bundles/coreresources/js/jquery.js') }}"></script>
-<script src="{{ asset('bundles/coreresources/wyswyg/lib/js/wysihtml5-0.3.0.js') }}"></script>
 
-<script src="{{ asset('bundles/coreresources/wyswyg/lib/js/prettify.js') }}"></script>
-<script src="{{ asset('bundles/coreresources/wyswyg/lib/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.js') }}"></script>
-<script src="{{ asset('bundles/coreresources/wyswyg/lib/bootstrap-wysihtml5.es-ES.js') }}"></script>
 
 <script>
     $('.textarea').wysihtml5({
