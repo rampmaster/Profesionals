@@ -1,0 +1,134 @@
+{% extends 'UserProfesionalBundle:Default:settings_layout.html.twig' %}
+{% set secondary_active = 'custom_home' %}
+
+{% form_theme form_welcome 'CoreResourcesBundle:Form:fields.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('bundles/coreresources/select2/select2.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/coreresources/colorpicker/css/colorpicker.css') }}" rel="stylesheet"/>
+    {{ form_stylesheet(form_welcome) }}
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('bundles/coreresources/select2/select2.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/select2/select2_locale_es.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/colorpicker/js/colorpicker.js') }}"></script>
+
+    <script type="text/javascript">
+        $field = $('#user_profesionalbundle_welcometype_skills');
+
+        var preload_data = [
+            {% for skill in professional.skills %}{ id: '{{ skill.id }}', text: '{{ skill.name }}'}, {% endfor %}
+        ];
+        var tags = {
+                {% for skill in professional.skills %}'{{ skill.id }}': '{{ skill.name }}', {% endfor %}
+        };
+
+
+        var $configs = {
+            "placeholder":"Select a value",
+            "allowClear":false,
+            "minimumInputLength":3,
+            "width": 700,
+
+
+
+
+        };
+
+        // custom configs
+        $configs = $.extend($configs, {
+            query: function (query) {
+
+                var data2 = {results: []}
+
+
+                var callback = function callback(data){
+
+
+                    query.callback(data);
+                }
+
+                $.post('{{ path('profesional_json_skills') }}',
+                        { query: query.term}, function(r) {
+                            var obj = JSON.parse(r);
+
+
+
+
+                            if($.isEmptyObject(obj) == false){
+                                $.each(obj, function(i){
+
+                                    var item = obj[i];
+
+                                    var d  = {id: item.id, text: item.name};
+
+                                    data2.results.push(d)
+
+                                });
+
+                            }else{
+                                console.log('No results');
+
+                                if(isNaN(query.term)){
+                                    data2.results.push({id: query.term, text: query.term})
+                                }else{
+                                    toastr['warning']("No puedes insertar números")
+                                }
+
+
+                            }
+
+                            callback(data2);
+
+                        });
+
+
+
+            },
+            multiple: true
+
+        });
+        // end of custom configs
+
+        $field.select2($configs);
+        $field.select2('data', preload_data)
+    </script>
+
+
+{% endblock %}
+
+
+{% block panel %}
+
+    <h5 class="widget-name"><i class="icon-picture"></i> Personaliza tu espacio público</h5>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Tu página personal, es un espacio <strong>público</strong>. Desde esta dirección en internet, tus clientes podrán encontrarte. Esta sección te permite customizar este espacio
+        </div>
+    </div>
+</div>
+    <div class="row-fluid">
+        <div class="span12">
+
+            <form method="post" class="form form-horizontal" {{form_enctype(form_welcome) }}>
+                <fieldset>
+
+                    <!-- General form elements -->
+                    <div class="widget row-fluid">
+
+                        <div class="well">
+                            {{ form_widget(form_welcome) }}
+                        </div>
+                    </div>
+                </fieldset>
+                <div style="text-align:center">
+                    <input type="submit" class="btn btn-success btn-large" value="Actualizar Datos">
+                </div>
+            </form>
+        </div>
+
+
+{% endblock %}

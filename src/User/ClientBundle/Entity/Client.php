@@ -53,7 +53,7 @@ class Client
     private $events;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="client")
+     * @ORM\ManyToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="clients")
      * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
      */
     private $professional;

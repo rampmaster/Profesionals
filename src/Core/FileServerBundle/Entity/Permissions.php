@@ -18,7 +18,7 @@ class Permissions
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="File")
+     * @ORM\ManyToOne(targetEntity="File", inversedBy="permissions")
      * @ORM\JoinColumn(name="file_id", referencedColumnName="id")
      */
     private $file;

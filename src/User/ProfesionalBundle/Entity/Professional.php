@@ -35,12 +35,6 @@ class Professional
      */
     private $headline;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="skills", type="array",nullable=true)
-     */
-    private $skills;
 
     /**
      * @var \DateTime
@@ -49,7 +43,50 @@ class Professional
      */
     private $updatedAt;
 
+    //public data
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="public_direction", type="string")
+     */
+    private $public_direction;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="public_city", type="string")
+     */
+    private $public_city;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="public_postal", type="string")
+     */
+    private $public_postal;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="public_phone", type="string")
+     */
+    private $public_phone;
+
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Skill", inversedBy="professionals")
+     * @ORM\JoinTable(name="professional_skill",
+     *      joinColumns={@ORM\JoinColumn(name="professional_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="skill_id", referencedColumnName="id")}
+     *      )
+     */
+    private $skills;
 
     /**
      * @ORM\OneToOne(targetEntity="\Core\UserBundle\Entity\User", inversedBy="professional", cascade={ "all" })
@@ -57,7 +94,7 @@ class Professional
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="\User\ProfesionalBundle\Entity\Styles", inversedBy="professional", cascade={ "all" })
+     * @ORM\OneToOne(targetEntity="\User\ProfesionalBundle\Entity\Styles", mappedBy="professional", cascade={ "all" })
      **/
     private $styles;
 
@@ -313,26 +350,130 @@ class Professional
         return $this->headline;
     }
 
+
     /**
-     * Set skills
+     * Add skills
      *
-     * @param array $skills
+     * @param \User\ProfesionalBundle\Entity\Skill $skills
      * @return Professional
      */
-    public function setSkills($skills)
+    public function addSkill(\User\ProfesionalBundle\Entity\Skill $skills)
     {
-        $this->skills = $skills;
+        $this->skills[] = $skills;
 
         return $this;
     }
 
     /**
+     * Remove skills
+     *
+     * @param \User\ProfesionalBundle\Entity\Skill $skills
+     */
+    public function removeSkill(\User\ProfesionalBundle\Entity\Skill $skills)
+    {
+
+        $this->skills->removeElement($skills);
+    }
+
+    /**
      * Get skills
      *
-     * @return array 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getSkills()
     {
         return $this->skills;
+    }
+
+    /**
+     * Set public_direction
+     *
+     * @param string $publicDirection
+     * @return Professional
+     */
+    public function setPublicDirection($publicDirection)
+    {
+        $this->public_direction = $publicDirection;
+
+        return $this;
+    }
+
+    /**
+     * Get public_direction
+     *
+     * @return string 
+     */
+    public function getPublicDirection()
+    {
+        return $this->public_direction;
+    }
+
+    /**
+     * Set public_city
+     *
+     * @param string $publicCity
+     * @return Professional
+     */
+    public function setPublicCity($publicCity)
+    {
+        $this->public_city = $publicCity;
+
+        return $this;
+    }
+
+    /**
+     * Get public_city
+     *
+     * @return string 
+     */
+    public function getPublicCity()
+    {
+        return $this->public_city;
+    }
+
+    /**
+     * Set public_postal
+     *
+     * @param string $publicPostal
+     * @return Professional
+     */
+    public function setPublicPostal($publicPostal)
+    {
+        $this->public_postal = $publicPostal;
+
+        return $this;
+    }
+
+    /**
+     * Get public_postal
+     *
+     * @return string 
+     */
+    public function getPublicPostal()
+    {
+        return $this->public_postal;
+    }
+
+    /**
+     * Set public_phone
+     *
+     * @param string $publicPhone
+     * @return Professional
+     */
+    public function setPublicPhone($publicPhone)
+    {
+        $this->public_phone = $publicPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get public_phone
+     *
+     * @return string 
+     */
+    public function getPublicPhone()
+    {
+        return $this->public_phone;
     }
 }

@@ -12,6 +12,7 @@ io.sockets.on('connection', function(socket) {
 
 
 	socket.on('suscribe', function (data) {
+        console.log('SUSCRITO');
         var opt = {
             socket: socket.id,
             session: data.session,

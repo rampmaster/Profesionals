@@ -96,7 +96,7 @@ class File
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path;
+    private $path;
 
     public function getAbsolutePath()
     {

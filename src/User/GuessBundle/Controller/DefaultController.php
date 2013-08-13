@@ -51,7 +51,7 @@ class DefaultController extends Controller
             if($professional){
                 return $this->redirect($this->generateUrl('fos_user_security_login'));            
             }else{
-                die($host);
+                //die($host);
                 throw new \Exception("No se encontró la página",404);
             }
         }

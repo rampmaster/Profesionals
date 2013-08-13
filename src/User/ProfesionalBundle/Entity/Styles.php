@@ -104,7 +104,7 @@ class Styles
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path = "avatar.png";
+    private $path = "avatar.png";
 
     public function getAbsolutePath()
     {
