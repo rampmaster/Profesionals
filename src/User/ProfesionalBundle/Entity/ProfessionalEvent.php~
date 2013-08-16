@@ -95,6 +95,11 @@ class ProfessionalEvent
      */
     private $client;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\GoalEvent", mappedBy="event")
+     */
+    private $goals;
+
 
     public function __construct(){
 

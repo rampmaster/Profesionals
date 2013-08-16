@@ -20,7 +20,10 @@ class ProfessionalEventType extends AbstractType
                 'label' => 'Dia de la consulta'
             ))
             ->add('hour_date', 'time', array(
-                'label' => 'Hora de la consulta'
+                'label' => 'Hora de la consulta',
+                'attr' => array(
+                    'class' => 'timer_container'
+                )
             ))
             ->add('duration','choice', array(
                 'label' => 'Duración de la consulta',
