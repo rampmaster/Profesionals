@@ -129,6 +129,7 @@ class EventController extends Controller
         $goalID  = $request->get('goal');
         $action = $request->get('action');
         $param = $request->get('param');
+        $redirect = $request->get('redirect');
 
         $goal = $em->getRepository('UserProfesionalBundle:GoalEvent')->find($goalID);
 
@@ -141,6 +142,7 @@ class EventController extends Controller
             case 'REACHED':
                     if($param == '1'){
                         $goal->setReached(true);
+                        $goal->setReachedAt(new \DateTime());
                     }else{
                         $goal->setReached(false);
                     }
@@ -149,7 +151,12 @@ class EventController extends Controller
                     $em->flush();
                 break;
             case 'CHANGE TITLE':
-                    //todo
+                    $goal->setTitle($param);
+
+
+
+                    $em->persist($goal);
+                    $em->flush();
                 break;
 
             case "DELETE":
@@ -161,6 +168,10 @@ class EventController extends Controller
                     $em->remove($goal);
                     $em->flush();
                 break;
+        }
+
+        if(is_string($redirect)){
+            return $this->redirect($redirect);
         }
 
         return new Response('okey');

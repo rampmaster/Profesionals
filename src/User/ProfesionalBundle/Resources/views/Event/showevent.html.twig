@@ -12,6 +12,8 @@
     <script type="text/javascript" src="{{ asset('bundles/coreresources/admintheme/js/plugins/forms/jquery.uniform.min.js') }}"></script>
     <script type="text/javascript">
 
+        $('.popover-goal').popover()
+
         $("input.styled").uniform();
 
         $("input.styled").on('change', function(event){
@@ -142,7 +144,7 @@
     </div>
     <div class="row-fluid">
 
-        <div class="span5 widget well-smoke">
+        <div class="span5 widget well-smoke" >
             <div class="navbar">
                 <div class="navbar-inner">
                     <h6>Objetivos de la consulta</h6>
@@ -152,13 +154,63 @@
             <div class="well-smoke body hide goalsContentLoader" style="height: 100px; text-align: center">
                 <img src="{{ asset('bundles/coreresources/admintheme/img/elements/loaders/4.gif') }}" alt="">
             </div>
-            <div class="well-smoke body goalsContent">
+            <div class="well-smoke body goalsContent" style="padding-bottom: 50px">
                 {% for goal in entity.goals %}
                 <div class="controls">
                     <label class="checkbox inline">
                         <input type="checkbox"  class="styled" value="option1" goal-id="{{ goal.id }}" {% if goal.reached %}checked="checked" {% endif %}>
-                         {{ goal.title }} 
+
+
                     </label>
+
+                    {{ goal.title|truncate(40) }}
+
+                    <a id="example"
+                       style="float:right"
+                       class="popover-goal "
+                       data-html="true"
+                       data-toggle="popover"
+                       data-placement="right"
+                       data-trigger="click"
+                       data-content="
+                                {{ goal.title }}
+
+                                <hr>
+
+                                <form method='post' action='{{ path('profesional_event_update_goal') }}'>
+                                <input type=hidden name='goal' value='{{ goal.id }}'>
+                                <input type=hidden name='action' value='DELETE'>
+                                <input type=hidden name='redirect' value='{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}'>
+                                <input type='submit' value='Eliminar' class='btn btn-danger'>
+                                </form>
+
+
+                       "
+                       data-original-title="Información de objetivo">
+                        <i class="ico-wrench"></i> </a>
+
+                    <a id="example"
+                       style="float:right"
+                       class="popover-goal "
+                       data-html="true"
+                       data-toggle="popover"
+                       data-placement="right"
+                       data-trigger="click"
+                       data-content="
+
+                                <form method='post' action='{{ path('profesional_event_update_goal') }}'>
+                                <input type=hidden name='goal' value='{{ goal.id }}'>
+                                <input type=hidden name='action' value='CHANGE TITLE'>
+                                <input type=text name='param' value='{{ goal.title }}'>
+                                <input type=hidden name='redirect' value='{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}'>
+                                <input type='submit' value='Editar' class='btn btn-warning'>
+                                </form>
+                   
+
+                       "
+                       data-original-title="Editar objetivo">
+                        <i class="ico-edit"></i> </a>
+
                 </div>
 
                 {% else %}
@@ -195,5 +247,7 @@
         </div>
     </div>
     </form>
+
+
 
 {% endblock %}
