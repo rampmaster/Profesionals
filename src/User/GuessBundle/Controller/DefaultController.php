@@ -131,4 +131,33 @@ class DefaultController extends Controller
         return array('professional' => $professional);
     }
 
+
+    /**
+     * @Route("/searcher", name="home_searcher")
+     * @Template()
+     */
+    public function searcherAction()
+    {
+
+        $request = $this->getRequest();
+
+        if($request->getMethod() == 'POST'){
+            $query = $request->get('query');
+
+            $em = $this->getDoctrine()->getManager();
+
+            $result = $em->createQuery(
+                'SELECT s, p
+                FROM UserProfesionalBundle:Professional p
+                JOIN p.skills s
+                WHERE s.name LIKE :name'
+            )->setParameter('name', "%".$query."%")->getResult();
+
+
+            return array('result' => $result);
+        }
+
+        return array();
+    }
+
 }

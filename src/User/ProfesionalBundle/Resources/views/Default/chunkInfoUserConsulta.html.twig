@@ -19,7 +19,7 @@
 
 
 </style>
-<div id="ContentViewer">
+<div id="ContentViewer" style="margin-bottom: 40px; margin-top: 20px">
     <ul class="nav nav-tabs" id="tabs">
         <li class="active"><a href="#tab1" data-toggle="tab">Historico del cliente</a></li>
         <li><a href="#tab2" data-toggle="tab">Otros</a></li>
@@ -88,8 +88,8 @@
 
         <div class="tab-pane" id="tab2">
             <div class="padded">
-                <a class="button green" onclick="javascript:pivotreport('report')">Añadir nuevo informe</a>
-                <a href="javascript:videoconferenceStart()" class="button grey">Recargar lista</a>
+                <a class="btn btn-success green" onclick="javascript:pivotreport('report')">Añadir nuevo informe</a>
+                <a class="btn btn-info" href="javascript:videoconferenceStart()" class="button grey">Recargar lista</a>
 
 
             </div>
@@ -101,12 +101,12 @@
 
 </div>
 
-<div class="row hide" id="addReportContent">
+<div class="row hide" id="addReportContent" style="margin-bottom: 40px">
     <h5 class="widget-name"><i class="icon-plus"></i>Añadir un nuevo informe</h5>
     <div class="span12">
         <div class="box">
 
-            <form method="post" class="form form-horizontal" {{form_enctype(form) }}>
+            <form id="formAddReport" action="{{ path('profesional_clientes_add_report_ajax', {'idCliente': entity.id}) }}" method="post" class="form form-horizontal" {{form_enctype(form) }}>
                 <fieldset>
 
                     <!-- General form elements -->
@@ -122,7 +122,7 @@
                 </fieldset>
                 <div style="text-align:center">
                     <a  class="btn button green" onclick="javascript:pivotreport('show')">Volver</a>
-                    <input type="submit" class="btn button blue" value="Registrar informe">
+                    <input type="submit" class="btn btn-success" value="Registrar informe">
                 </div>
             </form>
         </div>
@@ -167,17 +167,10 @@
         $('#formAddReport').ajaxForm(function (data) {
             if (data == 'Ok') {
                 videoconferenceStart();
-                Notifications.push({
-                    text: "Reporte añadido con éxito",
-                    autoDismiss: 3,
-                    bootstrapPositionClass: "notice"
-                });
+                toastr.success('Reporte añadido con éxito');
             } else {
-                Notifications.push({
-                    text: "Ha habido un error al añadir el reporte :(",
-                    autoDismiss: 3,
-                    bootstrapPositionClass: "error"
-                });
+                toastr.error('Ha habido un problema al añadir el reporte');
+
             }
 
         });
