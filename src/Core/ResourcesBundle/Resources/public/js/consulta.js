@@ -7,10 +7,7 @@ $(function(){
 })
  function initCallInterface(call){
 
- 	//pizarra
- 	document.ontouchmove = function(event){
-  		event.preventDefault();
-	}
+
 
 
  	//interface events
@@ -29,8 +26,14 @@ $(function(){
     	evt.preventDefault();
     });
 
-canvasApp(call.session);
+     /*
+     //pizarra
+     document.ontouchmove = function(event){
+         event.preventDefault();
+     }
 
+    canvasApp(call.session);
+    */
   }
 
   function canvasSupport(){
