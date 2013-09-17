@@ -227,3 +227,9 @@ function callContaGetUserInfo(user, callback) {
 
 
 }
+
+$(window).bind('beforeunload', function(){
+    if(currentCall != null){
+        return 'Estas en una llamada. \n  ¿Deseas colgar y salir de la consulta?';
+    }
+});

@@ -36,8 +36,6 @@
 
     <script type="text/javascript" src="http://{{ app.request.host }}:2021/socket.io/socket.io.js"></script>
 
-    <script type="text/javascript" src="http://{{ app.request.host }}:2025/socket.io/socket.io.js"></script>
-
     <script type="text/javascript">
 
         //call vars
@@ -201,24 +199,31 @@
                 <div class="depth"><a href="#conferencia" data-toggle="tooltip" title="Camara"><i
                                 class="icon-facetime-video"></i> Camara<strong></strong></a></div>
             </li>
+            {#
             <li class="tab">
                 <div class="depth"><a href="#pizarra" data-toggle="tooltip" title="Pizarra"><i class="icon-pencil"></i>
                         Pizarra<strong></strong></a></div>
             </li>
+            #}
+            {% if app.user.hasRole('ROLE_PROFESIONAL') %}
             <li class="tab">
                 <div class="depth"><a href="#informes" data-toggle="tooltip" title="Informes"><i
                                 class="icon-paper-clip"></i> Informes<strong></strong></a></div>
             </li>
+            {% endif %}
             <li class="tab">
                 <div class="depth"><a href="#archivos" data-toggle="tooltip" title="Archivos"><i
                                 class="icon-folder-open"></i> Archivos<strong></strong></a></div>
             </li>
+            
 
         </ul>
+        {#
         <div id="pizarra" style="min-height:495px; min-width: 800px;">
             <h5 class="widget-name"><i class="icon-picture"></i> Pizarra</h5>
             <canvas id="mipizarra" width="768" height="432">Tu Navegador no acepta canvas.</canvas>
         </div>
+        #}
         <div id="archivos">
             <h5 class="widget-name"><i class="icon-folder-open"></i> Archivos</h5>
             <a class="btn btn-success" onclick="javascript:showFilesChunk()">Ver archivos</a>

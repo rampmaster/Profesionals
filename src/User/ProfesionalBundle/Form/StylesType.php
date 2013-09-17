@@ -16,7 +16,7 @@ class StylesType extends AbstractType
                 'attr' => array('class' => 'span5'),
                 'required'=>false
             ))
-            ->add('color_bg_main', 'genemu_jquerycolor', array(
+            /*->add('color_bg_main', 'genemu_jquerycolor', array(
                 'label' => 'Color del Fondo (1)',
             ))
             ->add('color_bg_secd', 'genemu_jquerycolor', array(
@@ -28,6 +28,7 @@ class StylesType extends AbstractType
             ->add('color_text_button', 'genemu_jquerycolor', array(
                 'label' => 'Color extra',
             ))
+            */
             ->add('raw_css', 'textarea', array(
                 'label' => 'CSS Extra',
                 'attr' => array('class'=>"span12","rows"=>10),
