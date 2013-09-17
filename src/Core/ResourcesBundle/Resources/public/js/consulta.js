@@ -7,10 +7,7 @@ $(function(){
 })
  function initCallInterface(call){
 
- 	//pizarra
- 	document.ontouchmove = function(event){
-  		event.preventDefault();
-	}
+
 
 
  	//interface events
@@ -29,8 +26,14 @@ $(function(){
     	evt.preventDefault();
     });
 
-canvasApp(call.session);
+     /*
+     //pizarra
+     document.ontouchmove = function(event){
+         event.preventDefault();
+     }
 
+    canvasApp(call.session);
+    */
   }
 
   function canvasSupport(){
@@ -41,6 +44,11 @@ canvasApp(call.session);
 
 //AquÃ­ englobo todo lo relacionado con la aplicaciÃ³n canvas.
 function canvasApp(tokenSession) {
+
+    var marginX = 320;
+    var marginY = 100;
+
+    console.log(marginX+" /" +marginY);
 
 	//Si el navegador soporta canvas inicio la app.
 	if(canvasSupport()){
@@ -83,8 +91,8 @@ function canvasApp(tokenSession) {
 			context.beginPath();
 			context.strokeStyle = "#fff";
 			context.lineCap = "round";
-			context.lineWidth = 5;
-			context.moveTo(e.clientX - 320, e.clientY - 60);
+			context.lineWidth = 3;
+			context.moveTo(e.clientX - theCanvas.offsetLeft, e.clientY + theCanvas.offsetTop);
 		}
 
 		//Se termina el trazo.
@@ -95,7 +103,7 @@ function canvasApp(tokenSession) {
 		//Dibujamos el trazo recibiendo la posiciÃ³n actual del ratÃ³n.
 		function draw(e){
             console.log(e);
-			context.lineTo(e.clientX - 320, e.clientY - 60);
+			context.lineTo(e.clientX - marginX, e.clientY + marginY);
 			context.stroke();
 
 		}
@@ -106,7 +114,7 @@ function canvasApp(tokenSession) {
             e.preventDefault();
             return {
             	clientX: e.targetTouches[0].pageX,
-            	clientY: e.targetTouches[0].pageY,
+            	clientY: e.targetTouches[0].pageY
             }
         }
 
