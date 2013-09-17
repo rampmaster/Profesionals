@@ -8,7 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Response;
+use User\ProfesionalBundle\Entity\GoalEvent;
 use User\ProfesionalBundle\Entity\ProfessionalEvent;
+use User\ProfesionalBundle\Form\GoalEventType;
 use User\ProfesionalBundle\Form\ProfessionalEventType;
 
 
@@ -71,8 +74,107 @@ class EventController extends Controller
 
         $event = $em->getRepository('UserProfesionalBundle:ProfessionalEvent')->find($idEvent);
 
+        $goal = new GoalEvent();
+        $goal->setCreatedAt(new \DateTime());
+        $goal->setEvent($event);
+        $goalform = $this->createForm(new GoalEventType(), $goal);
 
-        return array('entity' => $event);
+        $request = $this->getRequest();
+
+        if($request->getMethod() == 'POST'){
+
+            $goalform->bind($request);
+            if($goalform->isValid()){
+                $event->addGoal($goal);
+
+                $em->persist($event);
+                $em->persist($goal);
+
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('notice', 'Objetivo añadido con éxito');
+
+                //recreo el form
+                $goal = new GoalEvent();
+                $goal->setCreatedAt(new \DateTime());
+                $goal->setEvent($event);
+                $goalform = $this->createForm(new GoalEventType(), $goal);
+
+            }
+
+
+        }
+
+        return array('entity' => $event, 'goalform' => $goalform->createView());
+
+    }
+
+    /**
+     * @Route("/update-goal", name="profesional_event_update_goal")
+     *
+     * params post
+     *
+     *  goal -> id del objetivo
+     *  action -> REACHED, CHANGE TITLE, DELETE
+     *  param -> parametro para
+     *
+     */
+    public function updategoalAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $request = $this->getRequest();
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $goalID  = $request->get('goal');
+        $action = $request->get('action');
+        $param = $request->get('param');
+        $redirect = $request->get('redirect');
+
+        $goal = $em->getRepository('UserProfesionalBundle:GoalEvent')->find($goalID);
+
+        if(!$goal OR $user->getId() != $goal->getEvent()->getProfessional()->getUser()->getId()){
+            return new Response('false');
+        }
+
+        switch($action){
+
+            case 'REACHED':
+                    if($param == '1'){
+                        $goal->setReached(true);
+                        $goal->setReachedAt(new \DateTime());
+                    }else{
+                        $goal->setReached(false);
+                    }
+
+                    $em->persist($goal);
+                    $em->flush();
+                break;
+            case 'CHANGE TITLE':
+                    $goal->setTitle($param);
+
+
+
+                    $em->persist($goal);
+                    $em->flush();
+                break;
+
+            case "DELETE":
+                    $event = $goal->getEvent();
+
+                    $event->removeGoal($goal);
+
+                    $em->persist($event);
+                    $em->remove($goal);
+                    $em->flush();
+                break;
+        }
+
+        if(is_string($redirect)){
+            return $this->redirect($redirect);
+        }
+
+        return new Response('okey');
 
     }
 }

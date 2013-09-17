@@ -52,6 +52,8 @@ function canvasApp(tokenSession) {
 			console.log("SLATE SERV")
 			console.log(_slate_server)
 			slateSocket = io.connect(_slate_server);
+        theCanvas.offsetLeft = 320;
+        console.log(theCanvas.offsetLeft);
 		window.slateSession = tokenSession;
 		init();
 
@@ -82,7 +84,7 @@ function canvasApp(tokenSession) {
 			context.strokeStyle = "#fff";
 			context.lineCap = "round";
 			context.lineWidth = 5;
-			context.moveTo(e.clientX - theCanvas.offsetLeft, e.clientY - theCanvas.offsetTop);
+			context.moveTo(e.clientX - 320, e.clientY - 60);
 		}
 
 		//Se termina el trazo.
@@ -92,8 +94,8 @@ function canvasApp(tokenSession) {
 
 		//Dibujamos el trazo recibiendo la posiciÃ³n actual del ratÃ³n.
 		function draw(e){
-
-			context.lineTo(e.clientX - theCanvas.offsetLeft, e.clientY - theCanvas.offsetTop);
+            console.log(e);
+			context.lineTo(e.clientX - 320, e.clientY - 60);
 			context.stroke();
 
 		}
@@ -211,6 +213,9 @@ function canvasApp(tokenSession) {
 			slateSocket.on('clean',clean);
 			
 		});
+
+        //inicio el socket
+        //slateSocket.emit('suscribe');
 
 	}
 

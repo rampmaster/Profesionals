@@ -25,16 +25,34 @@ class CalendarEventListener
         $startDate = $calendarEvent->getStartDatetime();
         $endDate = $calendarEvent->getEndDatetime();
 
-// load events using your custom logic here,
-// for instance, retrieving events from a repository
+        // load events using your custom logic here,
+        // for instance, retrieving events from a repository
 
-        $companyEvents = $this->entityManager->getRepository('UserProfesionalBundle:ProfessionalEvent')
-            ->createQueryBuilder('company_events')
-            ->where('company_events.start_date BETWEEN :startDate and :endDate AND company_events.client = :user')
-            ->setParameter('user', $this->user->getProfessional()->getId())
-            ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
-            ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
-            ->getQuery()->getResult();
+        //compruebo si el usuario es un cliente o un profesional
+
+        if($this->user->hasRole('ROLE_PROFESIONAL')){
+            //es un profesional
+            $companyEvents = $this->entityManager->getRepository('UserProfesionalBundle:ProfessionalEvent')
+                ->createQueryBuilder('company_events')
+                ->where('company_events.start_date BETWEEN :startDate and :endDate AND company_events.professional = :user')
+                ->setParameter('user', $this->user->getProfessional()->getId())
+                ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
+                ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
+                ->getQuery()->getResult();
+
+        }else{
+            //es un cliente
+
+            $companyEvents = $this->entityManager->getRepository('UserProfesionalBundle:ProfessionalEvent')
+                ->createQueryBuilder('company_events')
+                ->where('company_events.start_date BETWEEN :startDate and :endDate AND company_events.client = :user')
+                ->setParameter('user', $this->user->getProfessional()->getId())
+                ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
+                ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
+                ->getQuery()->getResult();
+        }
+
+
 
 
         foreach ($companyEvents as $companyEvent) {
@@ -48,7 +66,7 @@ class CalendarEventListener
 
 //optional calendar event settings
             $eventEntity->setAllDay(true); // default is false, set to true if this is an all day event
-            $eventEntity->setBgColor('#FF0000'); //set the background color of the event's label
+            $eventEntity->setBgColor('#5B9BB4'); //set the background color of the event's label
             $eventEntity->setFgColor('#FFFFFF'); //set the foreground color of the event's label
             $eventEntity->setUrl($this->router->generate('profesional_show_event', array('idEvent' => $companyEvent->getId()))); // url to send user to when event label is clicked
             $eventEntity->setCssClass('consulta'); // a custom class you may want to apply to event labels

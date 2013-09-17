@@ -55,8 +55,13 @@ class Client
     private $currentProfessional;
 
     /**
+<<<<<<< HEAD
      * @ORM\ManyToMany(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="clients")
      * @ORM\JoinTable(name="professionals_clients")
+=======
+     * @ORM\ManyToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="clients")
+     * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
+>>>>>>> 97efcb5403ffa7e69affe5103cf5f290fe54160e
      */
     private $professionals;
 

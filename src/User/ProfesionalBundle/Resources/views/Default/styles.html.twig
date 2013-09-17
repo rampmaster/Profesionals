@@ -2,17 +2,85 @@
 {% set secondary_active = 'styles' %}
 
 {% block stylesheets %}
+    <link href="{{ asset('bundles/coreresources/select2/select2.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/coreresources/colorpicker/css/colorpicker.css') }}" rel="stylesheet"/>
     {{ form_stylesheet(form) }}
 {% endblock %}
 {% block javascripts %}
+
+    <script src="{{ asset('bundles/coreresources/select2/select2.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/select2/select2_locale_es.js') }}"></script>
     <script src="{{ asset('bundles/coreresources/colorpicker/js/colorpicker.js') }}"></script>
-    {{ form_javascript(form) }}
+
+    <script type="text/javascript">
+        $field = $('#user_profesionalbundle_welcometype_skills');
+
+        var $configs = {"placeholder":"Select a value","allowClear":false,"minimumInputLength":1,"width":"element"};
+
+        // custom configs
+        $configs = $.extend($configs, {
+            query: function (query) {
+
+               function callback(data){
+
+                   query.callback(data);
+               }
+
+                $.post('{{ path('profesional_json_skills') }}',
+                        { query: query.term}, function(r) {
+                            var obj = JSON.parse(r);
+                            var data2 = {results: []}
+
+                            if($.isEmptyObject(obj) == false){
+                                $.each(obj, function(i){
+
+                                    var item = obj[i];
+
+                                    var d  = {id: item.id, text: item.name};
+
+                                    data2.results.push(d)
+
+                                });
+
+                            }else{
+                                console.log('No results');
+                                data2.results.push({id: query.term, text: query.term})
+
+                            }
+
+                            callback(data2);
+
+                        });
+
+
+
+            },
+            multiple: true
+
+        });
+        // end of custom configs
+
+        $field.select2($configs);
+    </script>
+
+
 {% endblock %}
+
+
 {% block panel %}
 
 <h5 class="widget-name"><i class="icon-picture"></i> Personaliza tu consulta profesional</h5>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                El area de videoconferencia o consulta es la sección que te permite comunicarte de manera dinamica con tus clientes. Desde este formulario podrás configurar pequeños aspectos sobre esta.
+            </div>
+        </div>
+    </div>
 <div class="row-fluid">
+
+
     <div class="span12">
 
         <form method="post" class="form form-horizontal" {{form_enctype(form) }}>

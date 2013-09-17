@@ -1,4 +1,7 @@
 <ul class="round-buttons">
     <li><div class="depth"><a rel="tooltip" title="Ver Calendario" href="{{ path('profesional_calendar') }}"><i class="icon-calendar"></i> Ver Calendario<strong></strong></a></div></li>
     <li><div class="depth"><a rel="tooltip" title="Programar Cita"  href="{{ path('profesional_add_event') }}"><i class="icon-plus"></i> Programar Cita<strong></strong></a></div></li>
+    {% if back_helper is defined %}
+    <li><div class="depth"  style="background-color: rgb(166, 241, 53);"><a rel="tooltip"  href="{{ app.request.headers.get('referer') }}" title="Volver Atrás"><i class="icon-arrow-left"></i></a></div></li>
+    {% endif %}
 </ul>

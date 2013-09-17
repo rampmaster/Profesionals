@@ -12,10 +12,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use Symfony\Component\HttpFoundation\Response;
 use User\ProfesionalBundle\Entity\Report;
+<<<<<<< HEAD
 use User\ClientBundle\Entity\Client;
+=======
+use User\ProfesionalBundle\Entity\Skill;
+>>>>>>> 97efcb5403ffa7e69affe5103cf5f290fe54160e
 use User\ProfesionalBundle\Form\ReportType;
 use User\ProfesionalBundle\Form\StylesType;
 use User\ProfesionalBundle\Entity\Styles;
+use User\ProfesionalBundle\Form\WelcomeType;
 
 class DefaultController extends Controller
 {
@@ -168,6 +173,7 @@ class DefaultController extends Controller
         }
 
 
+
         $form = $this->createForm(new StylesType(), $styles);
         $request = $this->getRequest();
 
@@ -188,6 +194,116 @@ class DefaultController extends Controller
             }
         }
         return array('form' => $form->createView());
+    }
+
+
+    /**
+     * @Route("/personalizar-inicio", name="profesional_custom_home")
+     * @Template()
+     */
+    public function personalizarinicioAction()
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $form_welcome = $this->createForm(new WelcomeType($user->getProfessional()));
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        if($request->getMethod() == 'POST'){
+            $form_welcome->bind($request);
+
+            if($form_welcome->isValid()){
+
+
+
+                $data = $form_welcome->getData();
+
+                //añado los datos personales
+
+                $user->getProfessional()->setPublicPhone($data['phone']);
+                $user->getProfessional()->setPublicDirection($data['direction']);
+                $user->getProfessional()->setPublicCity($data['city']);
+                $user->getProfessional()->setPublicPostal($data['postal']);
+
+
+                //me peleo con las skills
+
+
+                $skillsraw = $data['skills'];
+
+                $controlSkillsIds = array();
+                //consigo todos los ids de los skills actuales
+                foreach($user->getProfessional()->getSkills() as $s){
+                    array_push($controlSkillsIds, $s->getId());
+                }
+
+                $updateSkillsIds = array();
+                $createSkillsKeys = array();
+                //separo los skills segun si estan creados o hay que crearlos
+                foreach($skillsraw as $s){
+                    if(is_numeric($s)){
+                        //es una entidad skill, la añado
+                        array_push($updateSkillsIds, $s);
+                    }else{
+                        //no es una entidad asi que tengo que creala
+                        array_push($createSkillsKeys, $s);
+                    }
+                }
+
+                $updateSkillsCreate = array_diff($updateSkillsIds, $controlSkillsIds);
+                $updateSkillsIdsDelete = array_diff($controlSkillsIds, $updateSkillsIds);
+
+                foreach($updateSkillsCreate as $c){
+                    $skillObject = $em->getRepository('UserProfesionalBundle:Skill')->find($c);
+
+                    $skillObject->addProfessional($user->getProfessional());
+                    $user->getProfessional()->addSkill($skillObject);
+
+
+
+                    $em->persist($skillObject);
+                    $em->persist($user->getProfessional());
+                }
+
+                foreach($updateSkillsIdsDelete as $c){
+                    $skillObject = $em->getRepository('UserProfesionalBundle:Skill')->find($c);
+
+                    $skillObject->removeProfessional($user->getProfessional());
+                    $user->getProfessional()->removeSkill($skillObject);
+
+
+
+                    $em->persist($skillObject);
+                    $em->persist($user->getProfessional());
+                }
+
+                foreach($createSkillsKeys as $k){
+                    $skillObject = new Skill();
+                    $skillObject->setCreatedAt(new \DateTime());
+                    $skillObject->setName($k);
+                    $skillObject->setDescription('Not defined');
+                    $skillObject->addRankingProfessional();
+
+                    $em->persist($skillObject);
+                    $skillObject->addProfessional($user->getProfessional());
+
+                    $user->getProfessional()->addSkill($skillObject);
+
+                    $em->persist($skillObject);
+                    $em->persist($user->getProfessional());
+                }
+
+                $em->flush();
+
+
+
+                $form_welcome = $this->createForm(new WelcomeType($user->getProfessional()));
+
+                $this->get('session')->getFlashBag()->add('notice', 'Información guardada con éxito.');
+
+            }
+        }
+
+        return array('form_welcome' => $form_welcome->createView(), 'professional' => $user->getProfessional());
     }
 
     /**
@@ -248,6 +364,23 @@ class DefaultController extends Controller
         }
 
         return array();
+    }
+
+    /**
+     * @Route("/retrieve-json-skills", name="profesional_json_skills")
+     */
+    public function retriebejsonskillsAction()
+    {
+        $query = $this->getRequest()->get('query');
+
+        $result = $this->getDoctrine()->getManager()->createQuery(
+            'SELECT s.id, s.name FROM UserProfesionalBundle:Skill s WHERE s.name LIKE :name'
+        )
+            ->setParameter('name', "%".$query."%")
+            ->getResult();
+
+        return new Response(json_encode($result));
+
     }
 
     /**

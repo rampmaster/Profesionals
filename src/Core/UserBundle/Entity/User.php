@@ -93,12 +93,12 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path = "avatar.png";
+    private $path = "avatar.png";
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $external_path = null;
+    private $external_path = null;
 
     public function getAbsolutePath()
     {
@@ -159,13 +159,13 @@ class User extends BaseUser
     private $files;
 
     /**
-     * @ORM\OneToOne(targetEntity="\User\ClientBundle\Entity\Client", inversedBy="user", cascade={ "all" })
+     * @ORM\OneToOne(targetEntity="\User\ClientBundle\Entity\Client", mappedBy="user", cascade={ "all" })
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
      */
     private $client;
 
     /**
-     * @ORM\OneToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", inversedBy="user", cascade={ "all" })
+     * @ORM\OneToOne(targetEntity="\User\ProfesionalBundle\Entity\Professional", mappedBy="user", cascade={ "all" })
      * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
      */
     private $professional;

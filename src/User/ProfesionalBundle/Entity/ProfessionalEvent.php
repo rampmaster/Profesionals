@@ -95,6 +95,11 @@ class ProfessionalEvent
      */
     private $client;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\GoalEvent", mappedBy="event")
+     */
+    private $goals;
+
 
     public function __construct(){
 
@@ -336,5 +341,38 @@ class ProfessionalEvent
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Add goals
+     *
+     * @param \User\ProfesionalBundle\Entity\GoalEvent $goals
+     * @return ProfessionalEvent
+     */
+    public function addGoal(\User\ProfesionalBundle\Entity\GoalEvent $goals)
+    {
+        $this->goals[] = $goals;
+
+        return $this;
+    }
+
+    /**
+     * Remove goals
+     *
+     * @param \User\ProfesionalBundle\Entity\GoalEvent $goals
+     */
+    public function removeGoal(\User\ProfesionalBundle\Entity\GoalEvent $goals)
+    {
+        $this->goals->removeElement($goals);
+    }
+
+    /**
+     * Get goals
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGoals()
+    {
+        return $this->goals;
     }
 }
