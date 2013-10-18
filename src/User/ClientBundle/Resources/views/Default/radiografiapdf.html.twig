@@ -106,29 +106,29 @@
             <tr>
                 <td valign="top" width="50%">
                     <ul style="list-style: none">
-                        <li>Rx Tórax Frente {% if radiografia.rxToraxFrente %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Rx Tórax Perfil {% if radiografia.rxToraxPerfix %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Rx Simple abdomen {% if radiografia.simpleAbdomen %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Urografía descendente {% if radiografia.urografiaDescendente %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Cistouretrofrafías miccionales {% if radiografia.cistouretrografiaMicionales %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Cistouretrofrafías postmiccional {% if radiografia.cistouretrografiasPostmiccional %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Cistouretrofrafías retrogradas {% if radiografia.cistouretrografiaRetrograda %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>RMN prostática + espectrometria {% if radiografia.prostaica %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Rx Tórax Frente {% if radiografia.rxToraxFrente %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Rx Tórax Perfil {% if radiografia.rxToraxPerfix %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Rx Simple abdomen {% if radiografia.simpleAbdomen %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Urografía intravenosa {% if radiografia.urografiaDescendente %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Cistouretrofrafías miccionales {% if radiografia.cistouretrografiaMicionales %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Cistouretrofrafía posmiccional {% if radiografia.cistouretrografiasPostmiccional %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Cistouretrofrafías retrogradas {% if radiografia.cistouretrografiaRetrograda %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>RMN prostática + espectrometria {% if radiografia.prostaica %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>RMN prostática {% if radiografia.rmnProstatica %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                     </ul>
                 </td>
 
                 <td valign="top" width="50%">
                     <ul style="list-style: none">
-                        <li>Columbia (Cistografias miccionales) {% if radiografia.columbia %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Ecografía Renal {% if radiografia.ecografiaRenal %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Ecografía Vesical pre y postmiccional {% if radiografia.ecografiaVesical %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Ecografía Próstatica suprapúbica {% if radiografia.ecografiaProstatica %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Ecografía Prostática endorectal {% if radiografia.ecografiaProstaticaEndorectal %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Ecografía escrotal {% if radiografia.ecografiaEscrotal %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>Flujometría {% if radiografia.flujometria %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>TAC Abdominopelviano {% if radiografia.tacAbdominopelviano %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>TAC torácico {% if radiografia.tacToracico %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
-                        <li>RMN abdominal {% if radiografia.rmnAbdominal %}<span class="resp-si">Si</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Ecografía Renal {% if radiografia.ecografiaRenal %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Ecografía Vesical pre y posmiccional {% if radiografia.ecografiaVesical %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Ecografía Próstatica suprapúbica {% if radiografia.ecografiaProstatica %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Ecografía Prostática endorectal {% if radiografia.ecografiaProstaticaEndorectal %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Ecografía escrotal {% if radiografia.ecografiaEscrotal %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Ecografía abdominal {% if radiografia.ecografiaAbdominal %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>TAC Abdominopelviano {% if radiografia.tacAbdominopelviano %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>TAC torácico {% if radiografia.tacToracico %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>RMN Abdominopelviana {% if radiografia.rmnAbdominal %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                     </ul>
                 </td>
             </tr>
@@ -136,11 +136,20 @@
 
 
         {% if radiografia.orientacionDiagnostica is not null %}
-            <h2>Orientación diagnóstica</h2>2>
+            <h2>Orientación diagnóstica</h2>
             <br><br>
             {{ radiografia.orientacionDiagnostica }}
 
         {% endif %}
+
+        {% if radiografia.extra is not null %}
+            <h2>Información extra</h2>
+            <br><br>
+            {{ radiografia.extra }}
+
+        {% endif %}
+
+        <div style="clear:both"></div>
 
         <div style="float: right">
             <h4>Barcelona, {{ radiografia.createdAt|date('d/m/Y') }}</h4>

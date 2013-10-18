@@ -84,7 +84,7 @@ class DefaultController extends Controller
 
         $response = $this->renderView('UserClientBundle:Default:analiticapdf.html.twig', array('analitica' => $analitica, 'paciente' => $user));
 
-        //return new Response($response);
+        return new Response($response);
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($response),
             200,

@@ -108,9 +108,9 @@ class Radiografia
     /**
      * @var boolean
      *
-     * @ORM\Column(name="columbia", type="boolean")
+     * @ORM\Column(name="rmn_prostatica", type="boolean")
      */
-    private $columbia;
+    private $rmn_prostatica;
 
     /**
      * @var boolean
@@ -150,9 +150,16 @@ class Radiografia
     /**
      * @var boolean
      *
-     * @ORM\Column(name="flujometria", type="boolean")
+     * @ORM\Column(name="ecografia_abdominal", type="boolean")
      */
-    private $flujometria;
+    private $ecografiaAbdominal;
+
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="extra", type="text")
+     */
+    private $extra;
 
     /**
      * @var boolean
@@ -424,29 +431,6 @@ class Radiografia
     }
 
     /**
-     * Set columbia
-     *
-     * @param boolean $columbia
-     * @return Radiografia
-     */
-    public function setColumbia($columbia)
-    {
-        $this->columbia = $columbia;
-
-        return $this;
-    }
-
-    /**
-     * Get columbia
-     *
-     * @return boolean 
-     */
-    public function getColumbia()
-    {
-        return $this->columbia;
-    }
-
-    /**
      * Set ecografiaRenal
      *
      * @param boolean $ecografiaRenal
@@ -561,28 +545,6 @@ class Radiografia
         return $this->ecografiaEscrotal;
     }
 
-    /**
-     * Set flujometria
-     *
-     * @param boolean $flujometria
-     * @return Radiografia
-     */
-    public function setFlujometria($flujometria)
-    {
-        $this->flujometria = $flujometria;
-
-        return $this;
-    }
-
-    /**
-     * Get flujometria
-     *
-     * @return boolean 
-     */
-    public function getFlujometria()
-    {
-        return $this->flujometria;
-    }
 
     /**
      * Set tacAbdominopelviano
@@ -720,5 +682,74 @@ class Radiografia
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Set rmn_prostatica
+     *
+     * @param boolean $rmnProstatica
+     * @return Radiografia
+     */
+    public function setRmnProstatica($rmnProstatica)
+    {
+        $this->rmn_prostatica = $rmnProstatica;
+
+        return $this;
+    }
+
+    /**
+     * Get rmn_prostatica
+     *
+     * @return boolean 
+     */
+    public function getRmnProstatica()
+    {
+        return $this->rmn_prostatica;
+    }
+
+    /**
+     * Set ecografiaAbdominal
+     *
+     * @param boolean $ecografiaAbdominal
+     * @return Radiografia
+     */
+    public function setEcografiaAbdominal($ecografiaAbdominal)
+    {
+        $this->ecografiaAbdominal = $ecografiaAbdominal;
+
+        return $this;
+    }
+
+    /**
+     * Get ecografiaAbdominal
+     *
+     * @return boolean 
+     */
+    public function getEcografiaAbdominal()
+    {
+        return $this->ecografiaAbdominal;
+    }
+
+    /**
+     * Set extra
+     *
+     * @param string $extra
+     * @return Radiografia
+     */
+    public function setExtra($extra)
+    {
+        $this->extra = $extra;
+
+        return $this;
+    }
+
+    /**
+     * Get extra
+     *
+     * @return string 
+     */
+    public function getExtra()
+    {
+        return $this->extra;
     }
 }

@@ -40,13 +40,13 @@
                                 </div>
 
                                 <div class="span6">
-                                    {{ form_row(form.columbia) }}
+                                    {{ form_row(form.rmn_prostatica) }}
                                     {{ form_row(form.ecografiaRenal) }}
                                     {{ form_row(form.ecografiaVesical) }}
                                     {{ form_row(form.ecografiaProstatica) }}
                                     {{ form_row(form.ecografiaProstaticaEndorectal) }}
                                     {{ form_row(form.ecografiaEscrotal) }}
-                                    {{ form_row(form.flujometria) }}
+                                    {{ form_row(form.ecografiaAbdominal) }}
                                     {{ form_row(form.tacAbdominopelviano) }}
                                     {{ form_row(form.tacToracico) }}
                                     {{ form_row(form.rmnAbdominal) }}
@@ -61,6 +61,10 @@
 
                             <div class="span12">
                                 {{ form_row(form.orientacionDiagnostica) }}
+                            </div>
+                            <div style="clear:both"></div>
+                            <div class="span12">
+                                {{ form_row(form.extra) }}
                             </div>
 
                             {{ form_widget(form) }}

@@ -25,13 +25,13 @@ class RadiografiaType extends AbstractType
                 'required' => false, 'label' => 'Rx simple abdomen'
             ))
             ->add('urografiaDescendente', null, array(
-                'required' => false, 'label' => 'Urografía descendente'
+                'required' => false, 'label' => 'Urografía intravenosa'
             ))
             ->add('cistouretrografiaMicionales', null, array(
                 'required' => false, 'label' => 'Cistouretrografías miccionales'
             ))
             ->add('cistouretrografiasPostmiccional', null, array(
-                'required' => false, 'label' => 'Cistouretrografías postmiccional'
+                'required' => false, 'label' => 'Cistouretrografía posmiccional'
             ))
             ->add('cistouretrografiaRetrograda', null, array(
                 'required' => false, 'label' => 'Cistouretrografías retrógradas'
@@ -39,14 +39,14 @@ class RadiografiaType extends AbstractType
             ->add('prostaica', null, array(
                 'required' => false, 'label' => 'RMN prostática endorectal + espectrometría'
             ))
-            ->add('columbia', null, array(
-                'required' => false, 'label' => 'Columbia (Cistografias miccionales)'
+            ->add('rmn_prostatica', null, array(
+                'required' => false, 'label' => 'RMN Prostática'
             ))
             ->add('ecografiaRenal', null, array(
                 'required' => false, 'label' => 'Ecografía Renal'
             ))
             ->add('ecografiaVesical', null, array(
-                'required' => false, 'label' => 'Ecografía Vesical pre y postmiccional'
+                'required' => false, 'label' => 'Ecografía Vesical pre y posmiccional'
             ))
             ->add('ecografiaProstatica', null, array(
                 'required' => false, 'label' => 'Ecografía Prostática suprapúbica'
@@ -57,8 +57,8 @@ class RadiografiaType extends AbstractType
             ->add('ecografiaEscrotal', null, array(
                 'required' => false, 'label' => 'Ecografía escrotal'
             ))
-            ->add('flujometria', null, array(
-                'required' => false, 'label' => 'Flujometría'
+            ->add('ecografiaAbdominal', null, array(
+                'required' => false, 'label' => 'Ecografía abdominal'
             ))
             ->add('tacAbdominopelviano', null, array(
                 'required' => false, 'label' => 'TAC Abdominopelviano'
@@ -67,10 +67,15 @@ class RadiografiaType extends AbstractType
                 'required' => false, 'label' => 'TAC torácico'
             ))
             ->add('rmnAbdominal', null, array(
-                'required' => false, 'label' => 'RMN abdominal'
+                'required' => false, 'label' => 'RMN abdominal Abdominopelviana'
             ))
             ->add('orientacionDiagnostica', null, array(
                 'required' => false, 'label' => 'Orientación diagnóstica',
+                'attr' => array('class' => 'span6')
+            ))
+
+            ->add('extra', null, array(
+                'required' => false, 'label' => 'Campo extra',
                 'attr' => array('class' => 'span6')
             ))
         ;
