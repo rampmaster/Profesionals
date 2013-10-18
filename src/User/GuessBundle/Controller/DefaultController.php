@@ -30,6 +30,8 @@ class DefaultController extends Controller
     public function indexAction()
     {
 
+        return $this->redirect($this->generateUrl('fos_user_security_login'));
+
         $user = $this->get('security.context')->getToken()->getUser();
         $securityContext = $this->get('security.context');
 
