@@ -49,7 +49,7 @@ class Professional
     /**
      * @var string
      *
-     * @ORM\Column(name="public_direction", type="string")
+     * @ORM\Column(name="public_direction", type="string", nullable=true)
      */
     private $public_direction;
 
@@ -57,7 +57,7 @@ class Professional
     /**
      * @var string
      *
-     * @ORM\Column(name="public_city", type="string")
+     * @ORM\Column(name="public_city", type="string",nullable=true)
      */
     private $public_city;
 
@@ -65,7 +65,7 @@ class Professional
     /**
      * @var string
      *
-     * @ORM\Column(name="public_postal", type="string")
+     * @ORM\Column(name="public_postal", type="string",nullable=true)
      */
     private $public_postal;
 
@@ -73,7 +73,7 @@ class Professional
     /**
      * @var string
      *
-     * @ORM\Column(name="public_phone", type="string")
+     * @ORM\Column(name="public_phone", type="string",nullable=true)
      */
     private $public_phone;
 
