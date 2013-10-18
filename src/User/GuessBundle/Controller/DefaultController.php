@@ -47,7 +47,7 @@ class DefaultController extends Controller
         }
 
         return $this->redirect($this->generateUrl('fos_user_security_login'));
-        
+
         $host = $this->get('session')->get('subdomain');
         $usermanager = $this->get('fos_user.user_manager');
         $professional = $usermanager->findUserByUsername($host);
