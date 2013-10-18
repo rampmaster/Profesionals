@@ -42,9 +42,10 @@ class NotifyEventsCommand extends ContainerAwareCommand
             //$notification->setNotifiedAt(new \DateTime());
             $entityManager->persist($notification);
 
-            $host = $professional->getUsername();
+
 
             $professional = $notification->getProfessional();
+            $host = $professional->getUser()->getUsername();
             //$professional->getStyle()->get
 
             $target = $notification->getClient()->getUser()->getEmail();
