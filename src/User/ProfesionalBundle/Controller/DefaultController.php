@@ -323,13 +323,16 @@ class DefaultController extends Controller
         }
 
         $useragent = new Agent();
+        /*
         $salesManager = $this->get('sales_manager');
+
 
         if(!$salesManager->checkIsAvailable('basic_plan')){
             $this->get('sales_manager')->promoProduct('basic_plan','P3M');
             //throw new \Exception('Producto no disponible');
 
         }
+        */
 
         if (!$useragent->checkCapable()) {
             return $this->render('::browsernotsupported.html.twig');
