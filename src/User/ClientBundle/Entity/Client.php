@@ -58,15 +58,33 @@ class Client
      */
     private $professional;
 
-    public function __toString(){
+    /**
+     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\Analitica", mappedBy="client")
+     */
+    private $analiticas;
 
-        return $this->getUser()->getName()." ".$this->getUser()->getSurname();
+    /**
+     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\Radiografia", mappedBy="client")
+     */
+    private $radiografias;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\Citologia", mappedBy="client")
+     */
+    private $citologias;
+
+
+
+    public function __toString()
+    {
+
+        return $this->getUser()->getName() . " " . $this->getUser()->getSurname();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -82,14 +100,14 @@ class Client
     public function setAlias($alias)
     {
         $this->alias = $alias;
-    
+
         return $this;
     }
 
     /**
      * Get alias
      *
-     * @return string 
+     * @return string
      */
     public function getAlias()
     {
@@ -105,14 +123,14 @@ class Client
     public function setLastVisit($lastVisit)
     {
         $this->lastVisit = $lastVisit;
-    
+
         return $this;
     }
 
     /**
      * Get lastVisit
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastVisit()
     {
@@ -128,19 +146,20 @@ class Client
     public function setUser(\Core\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return \Core\UserBundle\Entity\User 
+     * @return \Core\UserBundle\Entity\User
      */
     public function getUser()
     {
         return $this->user;
     }
+
     /**
      * Constructor
      */
@@ -148,7 +167,7 @@ class Client
     {
         $this->reports = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add reports
      *
@@ -158,7 +177,7 @@ class Client
     public function addReport(\User\ProfesionalBundle\Entity\Report $reports)
     {
         $this->reports[] = $reports;
-    
+
         return $this;
     }
 
@@ -175,7 +194,7 @@ class Client
     /**
      * Get reports
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getReports()
     {
@@ -191,7 +210,7 @@ class Client
     public function addEvent(\User\ProfesionalBundle\Entity\ProfessionalEvent $events)
     {
         $this->events[] = $events;
-    
+
         return $this;
     }
 
@@ -208,7 +227,7 @@ class Client
     /**
      * Get events
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEvents()
     {
@@ -224,17 +243,116 @@ class Client
     public function setProfessional(\User\ProfesionalBundle\Entity\Professional $professional = null)
     {
         $this->professional = $professional;
-    
+
         return $this;
     }
 
     /**
      * Get professional
      *
-     * @return \User\ProfesionalBundle\Entity\Professional 
+     * @return \User\ProfesionalBundle\Entity\Professional
      */
     public function getProfessional()
     {
         return $this->professional;
+    }
+
+    /**
+     * Add analiticas
+     *
+     * @param \User\ProfesionalBundle\Entity\Analitica $analiticas
+     * @return Client
+     */
+    public function addAnalitica(\User\ProfesionalBundle\Entity\Analitica $analiticas)
+    {
+        $this->analiticas[] = $analiticas;
+
+        return $this;
+    }
+
+    /**
+     * Remove analiticas
+     *
+     * @param \User\ProfesionalBundle\Entity\Analitica $analiticas
+     */
+    public function removeAnalitica(\User\ProfesionalBundle\Entity\Analitica $analiticas)
+    {
+        $this->analiticas->removeElement($analiticas);
+    }
+
+    /**
+     * Get analiticas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnaliticas()
+    {
+        return $this->analiticas;
+    }
+
+    /**
+     * Add radiografias
+     *
+     * @param \User\ProfesionalBundle\Entity\Radiografia $radiografias
+     * @return Client
+     */
+    public function addRadiografia(\User\ProfesionalBundle\Entity\Radiografia $radiografias)
+    {
+        $this->radiografias[] = $radiografias;
+
+        return $this;
+    }
+
+    /**
+     * Remove radiografias
+     *
+     * @param \User\ProfesionalBundle\Entity\Radiografia $radiografias
+     */
+    public function removeRadiografia(\User\ProfesionalBundle\Entity\Radiografia $radiografias)
+    {
+        $this->radiografias->removeElement($radiografias);
+    }
+
+    /**
+     * Get radiografias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRadiografias()
+    {
+        return $this->radiografias;
+    }
+
+    /**
+     * Add citologias
+     *
+     * @param \User\ProfesionalBundle\Entity\Citologia $citologias
+     * @return Client
+     */
+    public function addCitologia(\User\ProfesionalBundle\Entity\Citologia $citologias)
+    {
+        $this->citologias[] = $citologias;
+
+        return $this;
+    }
+
+    /**
+     * Remove citologias
+     *
+     * @param \User\ProfesionalBundle\Entity\Citologia $citologias
+     */
+    public function removeCitologia(\User\ProfesionalBundle\Entity\Citologia $citologias)
+    {
+        $this->citologias->removeElement($citologias);
+    }
+
+    /**
+     * Get citologias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCitologias()
+    {
+        return $this->citologias;
     }
 }

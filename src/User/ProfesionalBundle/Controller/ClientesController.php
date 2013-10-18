@@ -11,7 +11,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Validator\Constraints\DateTime;
 use User\ClientBundle\Entity\Client;
 use User\ClientBundle\Form\ClientType;
+use User\ProfesionalBundle\Entity\Analitica;
+use User\ProfesionalBundle\Entity\Citologia;
+use User\ProfesionalBundle\Entity\Radiografia;
 use User\ProfesionalBundle\Entity\Report;
+use User\ProfesionalBundle\Form\AnaliticaType;
+use User\ProfesionalBundle\Form\RadiografiaType;
 use User\ProfesionalBundle\Form\ReportType;
 
 class ClientesController extends Controller
@@ -35,7 +40,7 @@ class ClientesController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $professional = $user->getProfessional();
 
-        if(!$professional){
+        if (!$professional) {
             throw new \Exception("Professional not found");
         }
         $usermanager = $this->get('fos_user.user_manager');
@@ -65,7 +70,7 @@ class ClientesController extends Controller
                 return $this->redirect($this->generateUrl('profesional_clientes_show', array('idCliente' => $client->getId())));
             }
         }
-        return array('form' => $form->createView(),'cliente'=>$client);
+        return array('form' => $form->createView(), 'cliente' => $client);
     }
 
     /**
@@ -77,7 +82,7 @@ class ClientesController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $professional = $user->getProfessional();
 
-        if(!$professional){
+        if (!$professional) {
             throw new \Exception("Professional not found");
         }
         $usermanager = $this->get('fos_user.user_manager');
@@ -87,7 +92,7 @@ class ClientesController extends Controller
         $user->setEnabled(true);
 
         $plainPassword = $this->generateRandomString();
-        
+
 
         $client->setUser($user);
         $user->setClient($client);
@@ -113,13 +118,13 @@ class ClientesController extends Controller
                 $usermanager->updateUser($client->getUser());
                 $this->get('session')->getFlashBag()->add('notice', 'Cliente añadido con éxito.');
                 $message = \Swift_Message::newInstance()
-                    ->setSubject($owner->getName().' '.$owner->getSurname().' le ha añadido a su plataforma')
+                    ->setSubject($owner->getName() . ' ' . $owner->getSurname() . ' le ha añadido a su plataforma')
                     ->setFrom('noreply@varavan.com')
                     ->setTo($user->getEmail())
                     ->setBody($this->renderView(
                         'UserProfesionalBundle:Email:client_signup.html.twig',
-                            array('user'=>$owner,'client'=>$user,'pass'=>$plainPassword)),'text/html');
-                
+                        array('user' => $owner, 'client' => $user, 'pass' => $plainPassword)), 'text/html');
+
                 $this->get('mailer')->send($message);
 
                 return $this->redirect($this->generateUrl('profesional_clientes'));
@@ -159,10 +164,10 @@ class ClientesController extends Controller
 
         $request = $this->getRequest();
 
-        if($request->getMethod() == 'POST'){
+        if ($request->getMethod() == 'POST') {
             $form->bind($request);
 
-            if($form->isValid()){
+            if ($form->isValid()) {
 
                 $report->setCreatedAt(new \DateTime());
                 $client->addReport($report);
@@ -175,7 +180,138 @@ class ClientesController extends Controller
             }
         }
 
-        return array('form' => $form->createView(),'cliente'=>$client);
+        return array('form' => $form->createView(), 'cliente' => $client);
+    }
+
+    /**
+     * @Route("/clientes/add-analitica/{idUser}", name="profesional_clientes_add_analitica")
+     * @Template()
+     */
+    public function addanaliticaAction($idUser)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository('CoreUserBundle:User')->find($idUser);
+        $me = $this->get('security.context')->getToken()->getUser();
+
+
+        $analitica = new Analitica();
+
+        $analitica->setProfessional($me->getProfessional());
+        $analitica->setClient($client->getClient());
+
+        $form = $this->createForm(new AnaliticaType(), $analitica);
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+
+
+                $analitica->setCreatedAt(new \DateTime());
+                $me->getProfessional()->addAnalitica($analitica);
+                $client->getClient()->addAnalitica($analitica);
+
+                $em->persist($analitica);
+                $em->persist($me->getProfessional());
+                $em->persist($client->getClient());
+
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add('notice', 'Analitica añadida con éxito. El paciente podrá encontrarla en las sección recursos');
+
+                return $this->redirect($this->generateUrl('profesional_clientes_show', array('idCliente' => $client->getClient()->getId())));
+
+
+            }
+        }
+
+        return array('form' => $form->createView(), 'cliente' => $client);
+    }
+
+    /**
+     * @Route("/clientes/add-radiografia/{idUser}", name="profesional_clientes_add_radiografia")
+     * @Template()
+     */
+    public function addradiografiaAction($idUser)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository('CoreUserBundle:User')->find($idUser);
+        $me = $this->get('security.context')->getToken()->getUser();
+
+
+        $radiografia = new Radiografia();
+
+        $radiografia->setProfessional($me->getProfessional());
+        $radiografia->setClient($client->getClient());
+
+        $form = $this->createForm(new RadiografiaType(), $radiografia);
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+
+
+                $radiografia->setCreatedAt(new \DateTime());
+                $me->getProfessional()->addRadiografia($radiografia);
+                $client->getClient()->addRadiografia($radiografia);
+
+                $em->persist($radiografia);
+                $em->persist($me->getProfessional());
+                $em->persist($client->getClient());
+
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add('notice', 'Radiografia añadida con éxito. El paciente podrá encontrarla en las sección recursos');
+
+                return $this->redirect($this->generateUrl('profesional_clientes_show', array('idCliente' => $client->getClient()->getId())));
+
+
+            }
+        }
+
+        return array('form' => $form->createView(), 'cliente' => $client);
+    }
+
+    /**
+     * @Route("/clientes/add-citologia/{idUser}", name="profesional_clientes_add_citologia")
+     * @Template()
+     */
+    public function addcitologiaAction($idUser)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository('CoreUserBundle:User')->find($idUser);
+        $me = $this->get('security.context')->getToken()->getUser();
+
+
+        $citologia = new Citologia();
+
+        $citologia->setProfessional($me->getProfessional());
+        $citologia->setClient($client->getClient());
+
+
+        $citologia->setCreatedAt(new \DateTime());
+        $me->getProfessional()->addCitologia($citologia);
+        $client->getClient()->addCitologia($citologia);
+
+        $em->persist($citologia);
+        $em->persist($me->getProfessional());
+        $em->persist($client->getClient());
+
+        $em->flush();
+
+        $this->get('session')->getFlashBag()->add('notice', 'Citologia añadida con éxito. El paciente podrá encontrarla en las sección recursos');
+
+        return $this->redirect($this->generateUrl('profesional_clientes_show', array('idCliente' => $client->getClient()->getId())));
+
+
     }
 
     /**
@@ -187,7 +323,7 @@ class ClientesController extends Controller
         $client = $em->getRepository('UserClientBundle:Client')->find($idClient);
         $user = $this->get('security.context')->getToken()->getUser();
 
-        if($client->getProfessional()->getId() != $user->getProfessional()->getId()){
+        if ($client->getProfessional()->getId() != $user->getProfessional()->getId()) {
             throw new \Exception('Hack attemp :(');
         }
 
@@ -199,13 +335,14 @@ class ClientesController extends Controller
         return $this->redirect($this->generateUrl('profesional_clientes'));
     }
 
-    private function generateRandomString($length = 8) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, strlen($characters) - 1)];
-    }
-    return $randomString;
+    private function generateRandomString($length = 8)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $randomString;
     }
 
 

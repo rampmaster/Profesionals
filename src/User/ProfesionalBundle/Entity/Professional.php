@@ -114,6 +114,21 @@ class Professional
     private $clients;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="Analitica", mappedBy="professional")
+     */
+    private $analiticas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Radiografia", mappedBy="professional")
+     */
+    private $radiografias;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Citologia", mappedBy="professional")
+     */
+    private $citologias;
+
 
 
     /**
@@ -478,5 +493,104 @@ class Professional
     public function getPublicPhone()
     {
         return $this->public_phone;
+    }
+
+    /**
+     * Add analiticas
+     *
+     * @param \User\ProfesionalBundle\Entity\Analitica $analiticas
+     * @return Professional
+     */
+    public function addAnalitica(\User\ProfesionalBundle\Entity\Analitica $analiticas)
+    {
+        $this->analiticas[] = $analiticas;
+
+        return $this;
+    }
+
+    /**
+     * Remove analiticas
+     *
+     * @param \User\ProfesionalBundle\Entity\Analitica $analiticas
+     */
+    public function removeAnalitica(\User\ProfesionalBundle\Entity\Analitica $analiticas)
+    {
+        $this->analiticas->removeElement($analiticas);
+    }
+
+    /**
+     * Get analiticas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnaliticas()
+    {
+        return $this->analiticas;
+    }
+
+    /**
+     * Add radiografias
+     *
+     * @param \User\ProfesionalBundle\Entity\Radiografia $radiografias
+     * @return Professional
+     */
+    public function addRadiografia(\User\ProfesionalBundle\Entity\Radiografia $radiografias)
+    {
+        $this->radiografias[] = $radiografias;
+
+        return $this;
+    }
+
+    /**
+     * Remove radiografias
+     *
+     * @param \User\ProfesionalBundle\Entity\Radiografia $radiografias
+     */
+    public function removeRadiografia(\User\ProfesionalBundle\Entity\Radiografia $radiografias)
+    {
+        $this->radiografias->removeElement($radiografias);
+    }
+
+    /**
+     * Get radiografias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRadiografias()
+    {
+        return $this->radiografias;
+    }
+
+    /**
+     * Add citologias
+     *
+     * @param \User\ProfesionalBundle\Entity\Citologia $citologias
+     * @return Professional
+     */
+    public function addCitologia(\User\ProfesionalBundle\Entity\Citologia $citologias)
+    {
+        $this->citologias[] = $citologias;
+
+        return $this;
+    }
+
+    /**
+     * Remove citologias
+     *
+     * @param \User\ProfesionalBundle\Entity\Citologia $citologias
+     */
+    public function removeCitologia(\User\ProfesionalBundle\Entity\Citologia $citologias)
+    {
+        $this->citologias->removeElement($citologias);
+    }
+
+    /**
+     * Get citologias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCitologias()
+    {
+        return $this->citologias;
     }
 }

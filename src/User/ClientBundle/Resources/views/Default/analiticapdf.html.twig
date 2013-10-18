@@ -1,0 +1,269 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        .headerTable {
+            background-color: #64BADD;
+            color: white;
+            font-weight: 800;
+            font-size: medium;
+            padding-left: 15px;
+            padding-top: 2px;
+            margin-bottom: 5px;
+            height: 20px;
+            width: 945px;
+        }
+
+        .resalto {
+            font-weight: 600;
+            width: 200px;
+            text-align: right;
+        }
+
+        .informe {
+            font-size: xx-large;
+            text-align: center;
+            color: #615C5C;
+        }
+
+        .head {
+            font-size: medium;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .table, .table2 {
+            border: 2px solid #000000;
+        }
+
+        .table td, .table2 td {
+            padding: 6px;
+            height: 33px;
+
+        }
+
+        .table td {
+            line-height: 20px;
+            vertical-align: top;
+            border-top: 2px solid #000000;
+            border-left: 2px solid #000000;
+        }
+
+        .analitica-sangre tr td ul li span{
+            float: right;
+            margin-right: 50px;
+
+        }
+        .analitica-sangre tr td ul li span.resp-no{
+
+        }
+
+        .analitica-sangre tr td ul li span.resp-si{
+            width: 15px;
+            height: 15px;
+            background: url({{ asset("bundles/userclient/images/tick.png") }});
+            background-size: 15px;
+        }
+
+
+    </style>
+</head>
+<body style="margin: 0px; font-family: arial; font-size: 14px;">
+<div style="width: 960px; padding: 25px;">
+    <div style="min-height: 1200px">
+        <table width="960px" style="margin-top: 26px;">
+            <tr>
+                <td width="400px" valign="top">
+                    <img src="http://{{ app.request.host }}{{ asset("bundles/userclient/images/logo_teknon.png") }}"
+                         style="height: 50px; padding-left: 119px;">
+                    <div style="padding-left: 125px; color: #002a80; font-size: 10px">
+                    <span style="font-size: 14px; font-weight: 500">CONSULTORIOS VILANA</span> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;desp. 195<br>
+                    VILANA, 12 <span style="padding-left: 101px"> Tel. 933 933 195</span><br>
+                    08022 BARCELONA <span style="padding-left: 61px">Fax 933 933 095</span><br>
+                    www.gilvernet.com  <span style="padding-left: 27px"> centrogilvernet@gmail.com</span><br>
+                    www.teknon.es
+                    </div>
+
+                </td>
+                <td width="300px"></td>
+                <td style="color: #002a80;font-size: 10px" valign="top">
+                    <br><br><br>
+                    <span style="font-size: 14px; font-weight: 500;">Dr. José M.ª Gil-Vernet Sedó</span><br>
+                    Urologia<br>
+                    Nº Col. 22.678
+                </td>
+
+            </tr>
+        </table>
+
+        <h3 style="margin-bottom: 40px; margin-top: 40px">Sr/Sra {{ paciente.name }} {{ paciente.surname }}</h3>
+
+        <h2>Analitica en sangre</h2>
+
+        <table width="960px" class="analitica-sangre">
+            <tr>
+                <td valign="top" width="33%">
+                    <ul style="list-style: none">
+                        <li>HEMOGRAMA COMPLETO {% if analitica.hemogramaCompleto %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li><label style="font-size: 13px">P. COAGULACION-PLAQUETAS</label> {% if analitica.plaquetas %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>URICEMIA {% if analitica.uricemia %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>CREATININA {% if analitica.creatinina %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>PROTEINAS {% if analitica.proteinas %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>COLESTEROL HDL {% if analitica.colesterolHdl %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>COLESTEROL LDL {% if analitica.colesterolLdl %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>GLICEMIA {% if analitica.glicemia %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>PROTEINA C REACTIVA {% if analitica.proteinaCReactiva %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                    </ul>
+                </td>
+
+                <td valign="top" width="33%">
+                    <ul style="list-style: none">
+                        <li>TG {% if analitica.tg %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>GOT, GPT {% if analitica.gotGpt %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>BT {% if analitica.bt %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>GGT {% if analitica.ggt %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Na {% if analitica.na %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>K {% if analitica.k %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>P {% if analitica.p %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Ca {% if analitica.ca %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>PTH {% if analitica.pth %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>F. Alcalinas {% if analitica.alcalinas %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>VSG {% if analitica.vsg %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                    </ul>
+                </td>
+
+                <td valign="top" width="33%">
+                    <ul style="list-style: none">
+                        <li>PSA Libre {% if analitica.psaLibre %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>PSA Total {% if analitica.psaTotal %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>TESTOSTERONA Libre {% if analitica.testoteronaLibre %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>TESTOSTERONA Total {% if analitica.testoteronaTotal %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>LH {% if analitica.lh %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>PRL {% if analitica.prl %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>&-HCG {% if analitica.hcg %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>LDH {% if analitica.ldh %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>A-FETOPROTEINA {% if analitica.fetoproteina %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>CEA {% if analitica.cea %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>TSH, T<sub>3</sub>, T<sub>4</sub> {% if analitica.tsh %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+
+        <h2>ANALITICA EN ORINA</h2>
+
+        <table width="960px" class="analitica-sangre">
+            <tr>
+                <td valign="top" width="33%">
+                    <ul style="list-style: none">
+                        <li>SEDIMENTO {% if analitica.sedimentoOrina %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>PCA 3 {% if analitica.pca3Orina %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                     </ul>
+                </td>
+
+                <td valign="top" width="33%">
+
+                    <ul style="list-style: none">
+                        <li>CULTIVO {% if analitica.cultivoOrina %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+
+                    </ul>
+
+                </td>
+
+                <td valign="top" width="33%">
+
+                    <ul style="list-style: none">
+                        <li>ANTIBIOGRAMA {% if analitica.antibiogramaOrina %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+
+                    </ul>
+
+                </td>
+
+            </tr>
+        </table>
+
+        <h2>ANALITICA EN SEMEN</h2>
+
+        <table width="960px" class="analitica-sangre">
+            <tr>
+                <td valign="top" width="33%">
+                    <ul style="list-style: none">
+                        <li>SEMINOGRAMA {% if analitica.seminogramaSemen %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+
+                    </ul>
+                </td>
+
+                <td valign="top" width="33%">
+
+                    <ul style="list-style: none">
+                        <li>SEMINOCULTIVO {% if analitica.seminocultivoSemen %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+
+                    </ul>
+
+                </td>
+
+                <td valign="top" width="33%">
+
+
+
+                </td>
+
+            </tr>
+        </table>
+
+        <h2>ORINA DE 24 H</h2>
+
+        <table width="960px" class="analitica-sangre">
+            <tr>
+                <td valign="top" width="33%">
+                    <ul style="list-style: none">
+                        <li>Calcio {% if analitica.orina24hCalcio %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Fósforo {% if analitica.orina24hFosforo %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Uratos {% if analitica.orina24hUratos %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Citratos {% if analitica.orina24hCitratos %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+
+                    </ul>
+                </td>
+
+                <td valign="top" width="33%">
+
+                    <ul style="list-style: none">
+                        <li>Magnesio {% if analitica.orina24hMagnesio %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Proteinas totales {% if analitica.orina24hProteinasTotales %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Volumen {% if analitica.orina24hVolumen %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Oxalatos {% if analitica.orina24hOxalatos %}<span class="resp-si"></span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+
+
+                    </ul>
+
+                </td>
+
+                <td valign="top" width="33%">
+
+
+
+                </td>
+
+            </tr>
+        </table>
+
+        {% if analitica.extra is not null %}
+            <h2>EXTRA</h2>
+            <br><br>
+            {{ analitica.extra }}
+
+        {% endif %}
+
+        <div style="float: right">
+            <h4>Barcelona, {{ analitica.createdAt|date('d/m/Y') }}</h4>
+        </div>
+    </div>
+</div>
+</body>
+</html>

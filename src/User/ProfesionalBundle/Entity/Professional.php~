@@ -113,6 +113,24 @@ class Professional
      */
     private $clients;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="Analitica", mappedBy="professional")
+     */
+    private $analiticas;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Radiografia", mappedBy="professional")
+     */
+    private $radiografias;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Citologia", mappedBy="professional")
+     */
+    private $citologias;
+
+
+
     /**
      * Get id
      *
@@ -383,5 +401,163 @@ class Professional
     public function getSkills()
     {
         return $this->skills;
+    }
+
+    /**
+     * Set public_direction
+     *
+     * @param string $publicDirection
+     * @return Professional
+     */
+    public function setPublicDirection($publicDirection)
+    {
+        $this->public_direction = $publicDirection;
+
+        return $this;
+    }
+
+    /**
+     * Get public_direction
+     *
+     * @return string 
+     */
+    public function getPublicDirection()
+    {
+        return $this->public_direction;
+    }
+
+    /**
+     * Set public_city
+     *
+     * @param string $publicCity
+     * @return Professional
+     */
+    public function setPublicCity($publicCity)
+    {
+        $this->public_city = $publicCity;
+
+        return $this;
+    }
+
+    /**
+     * Get public_city
+     *
+     * @return string 
+     */
+    public function getPublicCity()
+    {
+        return $this->public_city;
+    }
+
+    /**
+     * Set public_postal
+     *
+     * @param string $publicPostal
+     * @return Professional
+     */
+    public function setPublicPostal($publicPostal)
+    {
+        $this->public_postal = $publicPostal;
+
+        return $this;
+    }
+
+    /**
+     * Get public_postal
+     *
+     * @return string 
+     */
+    public function getPublicPostal()
+    {
+        return $this->public_postal;
+    }
+
+    /**
+     * Set public_phone
+     *
+     * @param string $publicPhone
+     * @return Professional
+     */
+    public function setPublicPhone($publicPhone)
+    {
+        $this->public_phone = $publicPhone;
+
+        return $this;
+    }
+
+    /**
+     * Get public_phone
+     *
+     * @return string 
+     */
+    public function getPublicPhone()
+    {
+        return $this->public_phone;
+    }
+
+    /**
+     * Add analiticas
+     *
+     * @param \User\ProfesionalBundle\Entity\Analitica $analiticas
+     * @return Professional
+     */
+    public function addAnalitica(\User\ProfesionalBundle\Entity\Analitica $analiticas)
+    {
+        $this->analiticas[] = $analiticas;
+
+        return $this;
+    }
+
+    /**
+     * Remove analiticas
+     *
+     * @param \User\ProfesionalBundle\Entity\Analitica $analiticas
+     */
+    public function removeAnalitica(\User\ProfesionalBundle\Entity\Analitica $analiticas)
+    {
+        $this->analiticas->removeElement($analiticas);
+    }
+
+    /**
+     * Get analiticas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAnaliticas()
+    {
+        return $this->analiticas;
+    }
+
+    /**
+     * Add radiografias
+     *
+     * @param \User\ProfesionalBundle\Entity\Radiografia $radiografias
+     * @return Professional
+     */
+    public function addRadiografia(\User\ProfesionalBundle\Entity\Radiografia $radiografias)
+    {
+        $this->radiografias[] = $radiografias;
+
+        return $this;
+    }
+
+    /**
+     * Remove radiografias
+     *
+     * @param \User\ProfesionalBundle\Entity\Radiografia $radiografias
+     */
+    public function removeRadiografia(\User\ProfesionalBundle\Entity\Radiografia $radiografias)
+    {
+        $this->radiografias->removeElement($radiografias);
+    }
+
+    /**
+     * Get radiografias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRadiografias()
+    {
+        return $this->radiografias;
     }
 }

@@ -6,93 +6,143 @@
     <script type="text/javascript" src="{{ asset('bundles/coreresources/js/bootstrap.min.js') }}"></script>
 {% endblock %}
 {% block panel %}
-<br>
-{% include 'UserProfesionalBundle:Clientes:buttons.html.twig' %}
+    <br>
+    {% include 'UserProfesionalBundle:Clientes:buttons.html.twig' %}
 
-<div class="widget">
-<div class="row-fluid">
-        
-        <div class="span6">
-        <h5 class="widget-name"><i class="icon-table"></i> Informes</h5>
+    <div class="widget">
+        <div class="row-fluid">
+            <div class="span6">
+                <h5 class="widget-name"><i class="icon-table"></i> Información del usuario</h5>
+                <table class="table table-striped table-bordered box">
+                    <thead>
+                    <tr>
+                        <th colspan="2">Información del usuario</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Nombre completo:</td>
+                        <td><strong>{{ cliente.user.name }} {{ cliente.user.surname }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>{{ cliente.user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Número de movil:</td>
+                        <td class="red">{{ cliente.user.mobile }}</td>
+                    </tr>
+                    <tr>
+                        <td>Alias:</td>
+                        <td>{{ cliente.alias }}</td>
+                    </tr>
 
-        {% for r in cliente.reports %}
-        <div class="widget">
-                <div class="navbar"><div class="navbar-inner"><h6>{{ r.title }}</h6></div></div>
-                <div class="well">
-                    <blockquote style="margin-bottom: 10px; margin-left: 10px; margin-top:10px">
-                        <p>{{ r.text|raw }}</p>
-                    </blockquote>
+                    <tr>
+                        <td>Peticion de analiticas:</td>
+                        <td>{{ cliente.analiticas|length }}</td>
+                    </tr>
 
-                    <div class="control-group" >
-                        Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}"
+                    <tr>
+                        <td>Peticion de radiologias:</td>
+                        <td>{{ cliente.radiografias|length }}</td>
+                    </tr>
+                    <tr>
+                        <td>Peticion de citologias:</td>
+                        <td>{{ cliente.citologias|length }}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="span6">
+                <h5 class="widget-name"><i class="icon-table"></i> Recursos</h5>
+
+                <a href="{{ path('profesional_clientes_add_analitica', {'idUser': cliente.user.id}) }}" class="btn">Añadir
+                    una analitica</a>
+                <a href="{{ path('profesional_clientes_add_radiografia', {'idUser': cliente.user.id}) }}" class="btn">Añadir
+                    una radiografia</a>
+
+                <!-- Button to trigger modal -->
+                <a href="#myModalCitologia" role="button" class="btn" data-toggle="modal">Añadir citologia</a>
+
+                <!-- Modal -->
+                <div id="myModalCitologia" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">Añadir citologia</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>¿Seguro que deseas añadir una citologia?</strong></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+                        <a href="{{ path('profesional_clientes_add_citologia', {'idUser': cliente.user.id}) }}" class="btn btn-primary">Sí, estoy seguro</a>
                     </div>
                 </div>
             </div>
 
 
-            {% else %}
-                  <div class="widget">
-                <div class="navbar"><div class="navbar-inner"><h6>No hay informes</h6></div></div>
-                <div class="well body">
-                    <blockquote style="margin-bottom: 10px; margin-left: 10px; margin-top:10px">
-                        No ha registrado ningún informe con este cliente.
-                    </blockquote>
+        </div>
 
-                </div>
+        <div class="row" style="margin-top: 100px">
+            <div class="span12">
+                <h5 class="widget-name"><i class="icon-table"></i> Informes</h5>
+
+                {% for r in cliente.reports %}
+                    <div class="widget">
+                        <div class="navbar">
+                            <div class="navbar-inner"><h6>{{ r.title }}</h6></div>
+                        </div>
+                        <div class="well">
+                            <blockquote style="margin-bottom: 10px; margin-left: 10px; margin-top:10px">
+                                <p>{{ r.text|raw }}</p>
+                            </blockquote>
+
+                            <div class="control-group">
+                                Nota escrita el {{ r.createdAt|date('d/m/Y H:i') }}, tipo "{{ r.type }}"
+                            </div>
+                        </div>
+                    </div>
+
+
+                {% else %}
+                    <div class="widget">
+                        <div class="navbar">
+                            <div class="navbar-inner"><h6>No hay informes</h6></div>
+                        </div>
+                        <div class="well body">
+                            <blockquote style="margin-bottom: 10px; margin-left: 10px; margin-top:10px">
+                                No ha registrado ningún informe con este cliente.
+                            </blockquote>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+
             </div>
-            {% endfor %}
-
-
-        </div>
-        <div class="span6">
-        <h5 class="widget-name"><i class="icon-table"></i> Información del usuario</h5>
-            <table class="table table-striped table-bordered box">
-                <thead>
-                <tr>
-                    <th colspan="2">Información del usuario</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Nombre completo:</td>
-                    <td><strong>{{ cliente.user.name }} {{ cliente.user.surname }}</strong></td>
-                </tr>
-                <tr>
-                    <td>Email:</td>
-                    <td>{{ cliente.user.email }}</td>
-                </tr>
-                <tr>
-                    <td>Número de movil:</td>
-                    <td class="red">{{ cliente.user.mobile }}</td>
-                </tr>
-                <tr>
-                    <td>Alias:</td>
-                    <td>{{ cliente.alias }}</td>
-                </tr>
-
-                </tbody>
-            </table>
-
         </div>
 
 
-    </div>
+        <div id="disableUser" class="black-box modal hide fade">
+            <div class="modal-header tab-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <span>¿Desactivar cliente?</span>
+            </div>
+            <div class="modal-body separator">
+                <h4>A continuación se procedera a eliminar la información
+                    de {{ cliente.user.name }} {{ cliente.user.surname }}</h4>
 
+                <p>
+                    <a href="{{ path('profesional_clientes_disable', {'idClient': cliente.id }) }}"
+                       class="button rounded red">Aceptar, elimina la información</a>
+                    <a class="button rounded light-gray" data-dismiss="modal">Cancelar</a>
+                </p>
+            </div>
 
-    <div id="disableUser" class="black-box modal hide fade">
-        <div class="modal-header tab-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <span>¿Desactivar cliente?</span>
-        </div>
-        <div class="modal-body separator">
-            <h4>A continuación se procedera a eliminar la información de {{ cliente.user.name }} {{ cliente.user.surname }}</h4>
-            <p>
-                <a href="{{ path('profesional_clientes_disable', {'idClient': cliente.id }) }}" class="button rounded red">Aceptar, elimina la información</a>
-                <a class="button rounded light-gray" data-dismiss="modal">Cancelar</a>
-            </p>
         </div>
 
     </div>
-
-</div>
 {% endblock %}

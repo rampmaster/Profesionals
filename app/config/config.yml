@@ -114,3 +114,12 @@ hwi_oauth:
 
 fos_js_routing:
     routes_to_expose: [ core_fileserver_uploader, core_fileserver_listfiles, profesional_json_skills ]
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltopdf
+        options:    []
+    image:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltoimage
+        options:    []

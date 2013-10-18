@@ -1,0 +1,150 @@
+{% set active = 'clientes' %}
+{% extends '::layout.html.twig' %}
+{% form_theme form 'CoreResourcesBundle:Form:fieldsanalitica.html.twig' %}
+
+{% block panel %}<br>
+    <style>
+        .form-horizontal .control-label {
+            width: 200px;
+        }
+    </style>
+
+    <h5 class="widget-name"><i class="icon-hospital"></i>Petición de analitica para paciente</h5>
+    <div class="span12">
+        <div class="box">
+
+            <form method="post" class="form form-horizontal" {{ form_enctype(form) }}>
+                <fieldset>
+
+                    <!-- General form elements -->
+                    <div class="widget row-fluid">
+
+                        <div class="well">
+                            <legend class="span9" style="padding-left: 30px; padding-top: 30px">ANALITICA EN SANGRE</legend>
+                            <div class="row">
+
+                                <div class="span4">
+                                    {{ form_row(form.hemogramaCompleto) }}
+                                    {{ form_row(form.plaquetas) }}
+                                    {{ form_row(form.uricemia) }}
+                                    {{ form_row(form.creatinina) }}
+                                    {{ form_row(form.gruposanguineo) }}
+                                    {{ form_row(form.proteinas) }}
+                                    {{ form_row(form.colesterolHdl) }}
+                                    {{ form_row(form.colesterolLdl) }}
+                                    {{ form_row(form.glicemia) }}
+                                    {{ form_row(form.proteinaCReactiva) }}
+                                    {{ form_row(form.hepatitisBC) }}
+
+                                </div>
+
+                                <div class="span4">
+                                    {{ form_row(form.tg) }}
+                                    {{ form_row(form.gotGpt) }}
+                                    {{ form_row(form.bt) }}
+                                    {{ form_row(form.ggt) }}
+                                    {{ form_row(form.na) }}
+                                    {{ form_row(form.k) }}
+                                    {{ form_row(form.p) }}
+                                    {{ form_row(form.ca) }}
+                                    {{ form_row(form.pth) }}
+                                    {{ form_row(form.alcalinas) }}
+                                    {{ form_row(form.vsg) }}
+                                </div>
+
+                                <div class="span4">
+                                    {{ form_row(form.psa_libre) }}
+                                    {{ form_row(form.psa_total) }}
+                                    {{ form_row(form.testoterona_libre) }}
+                                    {{ form_row(form.testoterona_total) }}
+                                    {{ form_row(form.fsh) }}
+                                    {{ form_row(form.lh) }}
+                                    {{ form_row(form.prl) }}
+                                    {{ form_row(form.hcg) }}
+                                    {{ form_row(form.ldh) }}
+                                    {{ form_row(form.fetoproteina) }}
+                                    {{ form_row(form.cea) }}
+                                    {{ form_row(form.tsh) }}
+                                </div>
+
+
+                            </div>
+
+                            <legend class="span9" style="padding-left: 30px; padding-top: 30px">ANALITICA EN ORINA</legend>
+
+                            <div class="row">
+                                <div class="span4">
+                                    {{ form_row(form.sedimento_orina) }}
+                                    {{ form_row(form.pca3_orina) }}
+                                </div>
+
+                                <div class="span4">
+
+                                    {{ form_row(form.cultivo_orina) }}
+                                </div>
+
+                                <div class="span4">
+
+                                    {{ form_row(form.antibiograma_orina) }}
+                                </div>
+                            </div>
+
+                            <legend class="span9" style="padding-left: 30px; padding-top: 30px">ANALITICA EN SEMEN</legend>
+                            <div class="row">
+                                <div class="span4">
+                                    {{ form_row(form.seminograma_semen) }}
+                                </div>
+
+                                <div class="span4">
+                                    {{ form_row(form.seminocultivo_semen) }}
+                                </div>
+                            </div>
+
+                            <legend  class="span9" style="padding-left: 30px; padding-top: 30px">ORINA DE 24 HORAS</legend>
+                            <div class="row">
+                                <div class="span4">
+                                    {{ form_row(form.orina_24h_calcio) }}
+                                    {{ form_row(form.orina_24h_fosforo) }}
+                                    {{ form_row(form.orina_24h_uratos) }}
+                                    {{ form_row(form.orina_24h_citratos) }}
+                                </div>
+
+                                <div class="span4">
+                                    {{ form_row(form.orina_24h_magnesio) }}
+                                    {{ form_row(form.orina_24h_proteinas_totales) }}
+                                    {{ form_row(form.orina_24h_volumen) }}
+                                    {{ form_row(form.orina_24h_oxalatos) }}
+                                </div>
+                            </div>
+
+                            <legend class="span9" style="padding-left: 30px; padding-top: 30px">Anotaciones extra</legend>
+
+                            <div class="span12">
+                                {{ form_row(form.extra) }}
+                            </div>
+
+                            {{ form_widget(form) }}
+                            {{ form_rest(form) }}
+
+                            <div style="clear:both"></div>
+                        </div>
+                    </div>
+                    <!-- /general form elements -->
+
+                </fieldset>
+                <div style="text-align:center">
+                    <input type="submit" class="btn btn-success btn-large" value="Registrar petición de analitica">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block section_nav %}
+    <ul class="round-buttons">
+        <li><div class="depth" style="background-color: rgb(166, 241, 53);"><a href="{{ path('profesional_clientes_show', {'idCliente': cliente.client.id}) }}" data-toggle="tooltip" title="Volver"><i class="icon-arrow-left"></i> Volver<strong></strong></a></div></li>
+    </ul>
+
+{% endblock %}

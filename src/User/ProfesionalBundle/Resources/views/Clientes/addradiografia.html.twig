@@ -1,0 +1,90 @@
+{% set active = 'clientes' %}
+{% extends '::layout.html.twig' %}
+{% form_theme form 'CoreResourcesBundle:Form:fieldsradiografia.html.twig' %}
+
+{% block panel %}<br>
+    <style>
+        .form-horizontal .control-label {
+            width: 200px;
+        }
+    </style>
+
+    <h5 class="widget-name"><i class="icon-hospital"></i>Petición de radiografia para paciente</h5>
+    <div class="span12">
+        <div class="box">
+
+            <form method="post" class="form form-horizontal" {{ form_enctype(form) }}>
+                <fieldset>
+
+                    <!-- General form elements -->
+                    <div class="widget row-fluid">
+
+                        <div class="well">
+
+                            <div class="row">
+                                <div class="span12">
+                                    {{ form_row(form.servicioRadiologia) }}
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="span6">
+                                    {{ form_row(form.rxToraxFrente) }}
+                                    {{ form_row(form.rxToraxPerfix) }}
+                                    {{ form_row(form.simpleAbdomen) }}
+                                    {{ form_row(form.urografiaDescendente) }}
+                                    {{ form_row(form.cistouretrografiaMicionales) }}
+                                    {{ form_row(form.cistouretrografiasPostmiccional) }}
+                                    {{ form_row(form.cistouretrografiaRetrograda) }}
+                                    {{ form_row(form.prostaica) }}
+                                </div>
+
+                                <div class="span6">
+                                    {{ form_row(form.columbia) }}
+                                    {{ form_row(form.ecografiaRenal) }}
+                                    {{ form_row(form.ecografiaVesical) }}
+                                    {{ form_row(form.ecografiaProstatica) }}
+                                    {{ form_row(form.ecografiaProstaticaEndorectal) }}
+                                    {{ form_row(form.ecografiaEscrotal) }}
+                                    {{ form_row(form.flujometria) }}
+                                    {{ form_row(form.tacAbdominopelviano) }}
+                                    {{ form_row(form.tacToracico) }}
+                                    {{ form_row(form.rmnAbdominal) }}
+                                </div>
+
+
+
+
+                            </div>
+
+                            <legend class="span9" style="padding-left: 30px; padding-top: 30px">Orientación diagnostica</legend>
+
+                            <div class="span12">
+                                {{ form_row(form.orientacionDiagnostica) }}
+                            </div>
+
+                            {{ form_widget(form) }}
+                            {{ form_rest(form) }}
+
+                            <div style="clear:both"></div>
+                        </div>
+                    </div>
+                    <!-- /general form elements -->
+
+                </fieldset>
+                <div style="text-align:center">
+                    <input type="submit" class="btn btn-success btn-large" value="Registrar petición de radiografia">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block section_nav %}
+    <ul class="round-buttons">
+        <li><div class="depth" style="background-color: rgb(166, 241, 53);"><a href="{{ path('profesional_clientes_show', {'idCliente': cliente.client.id}) }}" data-toggle="tooltip" title="Volver"><i class="icon-arrow-left"></i> Volver<strong></strong></a></div></li>
+    </ul>
+
+{% endblock %}

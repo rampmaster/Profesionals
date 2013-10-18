@@ -25,8 +25,9 @@
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
         "knplabs/knp-snappy-bundle": "dev-master",
-        "hwi/oauth-bundle": "*",
-        "igorw/file-serve-bundle": "1.0.*"
+        "hwi/oauth-bundle": "0.2.5",
+        "igorw/file-serve-bundle": "1.0.*",
+        "knplabs/knp-snappy-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

@@ -1,0 +1,82 @@
+{% set active = 'settings' %}
+{% extends '::layout.html.twig' %}
+
+{% block panel %}
+
+    <h3 class="widget-name" style="margin-top: 40px">Recursos descargables</h3>
+    <div class="row-fluid">
+        <div class="span12">
+
+            <div class="widget">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <h6><i class="icon-cog"></i>Analiticas</h6>
+                    </div>
+                </div>
+                <div class="well body">
+
+                    {% if app.user.client.analiticas is not empty %}
+                        <ul style="list-style: none">
+                            {% for analitica in app.user.client.analiticas %}
+                                <li><a class="btn" href="{{ path('client_recursos_decarga_analitica', { 'id': analitica.id}) }}">Descargar</a> Peticion de analitica expedida el dia {{ analitica.createdAt|date('d/m/Y') }} </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <code>No tienes analiticas registradas</code>
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <h6><i class="icon-cog"></i>Citologias</h6>
+                    </div>
+                </div>
+                <div class="well body">
+
+                    {% if app.user.client.citologias is not empty %}
+                        <ul style="list-style: none">
+                            {% for citologia in app.user.client.citologias %}
+                                <li><a class="btn" href="{{ path('client_recursos_decarga_citologia', { 'id': citologia.id}) }}">Descargar</a> Petición de citolgia expedida el dia {{ citologia.createdAt|date('d/m/Y') }} </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <code>No tienes analiticas registradas</code>
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+
+            <div class="widget">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <h6><i class="icon-cog"></i>Radiografias</h6>
+                    </div>
+                </div>
+                <div class="well body">
+
+                    {% if app.user.client.radiografias is not empty %}
+                        <ul style="list-style: none">
+                            {% for radiografia in app.user.client.radiografias %}
+                                <li><a class="btn" href="{{ path('client_recursos_decarga_radiografia', { 'id': radiografia.id}) }}">Descargar</a> Petición de radiografia expedida el dia {{ radiografia.createdAt|date('d/m/Y') }} </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <code>No tienes analiticas registradas</code>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
