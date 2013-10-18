@@ -73,6 +73,11 @@ class Client
      */
     private $citologias;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\Urodinamico", mappedBy="client")
+     */
+    private $urodinamicos;
+
 
 
     public function __toString()
@@ -321,5 +326,38 @@ class Client
     public function getRadiografias()
     {
         return $this->radiografias;
+    }
+
+    /**
+     * Add citologias
+     *
+     * @param \User\ProfesionalBundle\Entity\Citologia $citologias
+     * @return Client
+     */
+    public function addCitologia(\User\ProfesionalBundle\Entity\Citologia $citologias)
+    {
+        $this->citologias[] = $citologias;
+
+        return $this;
+    }
+
+    /**
+     * Remove citologias
+     *
+     * @param \User\ProfesionalBundle\Entity\Citologia $citologias
+     */
+    public function removeCitologia(\User\ProfesionalBundle\Entity\Citologia $citologias)
+    {
+        $this->citologias->removeElement($citologias);
+    }
+
+    /**
+     * Get citologias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCitologias()
+    {
+        return $this->citologias;
     }
 }

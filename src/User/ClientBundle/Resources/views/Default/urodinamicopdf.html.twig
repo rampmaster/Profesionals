@@ -79,11 +79,11 @@
                     <img src="http://{{ app.request.host }}{{ asset("bundles/userclient/images/logo_teknon.png") }}"
                          style="height: 70px;">
                     <div style="padding-left: 20px; color: #002a80; font-size: 13px">
-                        <span style="font-size: 16px; font-weight: 500">CONSULTORIOS VILANA</span> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;desp. 195<br>
-                        VILANA, 12 <span style="padding-left: 101px"> Tel. 933 933 195</span><br>
-                        08022 BARCELONA <span style="padding-left: 52px">Fax 933 933 095</span><br>
-                        www.gilvernet.com  <span style="padding-left: 27px"> centrogilvernet@gmail.com</span><br>
-                        www.teknon.es
+                    <span style="font-size: 16px; font-weight: 500">CONSULTORIOS VILANA</span> &nbsp;&nbsp;&nbsp;- &nbsp;&nbsp;&nbsp;desp. 195<br>
+                    VILANA, 12 <span style="padding-left: 101px"> Tel. 933 933 195</span><br>
+                    08022 BARCELONA <span style="padding-left: 52px">Fax 933 933 095</span><br>
+                    www.gilvernet.com  <span style="padding-left: 27px"> centrogilvernet@gmail.com</span><br>
+                    www.teknon.es
                     </div>
 
                 </td>
@@ -97,11 +97,12 @@
 
             </tr>
         </table>
-        <h3 style="margin-bottom: 40px; margin-top: 40px; text-align: center">Ruego practiquen CITOLOGIA URINARIA (3 muestras seriadas) al paciente <br> {{ paciente.name }} {{ paciente.surname }}</h3>
 
+        <h3 style="margin-bottom: 40px; margin-top: 40px; text-align: center">Ruego practiquen Estudio Urodinámico al paciente <br> {{ paciente.name }} {{ paciente.surname }}</h3>
 
+        <h4>Diagnostico: {{ urodinamico.diagnostico }}</h4>
         <div style="float: right">
-            <h4>Barcelona, {{ citologia.createdAt|date('d/m/Y') }}</h4>
+            <h4>Barcelona, {{ urodinamico.createdAt|date('d/m/Y') }}</h4>
         </div>
     </div>
 </div>

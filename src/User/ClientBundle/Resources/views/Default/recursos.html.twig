@@ -51,6 +51,28 @@
                 </div>
             </div>
 
+            <div class="widget">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <h6><i class="icon-cog"></i>Estudios Urodinámicos</h6>
+                    </div>
+                </div>
+                <div class="well body">
+
+                    {% if app.user.client.urodinamicos is not empty %}
+                        <ul style="list-style: none">
+                            {% for urodinamico in app.user.client.urodinamicos %}
+                                <li><a class="btn" href="{{ path('client_recursos_decarga_urodinamico', { 'id': urodinamico.id}) }}">Descargar</a> Petición de citolgia expedida el dia {{ urodinamico.createdAt|date('d/m/Y') }} </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <code>No tienes analiticas registradas</code>
+                    {% endif %}
+
+
+                </div>
+            </div>
+
 
             <div class="widget">
                 <div class="navbar">

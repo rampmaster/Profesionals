@@ -73,6 +73,11 @@ class Client
      */
     private $citologias;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\User\ProfesionalBundle\Entity\Urodinamico", mappedBy="client")
+     */
+    private $urodinamicos;
+
 
 
     public function __toString()
@@ -354,5 +359,38 @@ class Client
     public function getCitologias()
     {
         return $this->citologias;
+    }
+
+    /**
+     * Add urodinamicos
+     *
+     * @param \User\ProfesionalBundle\Entity\Urodinamico $urodinamicos
+     * @return Client
+     */
+    public function addUrodinamico(\User\ProfesionalBundle\Entity\Urodinamico $urodinamicos)
+    {
+        $this->urodinamicos[] = $urodinamicos;
+
+        return $this;
+    }
+
+    /**
+     * Remove urodinamicos
+     *
+     * @param \User\ProfesionalBundle\Entity\Urodinamico $urodinamicos
+     */
+    public function removeUrodinamico(\User\ProfesionalBundle\Entity\Urodinamico $urodinamicos)
+    {
+        $this->urodinamicos->removeElement($urodinamicos);
+    }
+
+    /**
+     * Get urodinamicos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUrodinamicos()
+    {
+        return $this->urodinamicos;
     }
 }

@@ -49,7 +49,7 @@ class Professional
     /**
      * @var string
      *
-     * @ORM\Column(name="public_direction", type="string")
+     * @ORM\Column(name="public_direction", type="string", nullable=true)
      */
     private $public_direction;
 
@@ -57,7 +57,7 @@ class Professional
     /**
      * @var string
      *
-     * @ORM\Column(name="public_city", type="string")
+     * @ORM\Column(name="public_city", type="string",nullable=true)
      */
     private $public_city;
 
@@ -65,7 +65,7 @@ class Professional
     /**
      * @var string
      *
-     * @ORM\Column(name="public_postal", type="string")
+     * @ORM\Column(name="public_postal", type="string",nullable=true)
      */
     private $public_postal;
 
@@ -73,7 +73,7 @@ class Professional
     /**
      * @var string
      *
-     * @ORM\Column(name="public_phone", type="string")
+     * @ORM\Column(name="public_phone", type="string",nullable=true)
      */
     private $public_phone;
 
@@ -128,6 +128,11 @@ class Professional
      * @ORM\OneToMany(targetEntity="Citologia", mappedBy="professional")
      */
     private $citologias;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Urodinamico", mappedBy="professional")
+     */
+    private $urodinamicos;
 
 
 
@@ -559,5 +564,38 @@ class Professional
     public function getRadiografias()
     {
         return $this->radiografias;
+    }
+
+    /**
+     * Add citologias
+     *
+     * @param \User\ProfesionalBundle\Entity\Citologia $citologias
+     * @return Professional
+     */
+    public function addCitologia(\User\ProfesionalBundle\Entity\Citologia $citologias)
+    {
+        $this->citologias[] = $citologias;
+
+        return $this;
+    }
+
+    /**
+     * Remove citologias
+     *
+     * @param \User\ProfesionalBundle\Entity\Citologia $citologias
+     */
+    public function removeCitologia(\User\ProfesionalBundle\Entity\Citologia $citologias)
+    {
+        $this->citologias->removeElement($citologias);
+    }
+
+    /**
+     * Get citologias
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCitologias()
+    {
+        return $this->citologias;
     }
 }

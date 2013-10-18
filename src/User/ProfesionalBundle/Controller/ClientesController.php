@@ -15,9 +15,11 @@ use User\ProfesionalBundle\Entity\Analitica;
 use User\ProfesionalBundle\Entity\Citologia;
 use User\ProfesionalBundle\Entity\Radiografia;
 use User\ProfesionalBundle\Entity\Report;
+use User\ProfesionalBundle\Entity\Urodinamico;
 use User\ProfesionalBundle\Form\AnaliticaType;
 use User\ProfesionalBundle\Form\RadiografiaType;
 use User\ProfesionalBundle\Form\ReportType;
+use User\ProfesionalBundle\Form\UrodinamicoType;
 
 class ClientesController extends Controller
 {
@@ -221,6 +223,54 @@ class ClientesController extends Controller
                 $em->flush();
 
                 $this->get('session')->getFlashBag()->add('notice', 'Analitica añadida con éxito. El paciente podrá encontrarla en las sección recursos');
+
+                return $this->redirect($this->generateUrl('profesional_clientes_show', array('idCliente' => $client->getClient()->getId())));
+
+
+            }
+        }
+
+        return array('form' => $form->createView(), 'cliente' => $client);
+    }
+
+    /**
+     * @Route("/clientes/add-urodinamico/{idUser}", name="profesional_clientes_add_urodinamico")
+     * @Template()
+     */
+    public function addurodinamicoAction($idUser)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository('CoreUserBundle:User')->find($idUser);
+        $me = $this->get('security.context')->getToken()->getUser();
+
+
+        $urodinamico = new Urodinamico();
+
+        $urodinamico->setProfessional($me->getProfessional());
+        $urodinamico->setClient($client->getClient());
+
+        $form = $this->createForm(new UrodinamicoType(), $urodinamico);
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+
+
+                $urodinamico->setCreatedAt(new \DateTime());
+                $me->getProfessional()->addUrodinamico($urodinamico);
+                $client->getClient()->addUrodinamico($urodinamico);
+
+                $em->persist($urodinamico);
+                $em->persist($me->getProfessional());
+                $em->persist($client->getClient());
+
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add('notice', 'Estudio Urodinámico añadido con éxito. El paciente podrá encontrarlo en las sección recursos');
 
                 return $this->redirect($this->generateUrl('profesional_clientes_show', array('idCliente' => $client->getClient()->getId())));
 

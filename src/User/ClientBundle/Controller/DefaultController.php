@@ -84,13 +84,13 @@ class DefaultController extends Controller
 
         $response = $this->renderView('UserClientBundle:Default:analiticapdf.html.twig', array('analitica' => $analitica, 'paciente' => $user));
 
-        return new Response($response);
+        //return new Response($response);
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($response),
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+                'Content-Disposition'   => 'attachment; filename="peticion_analitica.pdf"'
             )
         );
 
@@ -119,7 +119,36 @@ class DefaultController extends Controller
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+                'Content-Disposition'   => 'attachment; filename="peticion_citologia.pdf"'
+            )
+        );
+
+    }
+
+    /**
+     * @Route("/descarga-urodinamico/{id}", name="client_recursos_decarga_urodinamico")
+     */
+    public function recursosdescargaurodinamicoAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $urodinamico = $em->getRepository('UserProfesionalBundle:Urodinamico')->find($id);
+
+        if($urodinamico->getClient()->getId() != $user->getClient()->getId()){
+            throw new \Exception('Este estudio no te pertenece');
+        }
+
+        $response = $this->renderView('UserClientBundle:Default:urodinamicopdf.html.twig', array('urodinamico' => $urodinamico, 'paciente' => $user));
+
+
+        //return new Response($response);
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($response),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="peticion_estudio_urodinamico.pdf"'
             )
         );
 
@@ -148,7 +177,7 @@ class DefaultController extends Controller
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+                'Content-Disposition'   => 'attachment; filename="peticion_radiografia.pdf"'
             )
         );
 

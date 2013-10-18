@@ -51,6 +51,10 @@
                         <td>{{ cliente.citologias|length }}</td>
                     </tr>
 
+                    <tr>
+                        <td>Peticion de estudios Urodinámico:</td>
+                        <td>{{ cliente.urodinamicos|length }}</td>
+                    </tr>
                     </tbody>
                 </table>
 
@@ -63,6 +67,10 @@
                     una analitica</a>
                 <a href="{{ path('profesional_clientes_add_radiografia', {'idUser': cliente.user.id}) }}" class="btn">Añadir
                     una radiografia</a>
+
+                <a href="{{ path('profesional_clientes_add_urodinamico', {'idUser': cliente.user.id}) }}" class="btn">Añadir
+                    estudio Urodinámico</a>
+
 
                 <!-- Button to trigger modal -->
                 <a href="#myModalCitologia" role="button" class="btn" data-toggle="modal">Añadir citologia</a>
