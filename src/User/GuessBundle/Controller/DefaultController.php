@@ -30,7 +30,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
 
-        return $this->redirect($this->generateUrl('fos_user_security_login'));
+
 
         $user = $this->get('security.context')->getToken()->getUser();
         $securityContext = $this->get('security.context');
@@ -46,6 +46,8 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('client_consulta'));
         }
 
+        return $this->redirect($this->generateUrl('fos_user_security_login'));
+        
         $host = $this->get('session')->get('subdomain');
         $usermanager = $this->get('fos_user.user_manager');
         $professional = $usermanager->findUserByUsername($host);
