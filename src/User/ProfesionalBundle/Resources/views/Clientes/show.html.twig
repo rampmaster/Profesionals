@@ -70,6 +70,12 @@
                     <td>{{ cliente.alias }}</td>
                 </tr>
 
+                <tr>
+                    <td>Ver archivos compartidos:</td>
+                    <td><a href="{{ path('profesional_files', {'id': cliente.user.id}) }}">Ver archivos</a></td>
+                </tr>
+
+
                 </tbody>
             </table>
 
