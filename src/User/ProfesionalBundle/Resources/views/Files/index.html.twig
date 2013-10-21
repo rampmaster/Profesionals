@@ -21,7 +21,7 @@
 
     <div class="widget">
         <div class="table-overflow">
-            {% if app.user.files is not empty %}
+            {% if files is not empty %}
                 <table class="table table-striped table-bordered table-checks media-table dataTable" id="data-table"
                        aria-describedby="data-table_info">
                     <thead>
@@ -33,7 +33,7 @@
                     </tr>
                     </thead>
                     <tbody ole="alert" aria-live="polite" aria-relevant="all">
-                    {% for file in app.user.files %}
+                    {% for file in files %}
                         <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
                             <td class="icons-files">
 

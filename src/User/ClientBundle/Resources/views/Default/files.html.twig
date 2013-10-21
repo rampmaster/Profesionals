@@ -3,6 +3,20 @@
 
 {% block panel %}
 
+    <ul class="round-buttons">
+        <li>
+            <div class="depth"><a href="{{ path('client_files') }}" data-toggle="tooltip"
+                                  data-original-title="Lista de archivos"><i class="icon-list"></i> Lista de
+                    Archivos<strong></strong></a></div>
+        </li>
+        <li>
+            <div class="depth"><a href="{{ path('client_files_add') }}" data-toggle="tooltip"
+                                  data-original-title="Añadir archivo"><i class="icon-plus"></i> Añadir
+                    Archivo<strong></strong></a></div>
+        </li>
+
+    </ul>
+
     {{ render(controller('CoreFileServerBundle:Default:listfiles',  { 'idUser': app.user.id})) }}
 
 {% endblock %}

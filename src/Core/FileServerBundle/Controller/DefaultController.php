@@ -99,7 +99,15 @@ class DefaultController extends Controller
 
         $file->setCreatedAt(new \DateTime());
 
-        $file->setOwner($me);
+        if($me->hasRole('ROLE_CLIENTE')){
+            //es un cliente, el owner es mi profesional
+            $own = $me->getClient()->getProfessional()->getUser();
+            $file->setOwner($own);
+        }else{
+            $file->setOwner($me);
+        }
+
+
 
         if($idUser > 0){
             //añadimos un usuario como permiso

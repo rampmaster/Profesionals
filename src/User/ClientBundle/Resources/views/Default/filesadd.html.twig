@@ -1,0 +1,40 @@
+{% set active = 'files' %}
+{% extends '::layout.html.twig' %}
+{% block panel %}
+    <ul class="round-buttons">
+        <li>
+            <div class="depth"><a href="{{ path('client_files') }}" data-toggle="tooltip"
+                                  data-original-title="Lista de archivos"><i class="icon-list"></i> Lista de
+                    Archivos<strong></strong></a></div>
+        </li>
+        <li>
+            <div class="depth"><a href="{{ path('client_files_add') }}" data-toggle="tooltip"
+                                  data-original-title="Añadir archivo"><i class="icon-plus"></i> Añadir
+                    Archivo<strong></strong></a></div>
+        </li>
+        <li>
+            <div class="depth" style="background-color: rgb(166, 241, 53);"><a href="javascript:history.go(-1)"
+                                                                               data-toggle="tooltip"
+                                                                               title="Volver Atrás"><i
+                            class="icon-arrow-left"></i></a></div>
+        </li>
+    </ul>
+
+    <h5 class="widget-name">
+        <i class="icon-table"></i> Subir un archivo nuevo
+    </h5>
+
+
+    {% set redirect  = 'client_files' %}
+    {{ render(controller('CoreFileServerBundle:Default:uploader',  { 'redirect': redirect, 'idUser': app.user.id})) }}
+{% endblock %}
+{% block javascripts %}
+
+    <script type="text/javascript">
+        $(function () {
+            $("#add-another-perm").parent().css('display', 'none');
+            $("#core_fileserverbundle_filetype_public").parent().parent().css('display', 'none');
+        });
+    </script>
+
+{% endblock %}

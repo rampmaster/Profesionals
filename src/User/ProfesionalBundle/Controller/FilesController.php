@@ -19,13 +19,36 @@ class FilesController extends Controller
 {
 
     /**
-     * @Route("/files", name="profesional_files")
+     * @Route("/files/{id}", name="profesional_files", defaults={ "id" = "0" })
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($id)
     {
 
-       return array();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $files = $user->getFiles();
+
+        if($id > 0){
+            $filesnew  = array();
+
+            foreach($files as $f){
+                foreach($f->getPermissions() as $p){
+                    if($p->getUser() == $id){
+                        array_push($filesnew, $f);
+                        break;
+                    }
+                }
+            }
+
+            $files = $filesnew;
+
+        }
+
+
+
+       return array('files' => $files);
     }
 
     /**

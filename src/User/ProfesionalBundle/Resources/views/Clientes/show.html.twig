@@ -38,6 +38,11 @@
                     </tr>
 
                     <tr>
+                        <td>Ver archivos compartidos:</td>
+                        <td><a href="{{ path('profesional_files', {'id': cliente.user.id}) }}">Ver archivos</a></td>
+                    </tr>
+
+                    <tr>
                         <td>Peticion de analiticas:</td>
                         <td>{{ cliente.analiticas|length }}</td>
                     </tr>
@@ -93,6 +98,7 @@
 
 
         </div>
+
 
         <div class="row" style="margin-top: 100px">
             <div class="span12">
