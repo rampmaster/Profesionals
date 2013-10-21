@@ -332,13 +332,15 @@ class DefaultController extends Controller
             //throw new \Exception('Producto no disponible');
 
         }
-        */
+
+
 
         if (!$useragent->checkCapable()) {
             return $this->render('::browsernotsupported.html.twig');
             throw new \Exception('Explorador no soportado');
 
         }
+        */
 
         return array();
     }
