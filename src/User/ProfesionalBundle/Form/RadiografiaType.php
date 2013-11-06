@@ -16,10 +16,10 @@ class RadiografiaType extends AbstractType
                 'label' => 'Servicio de Radiologia'
             ))
             ->add('rxToraxFrente', null, array(
-                'required' => false, 'label' => 'Rx Tórax Frente'
+                'required' => false, 'label' => 'Rx Tórax frente'
             ))
             ->add('rxToraxPerfix', null, array(
-                'required' => false, 'label' => 'Rx Tórax Perfil'
+                'required' => false, 'label' => 'Rx Tórax perfil'
             ))
             ->add('simpleAbdomen', null, array(
                 'required' => false, 'label' => 'Rx simple abdomen'
@@ -67,7 +67,7 @@ class RadiografiaType extends AbstractType
                 'required' => false, 'label' => 'TAC torácico'
             ))
             ->add('rmnAbdominal', null, array(
-                'required' => false, 'label' => 'RMN abdominal Abdominopelviana'
+                'required' => false, 'label' => 'RMN Abdominopelviana'
             ))
             ->add('orientacionDiagnostica', null, array(
                 'required' => false, 'label' => 'Orientación diagnóstica',

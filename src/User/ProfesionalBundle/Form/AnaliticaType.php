@@ -15,7 +15,7 @@ class AnaliticaType extends AbstractType
                 'required' => false, 'label' => 'HEMOGRAMA COMPLETO',
             ))
             ->add('plaquetas', null, array(
-                'required' => false, 'label' => 'P. COAGULACION-PLAQUETAS'
+                'required' => false, 'label' => 'P. COAGULACION'
             ))
             ->add('creatinina', null, array(
                 'required' => false, 'label' => 'CREATININA'
@@ -72,7 +72,7 @@ class AnaliticaType extends AbstractType
                 'required' => false, 'label' => 'PTH'
             ))
             ->add('alcalinas', null, array(
-                'required' => false, 'label' => 'F. Acalinas'
+                'required' => false, 'label' => 'F. Alcalinas'
             ))
             ->add('vsg', null, array(
                 'required' => false, 'label' => 'VSG'
@@ -99,7 +99,7 @@ class AnaliticaType extends AbstractType
                 'required' => false, 'label' => 'PRL'
             ))
             ->add('hcg', null, array(
-                'required' => false, 'label' => '&-HCG'
+                'required' => false, 'label' => 'Beta-HCG'
             ))
             ->add('ldh', null, array(
                 'required' => false, 'label' => 'LDH'
