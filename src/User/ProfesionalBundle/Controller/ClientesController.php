@@ -121,7 +121,7 @@ class ClientesController extends Controller
                 $this->get('session')->getFlashBag()->add('notice', 'Cliente añadido con éxito.');
                 $message = \Swift_Message::newInstance()
                     ->setSubject($owner->getName() . ' ' . $owner->getSurname() . ' le ha añadido a su plataforma')
-                    ->setFrom('noreply@varavan.com')
+                    ->setFrom('centrogilvernet@gmail.com')
                     ->setTo($user->getEmail())
                     ->setBody($this->renderView(
                         'UserProfesionalBundle:Email:client_signup.html.twig',

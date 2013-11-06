@@ -55,7 +55,7 @@ class NotifyEventsCommand extends ContainerAwareCommand
 
             $message = \Swift_Message::newInstance()
                             ->setSubject('Recordatorio de Cita')
-                            ->setFrom('noreply@varavan.com')
+                            ->setFrom('centrogilvernet@gmail.com')
                             ->setTo($target)
                             ->setBody($content,'text/html');
                  

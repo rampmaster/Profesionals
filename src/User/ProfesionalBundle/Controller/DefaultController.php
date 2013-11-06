@@ -126,8 +126,8 @@ class DefaultController extends Controller
                 $em->flush();
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Bienvenido/a a Varavan.com')
-                    ->setFrom('noreply@varavan.com')
+                    ->setSubject('Bienvenido/a a Centro Gil Vernet')
+                    ->setFrom('centrogilvernet@gmail.com')
                     ->setTo($user->getEmail())
                     ->setBody($this->renderView(
                         'UserProfesionalBundle:Email:signup.html.twig',
