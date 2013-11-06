@@ -52,12 +52,11 @@ class FilesController extends Controller
     }
 
     /**
-     * @Route("/files/add", name="profesional_files_add")
+     * @Route("/files/add/new", name="profesional_files_add")
      * @Template()
      */
     public function addAction()
     {
-
 
         return array();
     }

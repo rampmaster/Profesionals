@@ -94,6 +94,7 @@ class DefaultController extends Controller
     public function uploaderAction($idUser,$redirect)
     {
 
+        echo "yeah";
         $me = $this->get('security.context')->getToken()->getUser();
         $file = new File();
 
