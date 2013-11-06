@@ -195,7 +195,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/files/add", name="client_files_add")
+     * @Route("/files/add/new", name="client_files_add")
      * @Template()
      */
     public function filesaddAction()
