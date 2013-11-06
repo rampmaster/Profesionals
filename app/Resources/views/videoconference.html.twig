@@ -57,7 +57,7 @@
          Definicion de los tonos de llamada
          */
         var toneCall = document.createElement('audio');
-        toneCall.setAttribute('src', '{{ asset('bundles/corecall/sounds/llamando.mp3') }}');
+        toneCall.setAttribute('src', '{{ asset('bundles/corecall/sounds/llamando.ogg') }}');
         toneCall.setAttribute('autoplay', 'autoplay');
         toneCall.setAttribute('loop', 'loop');
         toneCall.setAttribute('preload', 'preload');
@@ -71,7 +71,7 @@
 
 
         var toneRinging = document.createElement('audio');
-        toneRinging.setAttribute('src', '{{ asset('bundles/corecall/sounds/sonando.wav') }}');
+        toneRinging.setAttribute('src', '{{ asset('bundles/corecall/sounds/sonando.ogg') }}');
         toneRinging.setAttribute('autoplay', 'autoplay');
         toneRinging.setAttribute('loop', 'loop');
         //audioElement.load()
