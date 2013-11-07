@@ -445,7 +445,7 @@ class DefaultController extends Controller
 
         $this->get('mailer')->send($message);
 
-        return new Response('yeah');
+        return array();
 
     }
 
