@@ -2,7 +2,7 @@
 
 namespace User\ProfesionalBundle\Controller;
 
-use Core\UserBundle\Form\UserType;
+use xCore\UserBundle\Form\UserType;
 use Core\UserBundle\Request\Agent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -427,6 +427,26 @@ class DefaultController extends Controller
 
 
         return array('form' => $form->createView());
+    }
+
+
+
+    /**
+     * @Route("/test-email", name="profesional_test_email")
+     * @Template()
+     */
+    public function testemailAction()
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Bienvenido/a a Centro Gil Vernet')
+            ->setFrom('centrogilvernet@gmail.com')
+            ->setTo('ivan.ruiz.delatorre@gmail.com')
+            ->setBody('test');
+
+        $this->get('mailer')->send($message);
+
+        return new Response('yeah');
+
     }
 
     /**
