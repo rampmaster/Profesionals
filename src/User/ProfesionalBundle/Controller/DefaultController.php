@@ -2,7 +2,7 @@
 
 namespace User\ProfesionalBundle\Controller;
 
-use xCore\UserBundle\Form\UserType;
+use Core\UserBundle\Form\UserType;
 use Core\UserBundle\Request\Agent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
