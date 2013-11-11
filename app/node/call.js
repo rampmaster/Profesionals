@@ -226,7 +226,7 @@ ioWebRtc.on('connection', function (socket) {
         }
 
         //genero lo que necesito de open tok
-        opentok.createSession(location, {'p2p.preference': 'enabled'}, function (result) {
+        opentok.createSession(location, {}, function (result) {
             // Do things with sessionId
             sessionGetted(result);
         });
