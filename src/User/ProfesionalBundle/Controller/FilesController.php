@@ -7,6 +7,7 @@ use Core\FileServerBundle\Entity\File;
 use Core\FileServerBundle\Form\FilePropertiesType;
 use Core\FileServerBundle\Form\FileType;
 use Core\FileServerBundle\Form\PermissionsType;
+use Core\FileServerBundle\Manager\FileServerManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -59,6 +60,27 @@ class FilesController extends Controller
     {
 
         return array();
+    }
+    /**
+     * @Route("/files/remove/{id}", name="profesional_files_remove")
+     * @Template()
+     */
+    public function removeAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $file = $em->getRepository('CoreFileServerBundle:File')->find($id);
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $filemanager = new FileServerManager($file, $em);
+
+        if(!$filemanager->havePermissions($user)){
+            throw new \Exception('You don`t have permissions');
+        }
+
+        $filemanager->deleteFile();
+
+        return $this->redirect($this->generateUrl('profesional_files'));
+
     }
 
     /**
