@@ -27,7 +27,7 @@ class ProfessionalEventType extends AbstractType
             ))
             ->add('duration','choice', array(
                 'label' => 'Duración de la consulta',
-                'choices' => array('PT15M' => '15 Minutos', 'PT30M' => '30 Minutos', 'PT1H' => '1 Hora')
+                'choices' => array('PT10M' => '10 Minutos', 'PT15M' => '15 Minutos', 'PT30M' => '30 Minutos', 'PT1H' => '1 Hora')
             ))
             ->add('notify', 'choice', array(
                 'label' => '¿Avisar por email al cliente?',
@@ -45,9 +45,12 @@ class ProfessionalEventType extends AbstractType
                 'query_builder' => function(EntityRepository $er) use ($options) {
                     return $er->createQueryBuilder('c')
                         ->where('c.professional = :professional')
-                        ->setParameter('professional', $options['data']->getProfessional()->getId());
+                        ->andWhere('u.enabled = :enabled')
+                        ->leftJoin('c.user', 'u')
+                        ->setParameter('professional', $options['data']->getProfessional()->getId())
+                        ->setParameter('enabled', true);
                 },
-                'property' => 'user.name',
+                //'property' => 'user.name',
                 'label' => 'Cliente asociado a la consulta'
             ))
         ;

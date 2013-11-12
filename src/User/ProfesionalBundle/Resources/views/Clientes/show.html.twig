@@ -93,8 +93,8 @@
         <div class="modal-body separator">
             <h4>A continuación se procedera a eliminar la información de {{ cliente.user.name }} {{ cliente.user.surname }}</h4>
             <p>
-                <a href="{{ path('profesional_clientes_disable', {'idClient': cliente.id }) }}" class="button rounded red">Aceptar, elimina la información</a>
-                <a class="button rounded light-gray" data-dismiss="modal">Cancelar</a>
+                <a href="{{ path('profesional_clientes_disable', {'idClient': cliente.id }) }}" class="btn btn-danger btn-large">Aceptar, elimina la información</a>
+                <a class="btn btn-large" data-dismiss="modal">Cancelar</a>
             </p>
         </div>
 
