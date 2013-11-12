@@ -157,7 +157,7 @@ class Radiografia
     /**
      * @var text
      *
-     * @ORM\Column(name="extra", type="text")
+     * @ORM\Column(name="extra", type="text", nullable=true)
      */
     private $extra;
 

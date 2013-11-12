@@ -8,16 +8,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\DateTime;
 use User\ClientBundle\Entity\Client;
 use User\ClientBundle\Form\ClientType;
 use User\ProfesionalBundle\Entity\Analitica;
 use User\ProfesionalBundle\Entity\Citologia;
 use User\ProfesionalBundle\Entity\Radiografia;
+use User\ProfesionalBundle\Entity\Receta;
 use User\ProfesionalBundle\Entity\Report;
 use User\ProfesionalBundle\Entity\Urodinamico;
 use User\ProfesionalBundle\Form\AnaliticaType;
 use User\ProfesionalBundle\Form\RadiografiaType;
+use User\ProfesionalBundle\Form\RecetaType;
 use User\ProfesionalBundle\Form\ReportType;
 use User\ProfesionalBundle\Form\UrodinamicoType;
 
@@ -282,6 +285,55 @@ class ClientesController extends Controller
     }
 
     /**
+     * @Route("/clientes/add-receta/{idUser}", name="profesional_clientes_add_receta")
+     * @Template()
+     */
+    public function addrecetaAction($idUser)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository('CoreUserBundle:User')->find($idUser);
+        $me = $this->get('security.context')->getToken()->getUser();
+
+
+        $receta = new Receta();
+
+        $receta->setProfessional($me->getProfessional());
+        $receta->setClient($client->getClient());
+
+        $form = $this->createForm(new RecetaType(), $receta);
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+
+
+                $receta->setCreatedAt(new \DateTime());
+                $me->getProfessional()->addReceta($receta);
+                $client->getClient()->addReceta($receta);
+
+                $em->persist($receta);
+                $em->persist($me->getProfessional());
+                $em->persist($client->getClient());
+
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add('notice', 'Receta añadido con éxito. El paciente podrá encontrarlo en las sección recursos');
+
+                return $this->redirect($this->generateUrl('profesional_clientes_show', array('idCliente' => $client->getClient()->getId())));
+
+
+            }
+        }
+
+        return array('form' => $form->createView(), 'cliente' => $client);
+    }
+
+
+    /**
      * @Route("/clientes/add-radiografia/{idUser}", name="profesional_clientes_add_radiografia")
      * @Template()
      */
@@ -393,6 +445,132 @@ class ClientesController extends Controller
             $randomString .= $characters[rand(0, strlen($characters) - 1)];
         }
         return $randomString;
+    }
+
+
+    /**
+     * @Route("/descarga-analitica/{id}", name="professional_recursos_decarga_analitica")
+     */
+    public function recursosdescarganaliticaAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $analitica = $em->getRepository('UserProfesionalBundle:Analitica')->find($id);
+
+        $response = $this->renderView('UserClientBundle:Default:analiticapdf.html.twig', array('analitica' => $analitica, 'paciente' => $user));
+
+        //return new Response($response);
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($response),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="peticion_analitica.pdf"'
+            )
+        );
+
+    }
+
+    /**
+     * @Route("/descarga-citologia/{id}", name="professinal_recursos_decarga_citologia")
+     */
+    public function recursosdescargancitologiaAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $citologia = $em->getRepository('UserProfesionalBundle:Citologia')->find($id);
+
+        $response = $this->renderView('UserClientBundle:Default:citologiapdf.html.twig', array('citologia' => $citologia, 'paciente' => $user));
+
+
+        //return new Response($response);
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($response),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="peticion_citologia.pdf"'
+            )
+        );
+
+    }
+
+    /**
+     * @Route("/descarga-urodinamico/{id}", name="professinal_recursos_decarga_urodinamico")
+     */
+    public function recursosdescargaurodinamicoAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $urodinamico = $em->getRepository('UserProfesionalBundle:Urodinamico')->find($id);
+
+        $response = $this->renderView('UserClientBundle:Default:urodinamicopdf.html.twig', array('urodinamico' => $urodinamico, 'paciente' => $user));
+
+
+        //return new Response($response);
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($response),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="peticion_estudio_urodinamico.pdf"'
+            )
+        );
+
+    }
+
+    /**
+     * @Route("/descarga-radiografia/{id}", name="professinal_recursos_decarga_radiografia")
+     */
+    public function recursosdescargancradiografiaAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $radiografia = $em->getRepository('UserProfesionalBundle:Radiografia')->find($id);
+
+
+        $response = $this->renderView('UserClientBundle:Default:radiografiapdf.html.twig', array('radiografia' => $radiografia, 'paciente' => $user));
+
+
+        //return new Response($response);
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($response),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="peticion_radiografia.pdf"'
+            )
+        );
+
+    }
+
+    /**
+     * @Route("/descarga-receta/{id}", name="professinal_recursos_decarga_receta")
+     */
+    public function recursosdescargarecetaAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $receta = $em->getRepository('UserProfesionalBundle:Receta')->find($id);
+
+        $response = $this->renderView('UserClientBundle:Default:recetapdf.html.twig', array('receta' => $receta, 'paciente' => $user));
+
+
+        //return new Response($response);
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($response),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="peticion_estudio_urodinamico.pdf"'
+            )
+        );
+
     }
 
 

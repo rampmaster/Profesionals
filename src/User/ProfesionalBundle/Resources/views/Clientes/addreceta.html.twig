@@ -1,0 +1,98 @@
+{% set active = 'clientes' %}
+{% extends '::layout.html.twig' %}
+{% form_theme form 'CoreResourcesBundle:Form:fieldsradiografia.html.twig' %}
+{% block extra %}
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.css') }}"/>
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('bundles/coreresources/wyswyg/lib/css/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/coreresources/wyswyg/lib/css/prettify.css') }}"/>
+
+    <style type="text/css" media="screen">
+        .btn.jumbo {
+            font-size: 20px;
+            font-weight: normal;
+            padding: 14px 24px;
+            margin-right: 10px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+        }
+
+
+    </style>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/coreresources/js/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/wysihtml5-0.3.0.js') }}"></script>
+
+    <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/prettify.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/wyswyg/lib/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/wyswyg/bootstrap-wysihtml5-0.0.2.js') }}"></script>
+    <script src="{{ asset('bundles/coreresources/wyswyg/lib/bootstrap-wysihtml5.es-ES.js') }}"></script>
+
+    <script>
+        $('.textarea').wysihtml5({
+            "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+            "emphasis": true, //Italics, bold, etc. Default true
+            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": false, //Button which allows you to edit the generated HTML. Default false
+            "link": false, //Button to insert a link. Default true
+            "image": false, //Button to insert an image. Default true,
+            "color": false, //Button to change color of font
+            "locale": "es-ES"
+        });
+    </script>
+
+{% endblock %}
+{% block panel %}<br>
+    <style>
+        .form-horizontal .control-label {
+            width: 200px;
+        }
+    </style>
+
+    <h5 class="widget-name"><i class="icon-hospital"></i>Añadir receta para paciente</h5>
+    <div class="span12">
+        <div class="box">
+
+            <form method="post" class="form form-horizontal" {{ form_enctype(form) }}>
+                <fieldset>
+
+                    <!-- General form elements -->
+                    <div class="widget row-fluid">
+
+                        <div class="well">
+
+                            <div class="row">
+                                <div class="span12">
+                                    {{ form_row(form.diagnostico) }}
+                                </div>
+                            </div>
+
+
+                            {{ form_widget(form) }}
+                            {{ form_rest(form) }}
+
+                            <div style="clear:both"></div>
+                        </div>
+                    </div>
+                    <!-- /general form elements -->
+
+                </fieldset>
+                <div style="text-align:center">
+                    <input type="submit" class="btn btn-success btn-large" value="Registrar Receta">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block section_nav %}
+    <ul class="round-buttons">
+        <li><div class="depth" style="background-color: rgb(166, 241, 53);"><a href="{{ path('profesional_clientes_show', {'idCliente': cliente.client.id}) }}" data-toggle="tooltip" title="Volver"><i class="icon-arrow-left"></i> Volver<strong></strong></a></div></li>
+    </ul>
+
+{% endblock %}

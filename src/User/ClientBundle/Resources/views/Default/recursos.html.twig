@@ -10,6 +10,29 @@
             <div class="widget">
                 <div class="navbar">
                     <div class="navbar-inner">
+                        <h6><i class="icon-cog"></i>Recetas</h6>
+                    </div>
+                </div>
+                <div class="well body">
+
+                    {% if app.user.client.recetas is not empty %}
+                        <ul style="list-style: none">
+                            {% for receta in app.user.client.recetas %}
+                                <li><a class="btn" href="{{ path('client_recursos_decarga_receta', { 'id': receta.id}) }}">Descargar</a> Peticion de receta expedida el dia {{ receta.createdAt|date('d/m/Y') }} </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <code>No tienes recetas registradas</code>
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+
+            <div class="widget">
+                <div class="navbar">
+                    <div class="navbar-inner">
                         <h6><i class="icon-cog"></i>Analiticas</h6>
                     </div>
                 </div>

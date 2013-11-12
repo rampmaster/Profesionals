@@ -134,6 +134,11 @@ class Professional
      */
     private $urodinamicos;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Receta", mappedBy="professional")
+     */
+    private $recetas;
+
 
 
     /**
@@ -630,5 +635,38 @@ class Professional
     public function getUrodinamicos()
     {
         return $this->urodinamicos;
+    }
+
+    /**
+     * Add recetas
+     *
+     * @param \User\ProfesionalBundle\Entity\Receta $recetas
+     * @return Professional
+     */
+    public function addReceta(\User\ProfesionalBundle\Entity\Receta $recetas)
+    {
+        $this->recetas[] = $recetas;
+
+        return $this;
+    }
+
+    /**
+     * Remove recetas
+     *
+     * @param \User\ProfesionalBundle\Entity\Receta $recetas
+     */
+    public function removeReceta(\User\ProfesionalBundle\Entity\Receta $recetas)
+    {
+        $this->recetas->removeElement($recetas);
+    }
+
+    /**
+     * Get recetas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRecetas()
+    {
+        return $this->recetas;
     }
 }

@@ -44,26 +44,163 @@
 
                     <tr>
                         <td>Peticion de analiticas:</td>
-                        <td>{{ cliente.analiticas|length }}</td>
+                        <td> <a href="#modalAnaliticas" role="button" data-toggle="modal">{{ cliente.analiticas|length }}</a></td>
                     </tr>
 
                     <tr>
                         <td>Peticion de radiologias:</td>
-                        <td>{{ cliente.radiografias|length }}</td>
+                        <td><a href="#modalRadiografia" role="button" data-toggle="modal">{{ cliente.radiografias|length }}</a></td>
                     </tr>
                     <tr>
                         <td>Peticion de citologias:</td>
-                        <td>{{ cliente.citologias|length }}</td>
+                        <td> <a href="#modalCitologias" role="button" data-toggle="modal">{{ cliente.citologias|length }}</a></td>
                     </tr>
 
                     <tr>
                         <td>Peticion de estudios Urodinámico:</td>
-                        <td>{{ cliente.urodinamicos|length }}</td>
+                        <td><a href="#modalUrodinamico" role="button" data-toggle="modal">{{ cliente.urodinamicos|length }}</a></td>
                     </tr>
+
+                    <tr>
+                        <td>Peticion Recetas:</td>
+                        <td>
+                            <a href="#modalRecetas" role="button" data-toggle="modal">{{ cliente.recetas|length }}</a>
+                            </td>
+                    </tr>
+
                     </tbody>
                 </table>
 
             </div>
+
+            <!-- Modal -->
+            <div id="modalRecetas" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Lista de recetas</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {% if cliente.recetas is not empty %}
+                          <ul style="list-style: none">
+                        {% for receta in cliente.recetas %}
+                            <li><a class="btn" href="{{ path('professinal_recursos_decarga_receta', { 'id': receta.id}) }}">Descargar</a> Peticion de receta expedida el dia {{ receta.createdAt|date('d/m/Y') }} </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <code>No tienes recetas registradas</code>
+                    {% endif %}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div id="modalAnaliticas" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Lista de analiticas</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {% if cliente.analiticas is not empty %}
+                    <ul style="list-style: none">
+                        {% for analitica in cliente.analiticas %}
+                            <li><a class="btn" href="{{ path('professional_recursos_decarga_analitica', { 'id': analitica.id}) }}">Descargar</a> Peticion de analitica expedida el dia {{ analitica.createdAt|date('d/m/Y') }} </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <code>No tienes analiticas registradas</code>
+                    {% endif %}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+
+                </div>
+            </div>
+
+
+            <!-- Modal -->
+            <div id="modalCitologias" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Lista de citologias</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {% if cliente.citologias is not empty %}
+                    <ul style="list-style: none">
+                        {% for citologia in cliente.citologias %}
+                            <li><a class="btn" href="{{ path('professinal_recursos_decarga_citologia', { 'id': citologia.id}) }}">Descargar</a> Peticion de citologia expedida el dia {{ citologia.createdAt|date('d/m/Y') }} </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <code>No tienes citologias registradas</code>
+                    {% endif %}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+
+                </div>
+            </div>
+
+
+            <!-- Modal -->
+            <div id="modalRadiografia" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Lista de radiografias</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {% if cliente.radiografias is not empty %}
+                    <ul style="list-style: none">
+                        {% for radio in cliente.radiografias %}
+                            <li><a class="btn" href="{{ path('professinal_recursos_decarga_radiografia', { 'id': radio.id}) }}">Descargar</a> Peticion de radiografia expedida el dia {{ radio.createdAt|date('d/m/Y') }} </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <code>No tienes radiografias registradas</code>
+                    {% endif %}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div id="modalUrodinamico" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Lista de estudios urodinamicos</h3>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        {% if cliente.urodinamicos is not empty %}
+                    <ul style="list-style: none">
+                        {% for uro in cliente.urodinamicos %}
+                            <li><a class="btn" href="{{ path('professinal_recursos_decarga_urodinamico', { 'id': uro.id}) }}">Descargar</a> Peticion de estudio urodinámico expedida el dia {{ uro.createdAt|date('d/m/Y') }} </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <code>No tienes estudios urodinamicos registradas</code>
+                    {% endif %}
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+
+                </div>
+            </div>
+
+
 
             <div class="span6">
                 <h5 class="widget-name"><i class="icon-table"></i> Recursos</h5>
@@ -75,6 +212,9 @@
 
                 <a href="{{ path('profesional_clientes_add_urodinamico', {'idUser': cliente.user.id}) }}" class="btn">Añadir
                     estudio Urodinámico</a>
+
+                <a href="{{ path('profesional_clientes_add_receta', {'idUser': cliente.user.id}) }}" class="btn">Añadir
+                    Receta</a>
 
 
                 <!-- Button to trigger modal -->

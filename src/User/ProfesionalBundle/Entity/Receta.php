@@ -10,21 +10,27 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Urodinamico
+class Receta
 {
 
     /**
-     * @ORM\ManyToOne(targetEntity="Professional", inversedBy="urodinamicos")
+     * @ORM\ManyToOne(targetEntity="Professional", inversedBy="recetas")
      * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
      */
     private $professional;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\User\ClientBundle\Entity\Client", inversedBy="urodinamicos")
+     * @ORM\ManyToOne(targetEntity="\User\ClientBundle\Entity\Client", inversedBy="recetas")
      * @ORM\JoinColumn(name="professional_id", referencedColumnName="id")
      */
     private $client;
 
+    /**
+     * @var text
+     *
+     * @ORM\Column(name="diagnostico", type="text", nullable=true)
+     */
+    private $diagnostico;
 
     /**
      * @var integer
@@ -41,13 +47,6 @@ class Urodinamico
      * @ORM\Column(name="created_at", type="datetime")
      */
     private $createdAt;
-
-    /**
-     * @var text
-     *
-     * @ORM\Column(name="diagnostico", type="text", nullable=true)
-     */
-    private $diagnostico;
 
 
     /**
@@ -133,7 +132,7 @@ class Urodinamico
      * Set diagnostico
      *
      * @param string $diagnostico
-     * @return Urodinamico
+     * @return Receta
      */
     public function setDiagnostico($diagnostico)
     {

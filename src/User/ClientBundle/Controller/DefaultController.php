@@ -183,6 +183,36 @@ class DefaultController extends Controller
 
     }
 
+
+    /**
+     * @Route("/descarga-receta/{id}", name="client_recursos_decarga_receta")
+     */
+    public function recursosdescargarecetaAction($id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $receta = $em->getRepository('UserProfesionalBundle:Receta')->find($id);
+
+        if($receta->getClient()->getId() != $user->getClient()->getId()){
+            throw new \Exception('Esta radiografia no te pertenece');
+        }
+
+        $response = $this->renderView('UserClientBundle:Default:recetapdf.html.twig', array('receta' => $receta, 'paciente' => $user));
+
+
+        //return new Response($response);
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($response),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="peticion_estudio_urodinamico.pdf"'
+            )
+        );
+
+    }
+
     /**
      * @Route("/files", name="client_files")
      * @Template()
