@@ -207,7 +207,7 @@ class DefaultController extends Controller
             200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="peticion_estudio_urodinamico.pdf"'
+                'Content-Disposition'   => 'attachment; filename="receta.pdf"'
             )
         );
 
