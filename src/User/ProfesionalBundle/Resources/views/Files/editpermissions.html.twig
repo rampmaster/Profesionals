@@ -46,7 +46,8 @@
             </div>
         </fieldset>
         <div style="text-align: center">
-            <input type="submit" class="btn btn-success" value="Editar">
+            <a href="{{ path('profesional_files_remove', {'id': file.id}) }}" class="btn btn-danger btn-large">Eliminar archivo</a>
+            <input type="submit" class="btn btn-success btn-large" value="Editar">
         </div>
     </form>
 
