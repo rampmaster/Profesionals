@@ -145,7 +145,7 @@
         {% if radiografia.extra is not null %}
             <h2>Información extra</h2>
             <br><br>
-            {{ radiografia.extra }}
+            {{ radiografia.extra|raw }}
 
         {% endif %}
 

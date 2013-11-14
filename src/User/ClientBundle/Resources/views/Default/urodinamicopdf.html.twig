@@ -100,7 +100,7 @@
 
         <h3 style="margin-bottom: 40px; margin-top: 40px; text-align: center">Ruego practiquen Estudio Urodinámico al paciente <br> {{ paciente.name }} {{ paciente.surname }}</h3>
 
-        <h4>Diagnostico: {{ urodinamico.diagnostico }}</h4>
+        <h4>Diagnostico: {{ urodinamico.diagnostico|raw }}</h4>
         <div style="float: right">
             <h4>Barcelona, {{ urodinamico.createdAt|date('d/m/Y') }}</h4>
         </div>

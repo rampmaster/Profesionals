@@ -100,7 +100,7 @@
 
         <h3 style="margin-bottom: 40px; margin-top: 40px; text-align: center">Receta para el paciente {{ paciente.name }} {{ paciente.surname }}</h3>
 
-        <h4>{{ receta.diagnostico }}</h4>
+        <h4>{{ receta.diagnostico|raw }}</h4>
         <div style="float: right">
             <h4>Barcelona, {{ receta.createdAt|date('d/m/Y') }}</h4><br>
             <img src="http://{{ app.request.host }}{{ asset('bundles/coreresources/images/firma.png') }}">
