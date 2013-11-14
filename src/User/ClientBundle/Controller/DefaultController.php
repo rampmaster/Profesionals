@@ -49,6 +49,7 @@ class DefaultController extends Controller
                 $user->upload();
                 $this->getDoctrine()->getManager()->persist($user);
                 $this->getDoctrine()->getManager()->flush();
+                $this->get('session')->getFlashBag()->add('notice', 'Datos actualizados con éxito.');
             }
         }
 
