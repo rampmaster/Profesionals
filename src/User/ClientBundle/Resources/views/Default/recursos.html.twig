@@ -3,37 +3,14 @@
 
 {% block panel %}
 
-    <h3 class="widget-name" style="margin-top: 40px">Recursos descargables</h3>
+    <h3 class="widget-name" style="margin-top: 40px">Exploraciones para descargar</h3>
     <div class="row-fluid">
         <div class="span12">
 
-            <div class="widget">
+              <div class="widget">
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <h6><i class="icon-cog"></i>Recetas</h6>
-                    </div>
-                </div>
-                <div class="well body">
-
-                    {% if app.user.client.recetas is not empty %}
-                        <ul style="list-style: none">
-                            {% for receta in app.user.client.recetas %}
-                                <li><a class="btn" href="{{ path('client_recursos_decarga_receta', { 'id': receta.id}) }}">Descargar</a> Peticion de receta expedida el dia {{ receta.createdAt|date('d/m/Y') }} </li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <code>No tienes recetas registradas</code>
-                    {% endif %}
-
-
-                </div>
-            </div>
-
-
-            <div class="widget">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <h6><i class="icon-cog"></i>Analiticas</h6>
+                        <h6><i class="icon-bar-chart"></i>Analiticas</h6>
                     </div>
                 </div>
                 <div class="well body">
@@ -55,7 +32,7 @@
             <div class="widget">
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <h6><i class="icon-cog"></i>Citologias</h6>
+                        <h6><i class="icon-beaker"></i>Citologias</h6>
                     </div>
                 </div>
                 <div class="well body">
@@ -100,7 +77,7 @@
             <div class="widget">
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <h6><i class="icon-cog"></i>Radiografias</h6>
+                        <h6><i class="icon-camera"></i>Radiografias</h6>
                     </div>
                 </div>
                 <div class="well body">

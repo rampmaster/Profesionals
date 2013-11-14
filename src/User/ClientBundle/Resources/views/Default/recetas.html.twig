@@ -1,0 +1,41 @@
+{% set active = 'settings' %}
+{% extends '::layout.html.twig' %}
+
+{% block panel %}
+
+    <h3 class="widget-name" style="margin-top: 40px">Recetas para descargar</h3>
+    <div class="row-fluid">
+        <div class="span12">
+
+            <div class="widget">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <h6><i class="icon-envelope"></i>Recetas</h6>
+                    </div>
+                </div>
+                <div class="well body">
+
+                    {% if app.user.client.recetas is not empty %}
+                        <ul style="list-style: none">
+                            {% for receta in app.user.client.recetas %}
+                                <li><a class="btn"
+                                       href="{{ path('client_recursos_decarga_receta', { 'id': receta.id}) }}">Descargar</a>
+                                    Peticion de receta expedida el dia {{ receta.createdAt|date('d/m/Y') }} </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <code>No tienes recetas registradas</code>
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+{% endblock %}
+

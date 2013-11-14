@@ -50,6 +50,7 @@ function selectGuessUser(target){
 }
 
 function callShowUser(target) {
+
     console.log(target);
     $("#callUsers").html('');
     callVideoconferenceToLoadingView(2);
@@ -84,14 +85,15 @@ function callShowUser(target) {
                 
                 $("#infoUser .padded .second").html(content);
                 $("#infoUser .padded .first img").attr("src", obj.profile_image);
-                $("#infoUser").fadeIn();
-                $("#infoUser").removeClass('hide');
+                //$("#infoUser").fadeIn();
+                //$("#infoUser").removeClass('hide');
                 $("#callUser").fadeIn();
                 $("#callUser").removeClass('hide');
                 callVideoconferenceToLoadView(2)
 
             });
     }
+
 }
 
 function callHideCaller(user) {

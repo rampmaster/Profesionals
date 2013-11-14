@@ -86,6 +86,7 @@
         <ul style="list-style: none">
             {% for receta in cliente.recetas %}
                 <li><a class="btn" href="{{ path('professinal_recursos_decarga_receta', { 'id': receta.id}) }}">Descargar</a>
+                    <a class="btn btn-danger" href="{{ path('profesional_clientes_delete_resources', { 'nameResource': 'Receta','id': receta.id}) }}">Eliminar</a>
                     Peticion de receta expedida el dia {{ receta.createdAt|date('d/m/Y') }} </li>
             {% endfor %}
         </ul>
@@ -113,6 +114,7 @@
         <ul style="list-style: none">
             {% for analitica in cliente.analiticas %}
                 <li><a class="btn" href="{{ path('professional_recursos_decarga_analitica', { 'id': analitica.id}) }}">Descargar</a>
+                    <a class="btn btn-danger" href="{{ path('profesional_clientes_delete_resources', { 'nameResource': 'Analitica','id': analitica.id}) }}">Eliminar</a>
                     Peticion de analitica expedida el dia {{ analitica.createdAt|date('d/m/Y') }} </li>
             {% endfor %}
         </ul>
@@ -140,7 +142,9 @@
             {% if cliente.citologias is not empty %}
         <ul style="list-style: none">
             {% for citologia in cliente.citologias %}
-                <li><a class="btn" href="{{ path('professinal_recursos_decarga_citologia', { 'id': citologia.id}) }}">Descargar</a>
+                <li>
+                    <a class="btn" href="{{ path('professinal_recursos_decarga_citologia', { 'id': citologia.id}) }}">Descargar</a>
+                    <a class="btn btn-danger" href="{{ path('profesional_clientes_delete_resources', { 'nameResource': 'Citologia','id': citologia.id}) }}">Eliminar</a>
                     Peticion de citologia expedida el dia {{ citologia.createdAt|date('d/m/Y') }} </li>
             {% endfor %}
         </ul>
@@ -169,6 +173,7 @@
         <ul style="list-style: none">
             {% for radio in cliente.radiografias %}
                 <li><a class="btn" href="{{ path('professinal_recursos_decarga_radiografia', { 'id': radio.id}) }}">Descargar</a>
+                    <a class="btn btn-danger" href="{{ path('profesional_clientes_delete_resources', { 'nameResource': 'Radiografia','id': radio.id}) }}">Eliminar</a>
                     Peticion de radiografia expedida el dia {{ radio.createdAt|date('d/m/Y') }} </li>
             {% endfor %}
         </ul>
@@ -196,6 +201,7 @@
         <ul style="list-style: none">
             {% for uro in cliente.urodinamicos %}
                 <li><a class="btn" href="{{ path('professinal_recursos_decarga_urodinamico', { 'id': uro.id}) }}">Descargar</a>
+                    <a class="btn btn-danger" href="{{ path('profesional_clientes_delete_resources', { 'nameResource': 'Urodinamico','id': uro.id}) }}">Eliminar</a>
                     Peticion de estudio urodinámico expedida el dia {{ uro.createdAt|date('d/m/Y') }} </li>
             {% endfor %}
         </ul>

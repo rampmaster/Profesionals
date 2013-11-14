@@ -573,5 +573,27 @@ class ClientesController extends Controller
 
     }
 
+    /**
+     * @Route("/clientes/delete-resources/{nameResource}/{id}", name="profesional_clientes_delete_resources")
+     * @Template()
+     */
+    public function deleteresourceAction($nameResource, $id)
+    {
+
+        if($nameResource == 'Receta' || $nameResource == "Citologia" || $nameResource == "Analitica" || $nameResource == "Urodinamico" || $nameResource == "Radiografia"){
+
+            $em = $this->getDoctrine()->getManager();
+            $resource = $em->getRepository("UserProfesionalBundle:".$nameResource)->find($id);
+            $clientId = $resource->getClient()->getId();
+            $em->remove($resource);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('notice', 'Recurso eliminado con éxito');
+
+            return $this->redirect($this->generateUrl("profesional_clientes_show", array('idCliente' => $clientId)));
+        }else{
+            throw new \Exception('Bad request');
+        }
+    }
+
 
 }

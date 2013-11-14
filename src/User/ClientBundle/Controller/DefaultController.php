@@ -70,6 +70,18 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/recetas", name="client_recetas")
+     * @Template()
+     */
+    public function recetasAction()
+    {
+
+
+        return array();
+    }
+
+
+    /**
      * @Route("/descarga-analitica/{id}", name="client_recursos_decarga_analitica")
      */
     public function recursosdescarganaliticaAction($id)
