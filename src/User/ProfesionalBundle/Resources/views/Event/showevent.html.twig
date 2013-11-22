@@ -81,6 +81,31 @@
                     <td>{{ entity.startDate|date('H:i') }}</td>
                 </tr>
 
+                <tr>
+                    <td>Eliminar evento:</td>
+                    <td>
+                        <!-- Button to trigger modal -->
+                        <a href="#deleteEventModal" role="button" class="btn btn-warning" data-toggle="modal">Eliminar</a>
+
+                        <!-- Modal -->
+                        <div id="deleteEventModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="myModalLabel">Confirmación</h3>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Seguro que deseas eliminar el evento?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                <a href="{{ path('profesional_delete_event', { "idEvent": entity.id}) }}" class="btn btn-danger">Si, seguro</a>
+                            </div>
+                        </div>
+                    </td>
+
+
+                </tr>
+
 
                 </tbody>
                 <tfoot>
