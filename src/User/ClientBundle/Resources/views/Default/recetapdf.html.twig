@@ -98,10 +98,10 @@
             </tr>
         </table>
 
-        <h3 style="margin-bottom: 40px; margin-top: 40px; text-align: center">Receta para el paciente {{ paciente.name }} {{ paciente.surname }}</h3>
+        <h3 style="margin-bottom: 100px; margin-top: 100px; text-align: center">Receta para el paciente {{ paciente.name }} {{ paciente.surname }}</h3>
 
         <h4>{{ receta.diagnostico|raw }}</h4>
-        <div style="float: right">
+        <div style="float: right; margin-top: 40px">
             <h4>Barcelona, {{ receta.createdAt|date('d/m/Y') }}</h4><br>
             <img src="http://{{ app.request.host }}{{ asset('bundles/coreresources/images/firma.png') }}">
         </div>

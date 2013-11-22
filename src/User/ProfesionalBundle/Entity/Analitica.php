@@ -125,6 +125,13 @@ class Analitica
     /**
      * @var boolean
      *
+     * @ORM\Column(name="colesterolTotal", type="boolean")
+     */
+    private $colesterolTotal;
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="glicemia", type="boolean")
      */
     private $glicemia;
@@ -393,8 +400,161 @@ class Analitica
     private $orina_24h_oxalatos;
 
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="rh", type="boolean")
+     */
+    private $rh;
 
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="reticulocitos", type="boolean")
+     */
+    private $reticulocitos;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="sideremia", type="boolean")
+     */
+    private $sideremia;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="ferritina", type="boolean")
+     */
+    private $ferritina;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="transferrina", type="boolean")
+     */
+    private $transferrina;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="b12", type="boolean")
+     */
+    private $b12;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="acido_folico", type="boolean")
+     */
+    private $acido_folico;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="fibrinogeno", type="boolean")
+     */
+    private $fibrinogeno;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="proteinograma", type="boolean")
+     */
+    private $proteinograma;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="dhea", type="boolean")
+     */
+    private $dhea;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="shbg", type="boolean")
+     */
+    private $shbg;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="gh", type="boolean")
+     */
+    private $gh;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="acth", type="boolean")
+     */
+    private $acth;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="cortisol", type="boolean")
+     */
+    private $cortisol;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="aldosterona", type="boolean")
+     */
+    private $aldosterona;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="anglotensina", type="boolean")
+     */
+    private $anglotensina;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="vitamina_D", type="boolean")
+     */
+    private $vitamina_D;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="vitamina_D3", type="boolean")
+     */
+    private $vitamina_D3;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="ca_153", type="boolean")
+     */
+    private $ca_153;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="ca_199", type="boolean")
+     */
+    private $ca_199;
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="ca_125", type="boolean")
+     */
+    private $ca_125;
+
+    
     /**
      * Get id
      *
@@ -936,26 +1096,26 @@ class Analitica
     }
 
     /**
-     * Set prl
+     * Set colesteros_total
      *
-     * @param boolean $prl
+     * @param boolean $colesteros_total
      * @return Analitica
      */
-    public function setPrl($prl)
+    public function setcolesteros_total($colesteros_total)
     {
-        $this->prl = $prl;
+        $this->colesteros_total = $colesteros_total;
 
         return $this;
     }
 
     /**
-     * Get prl
+     * Get colesteros_total
      *
      * @return boolean 
      */
-    public function getPrl()
+    public function getcolesteros_total()
     {
-        return $this->prl;
+        return $this->colesteros_total;
     }
 
     /**
@@ -1600,5 +1760,557 @@ class Analitica
     public function getCreatedAt()
     {
         return $this->created_at;
+    }
+
+    /**
+     * Set colesteros_total
+     *
+     * @param boolean $colesterosTotal
+     * @return Analitica
+     */
+    public function setColesterosTotal($colesterosTotal)
+    {
+        $this->colesteros_total = $colesterosTotal;
+
+        return $this;
+    }
+
+    /**
+     * Get colesteros_total
+     *
+     * @return boolean 
+     */
+    public function getColesterosTotal()
+    {
+        return $this->colesteros_total;
+    }
+
+    /**
+     * Set rh
+     *
+     * @param boolean $rh
+     * @return Analitica
+     */
+    public function setRh($rh)
+    {
+        $this->rh = $rh;
+
+        return $this;
+    }
+
+    /**
+     * Get rh
+     *
+     * @return boolean 
+     */
+    public function getRh()
+    {
+        return $this->rh;
+    }
+
+    /**
+     * Set reticulocitos
+     *
+     * @param boolean $reticulocitos
+     * @return Analitica
+     */
+    public function setReticulocitos($reticulocitos)
+    {
+        $this->reticulocitos = $reticulocitos;
+
+        return $this;
+    }
+
+    /**
+     * Get reticulocitos
+     *
+     * @return boolean 
+     */
+    public function getReticulocitos()
+    {
+        return $this->reticulocitos;
+    }
+
+    /**
+     * Set sideremia
+     *
+     * @param boolean $sideremia
+     * @return Analitica
+     */
+    public function setSideremia($sideremia)
+    {
+        $this->sideremia = $sideremia;
+
+        return $this;
+    }
+
+    /**
+     * Get sideremia
+     *
+     * @return boolean 
+     */
+    public function getSideremia()
+    {
+        return $this->sideremia;
+    }
+
+    /**
+     * Set ferritina
+     *
+     * @param boolean $ferritina
+     * @return Analitica
+     */
+    public function setFerritina($ferritina)
+    {
+        $this->ferritina = $ferritina;
+
+        return $this;
+    }
+
+    /**
+     * Get ferritina
+     *
+     * @return boolean 
+     */
+    public function getFerritina()
+    {
+        return $this->ferritina;
+    }
+
+    /**
+     * Set transferrina
+     *
+     * @param boolean $transferrina
+     * @return Analitica
+     */
+    public function setTransferrina($transferrina)
+    {
+        $this->transferrina = $transferrina;
+
+        return $this;
+    }
+
+    /**
+     * Get transferrina
+     *
+     * @return boolean 
+     */
+    public function getTransferrina()
+    {
+        return $this->transferrina;
+    }
+
+    /**
+     * Set b12
+     *
+     * @param boolean $b12
+     * @return Analitica
+     */
+    public function setB12($b12)
+    {
+        $this->b12 = $b12;
+
+        return $this;
+    }
+
+    /**
+     * Get b12
+     *
+     * @return boolean 
+     */
+    public function getB12()
+    {
+        return $this->b12;
+    }
+
+    /**
+     * Set acido_folico
+     *
+     * @param boolean $acidoFolico
+     * @return Analitica
+     */
+    public function setAcidoFolico($acidoFolico)
+    {
+        $this->acido_folico = $acidoFolico;
+
+        return $this;
+    }
+
+    /**
+     * Get acido_folico
+     *
+     * @return boolean 
+     */
+    public function getAcidoFolico()
+    {
+        return $this->acido_folico;
+    }
+
+    /**
+     * Set fibrinogeno
+     *
+     * @param boolean $fibrinogeno
+     * @return Analitica
+     */
+    public function setFibrinogeno($fibrinogeno)
+    {
+        $this->fibrinogeno = $fibrinogeno;
+
+        return $this;
+    }
+
+    /**
+     * Get fibrinogeno
+     *
+     * @return boolean 
+     */
+    public function getFibrinogeno()
+    {
+        return $this->fibrinogeno;
+    }
+
+    /**
+     * Set proteinograma
+     *
+     * @param boolean $proteinograma
+     * @return Analitica
+     */
+    public function setProteinograma($proteinograma)
+    {
+        $this->proteinograma = $proteinograma;
+
+        return $this;
+    }
+
+    /**
+     * Get proteinograma
+     *
+     * @return boolean 
+     */
+    public function getProteinograma()
+    {
+        return $this->proteinograma;
+    }
+
+    /**
+     * Set dhea
+     *
+     * @param boolean $dhea
+     * @return Analitica
+     */
+    public function setDhea($dhea)
+    {
+        $this->dhea = $dhea;
+
+        return $this;
+    }
+
+    /**
+     * Get dhea
+     *
+     * @return boolean 
+     */
+    public function getDhea()
+    {
+        return $this->dhea;
+    }
+
+    /**
+     * Set shbg
+     *
+     * @param boolean $shbg
+     * @return Analitica
+     */
+    public function setShbg($shbg)
+    {
+        $this->shbg = $shbg;
+
+        return $this;
+    }
+
+    /**
+     * Get shbg
+     *
+     * @return boolean 
+     */
+    public function getShbg()
+    {
+        return $this->shbg;
+    }
+
+    /**
+     * Set gh
+     *
+     * @param boolean $gh
+     * @return Analitica
+     */
+    public function setGh($gh)
+    {
+        $this->gh = $gh;
+
+        return $this;
+    }
+
+    /**
+     * Get gh
+     *
+     * @return boolean 
+     */
+    public function getGh()
+    {
+        return $this->gh;
+    }
+
+    /**
+     * Set acth
+     *
+     * @param boolean $acth
+     * @return Analitica
+     */
+    public function setActh($acth)
+    {
+        $this->acth = $acth;
+
+        return $this;
+    }
+
+    /**
+     * Get acth
+     *
+     * @return boolean 
+     */
+    public function getActh()
+    {
+        return $this->acth;
+    }
+
+    /**
+     * Set cortisol
+     *
+     * @param boolean $cortisol
+     * @return Analitica
+     */
+    public function setCortisol($cortisol)
+    {
+        $this->cortisol = $cortisol;
+
+        return $this;
+    }
+
+    /**
+     * Get cortisol
+     *
+     * @return boolean 
+     */
+    public function getCortisol()
+    {
+        return $this->cortisol;
+    }
+
+    /**
+     * Set aldosterona
+     *
+     * @param boolean $aldosterona
+     * @return Analitica
+     */
+    public function setAldosterona($aldosterona)
+    {
+        $this->aldosterona = $aldosterona;
+
+        return $this;
+    }
+
+    /**
+     * Get aldosterona
+     *
+     * @return boolean 
+     */
+    public function getAldosterona()
+    {
+        return $this->aldosterona;
+    }
+
+    /**
+     * Set anglotensina
+     *
+     * @param boolean $anglotensina
+     * @return Analitica
+     */
+    public function setAnglotensina($anglotensina)
+    {
+        $this->anglotensina = $anglotensina;
+
+        return $this;
+    }
+
+    /**
+     * Get anglotensina
+     *
+     * @return boolean 
+     */
+    public function getAnglotensina()
+    {
+        return $this->anglotensina;
+    }
+
+    /**
+     * Set vitamina_D
+     *
+     * @param boolean $vitaminaD
+     * @return Analitica
+     */
+    public function setVitaminaD($vitaminaD)
+    {
+        $this->vitamina_D = $vitaminaD;
+
+        return $this;
+    }
+
+    /**
+     * Get vitamina_D
+     *
+     * @return boolean 
+     */
+    public function getVitaminaD()
+    {
+        return $this->vitamina_D;
+    }
+
+    /**
+     * Set vitamina_D3
+     *
+     * @param boolean $vitaminaD3
+     * @return Analitica
+     */
+    public function setVitaminaD3($vitaminaD3)
+    {
+        $this->vitamina_D3 = $vitaminaD3;
+
+        return $this;
+    }
+
+    /**
+     * Get vitamina_D3
+     *
+     * @return boolean 
+     */
+    public function getVitaminaD3()
+    {
+        return $this->vitamina_D3;
+    }
+
+    /**
+     * Set ca_153
+     *
+     * @param boolean $ca153
+     * @return Analitica
+     */
+    public function setCa153($ca153)
+    {
+        $this->ca_153 = $ca153;
+
+        return $this;
+    }
+
+    /**
+     * Get ca_153
+     *
+     * @return boolean 
+     */
+    public function getCa153()
+    {
+        return $this->ca_153;
+    }
+
+    /**
+     * Set ca_199
+     *
+     * @param boolean $ca199
+     * @return Analitica
+     */
+    public function setCa199($ca199)
+    {
+        $this->ca_199 = $ca199;
+
+        return $this;
+    }
+
+    /**
+     * Get ca_199
+     *
+     * @return boolean 
+     */
+    public function getCa199()
+    {
+        return $this->ca_199;
+    }
+
+    /**
+     * Set ca_125
+     *
+     * @param boolean $ca125
+     * @return Analitica
+     */
+    public function setCa125($ca125)
+    {
+        $this->ca_125 = $ca125;
+
+        return $this;
+    }
+
+    /**
+     * Get ca_125
+     *
+     * @return boolean 
+     */
+    public function getCa125()
+    {
+        return $this->ca_125;
+    }
+
+    /**
+     * Set prl
+     *
+     * @param boolean $prl
+     * @return Analitica
+     */
+    public function setPrl($prl)
+    {
+        $this->prl = $prl;
+
+        return $this;
+    }
+
+    /**
+     * Get prl
+     *
+     * @return boolean 
+     */
+    public function getPrl()
+    {
+        return $this->prl;
+    }
+
+    /**
+     * Set colesterolTotal
+     *
+     * @param boolean $colesterolTotal
+     * @return Analitica
+     */
+    public function setColesterolTotal($colesterolTotal)
+    {
+        $this->colesterolTotal = $colesterolTotal;
+
+        return $this;
+    }
+
+    /**
+     * Get colesterolTotal
+     *
+     * @return boolean 
+     */
+    public function getColesterolTotal()
+    {
+        return $this->colesterolTotal;
     }
 }

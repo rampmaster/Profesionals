@@ -101,18 +101,28 @@
         <h3 style="margin-bottom: 40px; margin-top: 40px">Sr/Sra {{ paciente.name }} {{ paciente.surname }}</h3>
 
         <h2>Analitica en sangre</h2>
-
         <table width="960px" class="analitica-sangre">
             <tr>
                 <td valign="top" width="33%">
                     <ul style="list-style: none">
                         <li>HEMOGRAMA COMPLETO {% if analitica.hemogramaCompleto %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Grupo Sanguineo {% if analitica.gruposanguineo %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>RH {% if analitica.rh %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Sideremia {% if analitica.sideremia %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Ferritina {% if analitica.ferritina %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Transferrina {% if analitica.transferrina %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Vit. B12 {% if analitica.b12 %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Ácido Fólico {% if analitica.acidoFolico %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>P. COAGULACION {% if analitica.plaquetas %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Fibrinógeno {% if analitica.fibrinogeno %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>URICEMIA {% if analitica.uricemia %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>CREATININA {% if analitica.creatinina %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>PROTEINAS {% if analitica.proteinas %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Proteinograma {% if analitica.proteinograma %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>COLESTEROL Total {% if analitica.colesterolTotal %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>COLESTEROL HDL {% if analitica.colesterolHdl %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>COLESTEROL LDL {% if analitica.colesterolLdl %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>TG {% if analitica.tg %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>GLICEMIA {% if analitica.glicemia %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>PROTEINA C REACTIVA {% if analitica.proteinaCReactiva %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                     </ul>
@@ -120,7 +130,6 @@
 
                 <td valign="top" width="33%">
                     <ul style="list-style: none">
-                        <li>TG {% if analitica.tg %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>GOT, GPT {% if analitica.gotGpt %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>BT {% if analitica.bt %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>GGT {% if analitica.ggt %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
@@ -133,7 +142,6 @@
                         <li>VSG {% if analitica.vsg %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                     </ul>
                 </td>
-
                 <td valign="top" width="33%">
                     <ul style="list-style: none">
                         <li>PSA Libre {% if analitica.psaLibre %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
@@ -144,9 +152,20 @@
                         <li>PRL {% if analitica.prl %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>Beta-HCG {% if analitica.hcg %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>LDH {% if analitica.ldh %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>CA 153 {% if analitica.ca153 %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>CA 19.9 {% if analitica.ca199 %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>CA 125 {% if analitica.ca125 %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>A-FETOPROTEINA {% if analitica.fetoproteina %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>CEA {% if analitica.cea %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                         <li>TSH, T<sub>3</sub>, T<sub>4</sub> {% if analitica.tsh %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>DHEA {% if analitica.dhea %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>SHBG {% if analitica.shbg %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>GH {% if analitica.gh %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Cortisol {% if analitica.cortisol %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Aldosterona {% if analitica.aldosterona %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Angiotensina {% if analitica.anglotensina %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Vit D {% if analitica.vitaminaD %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
+                        <li>Vit D3 {% if analitica.vitaminaD3 %}<span class="resp-si">X</span>{% else %}<span class="resp-no">-</span>{% endif %}</li>
                     </ul>
                 </td>
             </tr>

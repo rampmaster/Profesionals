@@ -213,8 +213,6 @@ class ClientesController extends Controller
             $form->bind($request);
 
             if ($form->isValid()) {
-
-
                 $analitica->setCreatedAt(new \DateTime());
                 $me->getProfessional()->addAnalitica($analitica);
                 $client->getClient()->addAnalitica($analitica);

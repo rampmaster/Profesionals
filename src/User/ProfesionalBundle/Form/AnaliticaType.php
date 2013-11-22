@@ -17,6 +17,73 @@ class AnaliticaType extends AbstractType
             ->add('plaquetas', null, array(
                 'required' => false, 'label' => 'P. COAGULACION'
             ))
+            ->add('rh', null, array(
+                'required' => false, 'label' => 'RH'
+            ))
+            ->add('reticulocitos', null, array(
+                'required' => false, 'label' => 'Reticulocitos'
+            ))
+            ->add('sideremia', null, array(
+                'required' => false, 'label' => 'Sideremia'
+            ))
+            ->add('ferritina', null, array(
+                'required' => false, 'label' => 'Ferritina'
+            ))
+            ->add('transferrina', null, array(
+                'required' => false, 'label' => 'Transferrina'
+            ))
+            ->add('b12', null, array(
+                'required' => false, 'label' => 'Vit. B12'
+            ))
+            ->add('acido_folico', null, array(
+                'required' => false, 'label' => 'Ácido Fólico'
+            ))
+
+            ->add('fibrinogeno', null, array(
+                'required' => false, 'label' => 'Fibrinógeno'
+            ))
+
+            ->add('proteinograma', null, array(
+                'required' => false, 'label' => 'Proteinograma'
+            ))
+            ->add('dhea', null, array(
+                'required' => false, 'label' => 'DHEA'
+            ))->add('shbg', null, array(
+                'required' => false, 'label' => 'SHNBG'
+            ))
+            ->add('gh', null, array(
+                'required' => false, 'label' => 'GH'
+            ))
+            ->add('acth', null, array(
+                'required' => false, 'label' => 'ACTH'
+            ))
+            ->add('cortisol', null, array(
+                'required' => false, 'label' => 'Cortisol'
+            ))
+            ->add('aldosterona', null, array(
+                'required' => false, 'label' => 'Aldosterona'
+            ))
+            ->add('anglotensina', null, array(
+                'required' => false, 'label' => 'Angiotensina'
+            ))
+            ->add('vitamina_D', null, array(
+                'required' => false, 'label' => 'Vit D'
+            ))
+            ->add('vitamina_D3', null, array(
+                'required' => false, 'label' => 'Vit D3'
+            ))
+
+            ->add('ca_153', null, array(
+                'required' => false, 'label' => 'CA 153'
+            ))
+
+            ->add('ca_199', null, array(
+                'required' => false, 'label' => 'CA 19.9'
+            ))
+
+            ->add('ca_125', null, array(
+                'required' => false, 'label' => 'CA D125'
+            ))
             ->add('creatinina', null, array(
                 'required' => false, 'label' => 'CREATININA'
             ))
@@ -97,6 +164,9 @@ class AnaliticaType extends AbstractType
             ))
             ->add('prl', null, array(
                 'required' => false, 'label' => 'PRL'
+            ))
+            ->add('colesterolTotal', null, array(
+                'required' => false, 'label' => 'Colesterol Total'
             ))
             ->add('hcg', null, array(
                 'required' => false, 'label' => 'Beta-HCG'
