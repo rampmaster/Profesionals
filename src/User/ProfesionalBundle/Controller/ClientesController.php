@@ -23,7 +23,10 @@ class ClientesController extends Controller
     public function indexAction()
     {
 
-        return array();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.context')->getToken()->getUser();
+        $clients = $em->createQuery("Select c FROM UserClientBundle:Client c JOIN c.user u WHERE c.professional = :profesional AND u.enabled = TRUE ORDER BY u.name DESC")->setParameter("profesional" , $user->getProfessional()->getId())->getResult();
+        return array('clients' => $clients);
     }
 
     /**

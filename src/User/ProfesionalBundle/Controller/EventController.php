@@ -64,7 +64,30 @@ class EventController extends Controller
 
         return array('form' => $form->createView());
     }
+
     /**
+     * @Route("/delete-event/{idEvent}", name="profesional_delete_event")
+     */
+    public function deleteeventAction($idEvent)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $event = $em->getRepository('UserProfesionalBundle:ProfessionalEvent')->find($idEvent);
+
+        $user = $this->get('security.context')->getToken()->getUser();
+        $professional = $user->getProfessional();
+
+        $professional->getEvents()->removeElement($event);
+
+        $em->remove($event);
+        $em->persist($professional);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl("profesional_calendar"));
+
+    }
+
+        /**
      * @Route("/show-event/{idEvent}", name="profesional_show_event")
      * @Template()
      */

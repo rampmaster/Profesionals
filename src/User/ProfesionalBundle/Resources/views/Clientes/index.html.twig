@@ -12,7 +12,8 @@
 </h5>
 <div class="widget">
     <div class="table-overflow">
-        <table class="table table-striped table-bordered table-checks media-table dataTable">
+        <table class="table table-striped table-bordered table-checks media-table dataTable" id="data-table"
+        aria-describedby="data-table_info">
             <thead>
                 <tr role="row">
                     <th class="sorting_disabled" width="10%">Imagen</th>
@@ -22,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for cliente in app.user.professional.clients %}
+                {% for cliente in clients %}
                 <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
                     <td class="  sorting_1"><a href="" title="" class="lightbox"><img src="{{ asset(cliente.user.webPath) }}" style="width: 50px" width="50px"></a></td>
                     <td class=" ">{{ cliente.user.name }} {{ cliente.user.surname }}</td>
@@ -45,6 +46,24 @@
         </table>
     </div>
 </div>
+
+    <script type="text/javascript"
+            src="{{ asset('bundles/coreresources/admintheme/js/plugins/tables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#data-table').dataTable({
+                "bJQueryUI": false,
+                "bAutoWidth": false,
+                "sPaginationType": "full_numbers",
+                "sDom": '<"datatable-header"fl>t<"datatable-footer"ip>',
+                "oLanguage": {
+                    "sSearch": "<span>Filtro de búsqueda:</span> _INPUT_",
+                    "sLengthMenu": "<span>Número de entradas a mostrar:</span> _MENU_",
+                    "oPaginate": { "sFirst": "Inicio", "sLast": "Fin", "sNext": ">", "sPrevious": "<" }
+                }
+            });
+        });
+    </script>
 
 
 {% endblock %}
