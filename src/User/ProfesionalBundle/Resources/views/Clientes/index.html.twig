@@ -26,7 +26,7 @@
                 {% for cliente in clients %}
                 <tr class="{% if loop.index is odd %}odd{% else %}even{% endif %}">
                     <td class="  sorting_1"><a href="" title="" class="lightbox"><img src="{{ asset(cliente.user.webPath) }}" style="width: 50px" width="50px"></a></td>
-                    <td class=" ">{{ cliente.user.name }} {{ cliente.user.surname }}</td>
+                    <td class=" ">{{ cliente.user.surname }}, {{ cliente.user.name }} </td>
                     <td class="file-info">
                         <span><strong>Informes:</strong> {{ cliente.reports|length }}</span>
                         <span><strong>Citas:</strong> {{ cliente.events|length }}</span>
